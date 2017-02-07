@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Chemia</string>
+    <string name="tutorial_btn_text">Tutorial</string>
+    <string name="draw_btn_txt">Draw</string>
 </resources>
