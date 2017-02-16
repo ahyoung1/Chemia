@@ -16,7 +16,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".tutorialPage" android:screenOrientation="portrait"></activity>
-        <activity android:name=".rulesPage" android:screenOrientation="portrait"></activity>
         <activity android:name=".drawPage" android:screenOrientation="portrait" ></activity>
     </application>
 

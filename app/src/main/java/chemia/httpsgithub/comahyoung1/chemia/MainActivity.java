@@ -22,14 +22,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button rulesBtn = (Button) findViewById(R.id.rules_btn);
-        rulesBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent rulesPage = new Intent(getApplicationContext(), chemia.httpsgithub.comahyoung1.chemia.rulesPage.class);
-                startActivity(rulesPage);
-            }
-        });
         Button drawBtn = (Button) findViewById(R.id.draw_btn);
         drawBtn.setOnClickListener(new View.OnClickListener(){
             @Override

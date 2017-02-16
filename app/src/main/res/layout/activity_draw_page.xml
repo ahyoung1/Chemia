@@ -10,12 +10,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="chemia.httpsgithub.comahyoung1.chemia.drawPage">
 
-    <TextView
-        android:text="@string/draw_page_welc_tv_txt"
-        android:layout_width="wrap_content"
+    <Spinner
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="94dp"
-        android:id="@+id/draw_page_welc_tv" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="58dp"
+        android:id="@+id/centerAtomSpinner"
+        android:entries = "@array/centerAtomSpinnerItems"/>
 </RelativeLayout>
