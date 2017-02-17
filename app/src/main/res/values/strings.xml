@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Chemia</string>
+    <string name="tutorial_btn_text">Tutorial</string>
+    <string name="draw_btn_txt">Draw</string>
+    <string name="welc_tv_txt">Welcome to Chemia!</string>
+    <string name="draw_page_welc_tv_txt">Welcome to the Draw Page!</string>
+    <string name="tutorial_page_welc_tv_txt">Welcome to the Tutorial Page!</string>
 </resources>
