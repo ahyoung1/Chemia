@@ -1,10 +1,12 @@
 package chemia.httpsgithub.comahyoung1.chemia;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class drawPage extends AppCompatActivity {
 
@@ -12,6 +14,8 @@ public class drawPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw_page);
+        TextView chemFormulaTV = (TextView) findViewById(R.id.input_chem_formula_tv);
+        chemFormulaTV.setTextColor(Color.parseColor("#999999"));
     }
 
     public boolean onCreateOptionsMenu(Menu menu){

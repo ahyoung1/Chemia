@@ -47,4 +47,24 @@
         android:layout_marginTop="55dp"
         android:id="@+id/atchd_Elements_spnr"
         android:entries = "@array/centerAtomSpinnerItems"/>
+
+    <TextView
+        android:text="Chemical Formula"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:id="@+id/chem_formula_tv"
+        android:textSize="32sp"
+        android:layout_below="@+id/atchd_Elements_spnr"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chem_formula_tv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:id="@+id/input_chem_formula_tv"
+        android:text=" -- your formula -- "
+        android:background="@drawable/chem_formula_br"/>
 </RelativeLayout>
