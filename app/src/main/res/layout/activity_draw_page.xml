@@ -19,4 +19,31 @@
         android:layout_marginTop="58dp"
         android:id="@+id/centerAtomSpinner"
         android:entries = "@array/centerAtomSpinnerItems"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="32sp"
+        android:id="@+id/center_Atom_tv" />
+
+    <TextView
+        android:text="Attached Elements"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/centerAtomSpinner"
+        android:layout_marginTop="113dp"
+        android:textSize="32sp"
+        android:id="@+id/atchd_Elements_tv" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/atchd_Elements_tv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp"
+        android:id="@+id/atchd_Elements_spnr" />
 </RelativeLayout>
