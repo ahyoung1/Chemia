@@ -10,61 +10,100 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="chemia.httpsgithub.comahyoung1.chemia.drawPage">
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="58dp"
-        android:id="@+id/centerAtomSpinner"
-        android:entries = "@array/centerAtomSpinnerItems"/>
-
     <TextView
-        android:text="TextView"
+        android:text="Center Atom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
         android:textSize="32sp"
         android:id="@+id/center_Atom_tv" />
-
-    <TextView
-        android:text="Attached Elements"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/centerAtomSpinner"
-        android:layout_marginTop="113dp"
-        android:textSize="32sp"
-        android:id="@+id/atchd_Elements_tv" />
 
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/atchd_Elements_tv"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp"
         android:id="@+id/atchd_Elements_spnr"
-        android:entries = "@array/centerAtomSpinnerItems"/>
+        android:entries = "@array/centerAtomSpinnerItems"
+        android:layout_alignRight="@+id/centerAtomSpinner"
+        android:layout_alignEnd="@+id/centerAtomSpinner" />
+
+    <Spinner
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:id="@+id/centerAtomSpinner"
+        android:entries = "@array/centerAtomSpinnerItems"
+        android:layout_below="@+id/center_Atom_tv"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/center_Atom_tv"
+        android:layout_alignEnd="@+id/center_Atom_tv" />
+
+    <Button
+        android:text="Set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/center_atom_set_btn"
+        android:layout_alignTop="@+id/centerAtomSpinner"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <Button
+        android:text="+"
+        android:layout_width = "40dp"
+        android:layout_height="40dp"
+        android:id="@+id/attached_atom_add_btn"
+        android:layout_alignTop="@+id/atchd_Elements_spnr"
+        android:layout_toRightOf="@+id/chem_formula_tv"
+        android:layout_toEndOf="@+id/chem_formula_tv" />
+
+    <Button
+        android:text="-"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/attached_atom_minus_btn"
+        android:layout_alignTop="@+id/attached_atom_add_btn"
+        android:layout_toLeftOf="@+id/attached_atom_add_btn"
+        android:layout_toStartOf="@+id/attached_atom_add_btn" />
 
     <TextView
         android:text="Chemical Formula"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:id="@+id/chem_formula_tv"
         android:textSize="32sp"
-        android:layout_below="@+id/atchd_Elements_spnr"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="350dp"
+        android:layout_marginLeft="3dp"/>
+
+    <TextView
+        android:text="Attached Elements"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="32sp"
+        android:id="@+id/atchd_Elements_tv"
+        android:layout_marginTop="180dp"
+        android:layout_marginLeft="3dp" />
+
+    <Button
+        android:text="Clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/clear_btn"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/chem_formula_tv"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
         android:id="@+id/input_chem_formula_tv"
         android:text=" -- your formula -- "
-        android:background="@drawable/chem_formula_br"/>
+        android:textAlignment="center"
+        android:background="@drawable/chem_formula_br"
+        android:layout_above="@+id/clear_btn"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

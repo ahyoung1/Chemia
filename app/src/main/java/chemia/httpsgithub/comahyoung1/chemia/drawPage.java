@@ -6,9 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class drawPage extends AppCompatActivity {
+    private String centerAtomString = "";
+    private String attachedAtomString = "";
+    private String thirdUniqueAtomString = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,5 +35,15 @@ public class drawPage extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onCenterAtomSet(){
+        Spinner centerAtomSpinner = (Spinner)findViewById(R.id.centerAtomSpinner);
+        this.centerAtomString = centerAtomSpinner.getSelectedItem().toString();
+    }
+
+    public void onAttachedAtomAdded(){
+        Spinner attachedAtomSpinner = (Spinner) findViewById(R.id.atchd_Elements_spnr);
+
     }
 }
