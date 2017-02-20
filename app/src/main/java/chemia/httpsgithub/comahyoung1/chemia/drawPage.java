@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -13,6 +14,9 @@ public class drawPage extends AppCompatActivity {
     private String centerAtomString = "";
     private String attachedAtomString = "";
     private String thirdUniqueAtomString = "";
+    private Spinner centerAtomSpinner = (Spinner)findViewById(R.id.centerAtomSpinner);
+    private Spinner attachedAtomSpinner = (Spinner) findViewById(R.id.atchd_Elements_spnr);
+    private PeriodicTable periodicTable = new PeriodicTable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +24,9 @@ public class drawPage extends AppCompatActivity {
         setContentView(R.layout.activity_draw_page);
         TextView chemFormulaTV = (TextView) findViewById(R.id.input_chem_formula_tv);
         chemFormulaTV.setTextColor(Color.parseColor("#999999"));
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, periodicTable.getListOfElementNames());
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -44,6 +51,6 @@ public class drawPage extends AppCompatActivity {
 
     public void onAttachedAtomAdded(){
         Spinner attachedAtomSpinner = (Spinner) findViewById(R.id.atchd_Elements_spnr);
-
+        this.attachedAtomString = attachedAtomSpinner.getSelectedItem().toString();
     }
 }
