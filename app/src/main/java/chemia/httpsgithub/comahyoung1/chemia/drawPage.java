@@ -14,9 +14,12 @@ public class drawPage extends AppCompatActivity {
     private String centerAtomString = "";
     private String attachedAtomString = "";
     private String thirdUniqueAtomString = "";
-    private Spinner centerAtomSpinner = (Spinner)findViewById(R.id.centerAtomSpinner);
-    private Spinner attachedAtomSpinner = (Spinner) findViewById(R.id.atchd_Elements_spnr);
+
+    private Spinner centerAtomSpinner;
+    private Spinner attachedAtomSpinner;
+
     private PeriodicTable periodicTable = new PeriodicTable();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +27,12 @@ public class drawPage extends AppCompatActivity {
         setContentView(R.layout.activity_draw_page);
         TextView chemFormulaTV = (TextView) findViewById(R.id.input_chem_formula_tv);
         chemFormulaTV.setTextColor(Color.parseColor("#999999"));
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, periodicTable.getListOfElementNames());
+        centerAtomSpinner = (Spinner)findViewById(R.id.centerAtomSpinner);
+        attachedAtomSpinner = (Spinner) findViewById(R.id.atchd_Elements_spnr);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, periodicTable.getListOfElementNames());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        centerAtomSpinner.setAdapter(adapter);
+        attachedAtomSpinner.setAdapter(adapter);
 
     }
 
