@@ -27,7 +27,7 @@ public class Element {
         return this.chemSymbol;
     }
 
-    public int getNumOfElectrons(){
+    public int getNumOfValenceElectrons(){
         return this.numOfElectrons;
     }
 
