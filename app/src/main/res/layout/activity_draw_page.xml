@@ -11,6 +11,19 @@
     tools:context="chemia.httpsgithub.comahyoung1.chemia.drawPage">
 
     <TextView
+        android:text="C"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="420dp"
+        android:layout_alignLeft="@+id/center_Atom_tv"
+        android:layout_alignStart="@+id/center_Atom_tv"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp"
+        android:id="@+id/textView5"
+        android:textColor="@drawable/ic_home_black_24dp"
+        android:textSize="20dp" />
+
+    <TextView
         android:text="Center Atom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -86,21 +99,78 @@
         android:layout_marginTop="150dp"
         android:layout_marginLeft="3dp" />
 
-    <Button
-        android:text="Clear"
+    <!--Begin chem formula TVs-->
+    <TextView
+        android:id="@+id/center_atom_display"
+        android:text="C"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/clear_btn"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginTop="420dp"
+        android:layout_alignLeft="@+id/center_Atom_tv"
+        android:layout_alignStart="@+id/center_Atom_tv"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp"
+        android:textColor="@drawable/ic_home_black_24dp"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/first_attached_atom_display"
+        android:text="abcd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@drawable/ic_home_black_24dp"
+        android:textSize="20dp"
+        android:layout_alignTop="@id/center_atom_display"
+        android:layout_marginLeft="4dp"
+        android:layout_toRightOf="@+id/center_atom_display" />
+
+    <TextView
+        android:id="@+id/num_first_attached_atoms"
+        android:text="4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@drawable/ic_home_black_24dp"
+        android:textSize="10dp"
+        android:layout_alignBottom="@id/center_atom_display"
+        android:layout_toRightOf="@id/first_attached_atom_display"/>
+
+    <TextView
+        android:id="@+id/second_attached_atom_display"
+        android:text="H"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@drawable/ic_home_black_24dp"
+        android:textSize="20dp"
+        android:layout_alignTop="@id/center_atom_display"
+        android:layout_toRightOf="@+id/num_first_attached_atoms"
+        android:layout_marginLeft="4dp"/>
+
+    <TextView
+        android:id="@+id/num_second_attached_atoms"
+        android:text="4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@drawable/ic_home_black_24dp"
+        android:textSize="10dp"
+        android:layout_alignBottom="@id/center_atom_display"
+        android:layout_toRightOf="@+id/second_attached_atom_display"/>
 
     <Button
-        android:text="Get Formula"
+        android:text="Make Formula"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/attached_elements_tv"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="95dp"
-        android:id="@+id/get_formula_btn" />
+        android:id="@+id/get_formula_btn"
+        android:layout_alignTop="@+id/second_attached_atom_display"
+        android:layout_toRightOf="@+id/atchd_Elements_spnr"
+        android:layout_toEndOf="@+id/atchd_Elements_spnr" />
+
+    <Button
+        android:text="Reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/reset_formula_btn"
+        android:layout_alignTop="@+id/attached_elements_tv"
+        android:layout_marginTop="130dp"
+        android:layout_centerHorizontal="true"/>
+
 </RelativeLayout>
