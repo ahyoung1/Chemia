@@ -18,11 +18,9 @@ public class Bond {
     public String getBondType() {
         return bondType;
     }
-
     public Element getCenterAtom(){
         return centerAtom;
     }
-
     public Element getAttachedAtom(){
         return attachedAtom;
     }

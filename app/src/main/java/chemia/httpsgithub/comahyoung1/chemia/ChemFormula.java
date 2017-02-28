@@ -2,6 +2,8 @@ package chemia.httpsgithub.comahyoung1.chemia;
 
 /**
  * Created by Aaron on 2/27/2017.
+ * This is a data-storage/formatting class that is used when displaying the chemical formula
+ * of molecules to the user
  */
 
 public class ChemFormula {
@@ -94,46 +96,18 @@ public class ChemFormula {
     }
     //*************************************Getters*************************************
 
-    public String getCenterAtom() {
-        return centerAtom;
-    }
-    public String getFirstAttachedAtom() {
-        return firstAttachedAtom;
-    }
-    public String getSecondAttachedAtom() {
-        return secondAttachedAtom;
-    }
-    public String getThirdAttachedAtom() {
-        return thirdAttachedAtom;
-    }
-    public String getFourthAttachedAtom() {
-        return fourthAttachedAtom;
-    }
-    public String getFifthAttachedAtom() {
-        return fifthAttachedAtom;
-    }
-    public String getSixthAttachedAtom() {
-        return sixthAttachedAtom;
-    }
-    public int getCenterAtomCoefficient() {
-        return centerAtomCoefficient;
-    }
-    public int getFirstAtomCoefficient() {
-        return firstAtomCoefficient;
-    }
-    public int getSecondAtomCoefficient() {
-        return secondAtomCoefficient;
-    }
-    public int getThirdAtomCoefficient() {
-        return thirdAtomCoefficient;
-    }
-    public int getFourthAtomCoefficient() {
-        return fourthAtomCoefficient;
-    }
-    public int getFifthAtomCoefficient() {
-        return fifthAtomCoefficient;
-    }
-    public int getSixthAtomCoefficient() {
-        return sixthAtomCoefficient;
-    }
+    public String getCenterAtom() {return centerAtom;}
+    public String getFirstAttachedAtom() {return firstAttachedAtom;}
+    public String getSecondAttachedAtom() {return secondAttachedAtom;}
+    public String getThirdAttachedAtom() {return thirdAttachedAtom;}
+    public String getFourthAttachedAtom() {return fourthAttachedAtom;}
+    public String getFifthAttachedAtom() {return fifthAttachedAtom;}
+    public String getSixthAttachedAtom() {return sixthAttachedAtom;}
+    public int getCenterAtomCoefficient() {return centerAtomCoefficient;}
+    public int getFirstAtomCoefficient() {return firstAtomCoefficient;}
+    public int getSecondAtomCoefficient() {return secondAtomCoefficient;}
+    public int getThirdAtomCoefficient() {return thirdAtomCoefficient;}
+    public int getFourthAtomCoefficient() {return fourthAtomCoefficient;}
+    public int getFifthAtomCoefficient() {return fifthAtomCoefficient;}
+    public int getSixthAtomCoefficient() {return sixthAtomCoefficient;}
 }

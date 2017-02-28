@@ -11,7 +11,7 @@ public class Molecule {
     Bond[] bondArray = new Bond[8];
     //so this is going to work in such a way that a bond is created, then added tot he array
 
-    public Molecule(Element centerAtom, Element firstAttachedAtom, Element secAttachedAtom){
+    public Molecule(Element centerAtom, Element[] attachedAtoms){
         int numberOfDesiredBonds;
         if(centerAtom.getCanHaveSimpleOctet()){
             numberOfDesiredBonds = 3;
@@ -24,14 +24,18 @@ public class Molecule {
         }
     }
 
+    //REANAME THIS FUNCTION*****************************************************************
+    //PLEAAAAAAAAAAAAAAAASE*****************************************************************
     private void someFunctionThatINeed(Element centerAtom, Element[] attachedAtoms, int numOfAttachedAtoms){
         int centerAtomValence = centerAtom.getNumOfValenceElectrons();
         int numberOfDesireBonds;
+        String typeOfBond="";
         switch (centerAtomValence){
-            //
+            //Just hydrogen in the current scope of the project
             case 1:
                 if (isDiatomicGas(numOfAttachedAtoms, centerAtom, attachedAtoms[0])){
-                    buildDiatomicGas(centerAtom);
+                    typeOfBond = "singleBond";
+                    buildDiatomicGas(centerAtom, typeOfBond);
                 }
                 else{
                     //error hydrogen CAN'T be center atom
@@ -39,11 +43,13 @@ public class Molecule {
                 break;
             //
             case 4:
+                //HAVE error generated in here - if !canHaveExpandedOctet && numofDesiredElectrons < numberOfAttachedAtoms
                 break;
             //
             case 5:
                 if(isDiatomicGas(numOfAttachedAtoms, centerAtom, attachedAtoms[0])){
-                    buildDiatomicGas(centerAtom);
+                    typeOfBond = "tripleBond";
+                    buildDiatomicGas(centerAtom, typeOfBond);
                 }
                 else{
 
@@ -52,7 +58,8 @@ public class Molecule {
             //
             case 6:
                 if(isDiatomicGas(numOfAttachedAtoms, centerAtom, attachedAtoms[0])){
-                    buildDiatomicGas(centerAtom);
+                    typeOfBond = "doubleBond";
+                    buildDiatomicGas(centerAtom, typeOfBond);
                 }
                 else{
 
@@ -61,7 +68,8 @@ public class Molecule {
             //
             case 7:
                 if(isDiatomicGas(numOfAttachedAtoms, centerAtom, attachedAtoms[0])){
-                    buildDiatomicGas(centerAtom);
+                    typeOfBond = "singleBond";
+                    buildDiatomicGas(centerAtom, typeOfBond);
                 }
                 else{
 
@@ -91,8 +99,9 @@ public class Molecule {
         }
     }
 
-    private void buildDiatomicGas(Element centerAtom){
+    private void buildDiatomicGas(Element centerAtom, String typeOfBond){
         this.name = centerAtom.getName()+" Gas";
         this.formula = new ChemFormula(centerAtom.getChemSymbol(), 2);
+        this.bondArray[0] = new Bond(typeOfBond, centerAtom, centerAtom);
     }
 }
