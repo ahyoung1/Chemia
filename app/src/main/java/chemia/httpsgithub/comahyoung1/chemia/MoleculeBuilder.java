@@ -5,7 +5,10 @@ package chemia.httpsgithub.comahyoung1.chemia;
  */
 
 public class MoleculeBuilder {
+    Element[] attachedAtoms;
+    ChemFormulaBuilder formula;
     private MoleculeBuilder(Element centerAtom, Element[] attachedAtoms){
+        this.attachedAtoms = attachedAtoms;
         int centerAtomValence = centerAtom.getNumOfValenceElectrons();
         //int numberOfDesireBonds;
         String typeOfBond="";
@@ -23,9 +26,8 @@ public class MoleculeBuilder {
             //
             case 4:
                 if (isHyperValentMolecule(centerAtom, attachedAtoms)){
-                    buildHyperValentMolecule();
+                    buildHyperValentMolecule(centerAtom, attachedAtoms);
                 }
-                else if ()
                     //HAVE error generated in here - if !canHaveExpandedOctet && numofDesiredElectrons < numberOfAttachedAtoms
                     break;
                 //
@@ -84,9 +86,11 @@ public class MoleculeBuilder {
 
     private Molecule buildDiatomicGas(Element centerAtom, String typeOfBond){
         String name = centerAtom.getName()+" Gas";
-        String[][] formula = new ChemFormulaBuilder(centerAtom.getChemSymbol(), 2).build();
+        String[][] formula = new ChemFormulaBuilder(centerAtom, attachedAtoms).build();
         Bond[] bondArray = new Bond[6];
         bondArray[0] = new Bond(typeOfBond, centerAtom, centerAtom);
+        Molecule molecule = new Molecule(centerAtom, attachedAtoms);
+        return molecule;
     }
 
     private boolean isHyperValentMolecule(Element centerAtom, Element[] attachedAtoms){
@@ -95,15 +99,15 @@ public class MoleculeBuilder {
         }
         else if (attachedAtoms.length>4){
             //error for MORE atoms than center atom wants (less than period 3)
+            return true;
         }
         else{
             return false;
         }
     }
 
-
     private void buildHyperValentMolecule(Element centerAtom, Element[] attachedAtoms){
-        this.name = new ChemNameBuilder.getName(centerAtom, attachedAtoms);
-        this.formula = new ChemFormulaBuilder(centerAtom.getChemSymbol(), );
+        //this.name = new ChemNameBuilder.getName(centerAtom, attachedAtoms);
+        this.formula = new ChemFormulaBuilder(centerAtom, attachedAtoms);
     }
 }

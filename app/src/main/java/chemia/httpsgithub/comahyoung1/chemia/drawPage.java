@@ -25,8 +25,6 @@ public class drawPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw_page);
-        TextView chemFormulaTV = (TextView) findViewById(R.id.input_chem_formula_tv);
-        chemFormulaTV.setTextColor(Color.parseColor("#999999"));
         centerAtomSpinner = (Spinner)findViewById(R.id.centerAtomSpinner);
         attachedAtomSpinner = (Spinner) findViewById(R.id.atchd_Elements_spnr);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, periodicTableBuilder.getListOfElementNames());

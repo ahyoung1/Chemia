@@ -11,7 +11,7 @@ public class ChemFormulaBuilder {
     private Element centerAtom;
     private Element[] attachedElements = new Element[6];
     //coefficients were made to be of type int to support comparisons
-    private int centerAtomCoefficient=0;
+    private int centerAtomCoefficient = 0;
     //coefficient index mirrors attachedElements index
     private int[] coefficients = new int[6];
     //to tell what type of bond *structure* there is
@@ -26,10 +26,10 @@ public class ChemFormulaBuilder {
     //*************************************Constructors*************************************
     //constructors must accommodate up to six attachedAtoms
 
-    public ChemFormulaBuilder(Element centerAtom, Element[] attachedAtoms){
+    public ChemFormulaBuilder(Element centerAtom, Element[] attachedAtoms) {
         //this.centerAtom = centerAtom.getChemSymbol();
         //cycle through input
-        for(int i=0; i<attachedAtoms.length; i++) {
+        for (int i = 0; i < attachedAtoms.length; i++) {
             //only add to Elements if does not exist there already
             boolean addToElements = true;
             //index of where to add to Elements next
@@ -47,22 +47,22 @@ public class ChemFormulaBuilder {
                 elementAddIndex++;
             }
         }
-        switch(attachedAtoms.length){
+        switch (attachedAtoms.length) {
             //#AtomsFlag counts the center atom because it is used for bond configuration
             case 0:
                 //error
                 break;
             case 1:
-                twoAtomsFlag=true;
-                if (attachedAtoms[0].equals(centerAtom)){
-                    diatomicFlag=true;
+                twoAtomsFlag = true;
+                if (attachedAtoms[0].equals(centerAtom)) {
+                    diatomicFlag = true;
                 }
                 break;
             case 2:
-                threeAtomsFlag=true;
+                threeAtomsFlag = true;
                 break;
             case 3:
-                fourAtomsFlag=true;
+                fourAtomsFlag = true;
                 break;
             case 4:
                 fiveAtomsFlag = true;
@@ -77,9 +77,11 @@ public class ChemFormulaBuilder {
     }
     //*************************************Getters*************************************
 
-    public int getCenterAtomCoefficient() {return centerAtomCoefficient;}
+    public int getCenterAtomCoefficient() {
+        return centerAtomCoefficient;
+    }
 
-    public String[][] build(){
+    public String[][] build() {
 
         //take list of unique elements
         //string put into formula array
@@ -88,11 +90,11 @@ public class ChemFormulaBuilder {
         //?????will this always return 6?????
         String[][] chemFormula = new String[2][numUniqueElements];
 
-        for (int i=0; i<numUniqueElements; i++){
+        for (int i = 0; i < numUniqueElements; i++) {
             chemFormula[0][i] = attachedElements[i].getChemSymbol();
             chemFormula[1][i] = Integer.toString(coefficients[i]);
         }
-
+        return chemFormula;
         /*
         if (twoAtomsFlag){
             if(diatomicFlag){
@@ -217,4 +219,5 @@ public class ChemFormulaBuilder {
         return chemFormula;
     }
     */
+    }
 }
