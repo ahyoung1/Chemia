@@ -8,22 +8,13 @@ package chemia.httpsgithub.comahyoung1.chemia;
 
 public class ChemFormulaBuilder {
     //"Atom" is given as chemical symbol
-    private String centerAtom="";
-    private String firstAttachedAtom="";
-    private String secondAttachedAtom="";
-    private String thirdAttachedAtom="";
-    private String fourthAttachedAtom="";
-    private String fifthAttachedAtom="";
-    private String sixthAttachedAtom="";
-    //coefficients were made to be of type int to add clarity to constructors
+    private Element centerAtom;
+    private Element[] attachedElements = new Element[6];
+    //coefficients were made to be of type int to support comparisons
     private int centerAtomCoefficient=0;
-    private int firstAtomCoefficient=0;
-    private int secondAtomCoefficient=0;
-    private int thirdAtomCoefficient=0;
-    private int fourthAtomCoefficient=0;
-    private int fifthAtomCoefficient=0;
-    private int sixthAtomCoefficient=0;
-    //to tell what type of bond structure there is
+    //coefficient index mirrors attachedElements index
+    private int[] coefficients = new int[6];
+    //to tell what type of bond *structure* there is
     private boolean twoAtomsFlag = false;
     private boolean threeAtomsFlag = false;
     private boolean fourAtomsFlag = false;
@@ -35,107 +26,74 @@ public class ChemFormulaBuilder {
     //*************************************Constructors*************************************
     //constructors must accommodate up to six attachedAtoms
 
-    public ChemFormulaBuilder(String centerAtom, String firstAttachedAtom, int firstAtomCoefficient, String secondAttachedAtom, int secondAtomCoefficient,
-                              String thirdAttachedAtom, int thirdAtomCoefficient, String fourthAttachedAtom, int fourthAtomCoefficient, String fifthAttachedAtom, int fifthAtomCoefficient,
-                              String sixthAttachedAtom, int sixthAtomCoefficient){
-        this.centerAtom = centerAtom;
-        this.firstAttachedAtom = firstAttachedAtom;
-        this.firstAtomCoefficient = firstAtomCoefficient;
-        this.secondAttachedAtom = secondAttachedAtom;
-        this.secondAtomCoefficient = secondAtomCoefficient;
-        this.thirdAttachedAtom = thirdAttachedAtom;
-        this.thirdAtomCoefficient = thirdAtomCoefficient;
-        this.fourthAttachedAtom = fourthAttachedAtom;
-        this.fourthAtomCoefficient = fourthAtomCoefficient;
-        this.fifthAttachedAtom = fifthAttachedAtom;
-        this.fifthAtomCoefficient = fifthAtomCoefficient;
-        this.sixthAttachedAtom = sixthAttachedAtom;
-        this.sixthAtomCoefficient = sixthAtomCoefficient;
-
-        sevenAtomsFlag = true;
-    }
-    public ChemFormulaBuilder(String centerAtom, String firstAttachedAtom, int firstAtomCoefficient, String secondAttachedAtom, int secondAtomCoefficient,
-                              String thirdAttachedAtom, int thirdAtomCoefficient, String fourthAttachedAtom, int fourthAtomCoefficient, String fifthAttachedAtom, int fifthAtomCoefficient){
-        this.centerAtom = centerAtom;
-        this.firstAttachedAtom = firstAttachedAtom;
-        this.firstAtomCoefficient = firstAtomCoefficient;
-        this.secondAttachedAtom = secondAttachedAtom;
-        this.secondAtomCoefficient = secondAtomCoefficient;
-        this.thirdAttachedAtom = thirdAttachedAtom;
-        this.thirdAtomCoefficient = thirdAtomCoefficient;
-        this.fourthAttachedAtom = fourthAttachedAtom;
-        this.fourthAtomCoefficient = fourthAtomCoefficient;
-        this.fifthAttachedAtom = fifthAttachedAtom;
-        this.fifthAtomCoefficient = fifthAtomCoefficient;
-
-        sixAtomsFlag = true;
-    }
-    public ChemFormulaBuilder(String centerAtom, String firstAttachedAtom, int firstAtomCoefficient, String secondAttachedAtom, int secondAtomCoefficient,
-                              String thirdAttachedAtom, int thirdAtomCoefficient, String fourthAttachedAtom, int fourthAtomCoefficient){
-        this.centerAtom = centerAtom;
-        this.firstAttachedAtom = firstAttachedAtom;
-        this.firstAtomCoefficient = firstAtomCoefficient;
-        this.secondAttachedAtom = secondAttachedAtom;
-        this.secondAtomCoefficient = secondAtomCoefficient;
-        this.thirdAttachedAtom = thirdAttachedAtom;
-        this.thirdAtomCoefficient = thirdAtomCoefficient;
-        this.fourthAttachedAtom = fourthAttachedAtom;
-        this.fourthAtomCoefficient = fourthAtomCoefficient;
-
-        fiveAtomsFlag = true;
-    }
-    public ChemFormulaBuilder(String centerAtom, String firstAttachedAtom, int firstAtomCoefficient, String secondAttachedAtom, int secondAtomCoefficient, String thirdAttachedAtom, int thirdAtomCoefficient){
-        this.centerAtom = centerAtom;
-        this.firstAttachedAtom = firstAttachedAtom;
-        this.firstAtomCoefficient = firstAtomCoefficient;
-        this.secondAttachedAtom = secondAttachedAtom;
-        this.secondAtomCoefficient = secondAtomCoefficient;
-        this.thirdAttachedAtom = thirdAttachedAtom;
-        this.thirdAtomCoefficient = thirdAtomCoefficient;
-
-        fourAtomsFlag = true;
-    }
-    public ChemFormulaBuilder(String centerAtom, String firstAttachedAtom, int firstAtomCoefficient, String secondAttachedAtom, int secondAtomCoefficient){
-        this.centerAtom = centerAtom;
-        this.firstAttachedAtom = firstAttachedAtom;
-        this.firstAtomCoefficient = firstAtomCoefficient;
-        this.secondAttachedAtom = secondAttachedAtom;
-        this.secondAtomCoefficient = secondAtomCoefficient;
-
-        threeAtomsFlag = true;
-    }
-    public ChemFormulaBuilder(String centerAtom, String firstAttachedAtom, int firstAtomCoefficient){
-        this.centerAtom = centerAtom;
-        this.firstAttachedAtom = firstAttachedAtom;
-        this.firstAtomCoefficient = firstAtomCoefficient;
-
-        twoAtomsFlag = true;
-    }
-    public ChemFormulaBuilder(String centerAtom, int centerAtomCoefficient){
-        this.centerAtom = centerAtom;
-        this.centerAtomCoefficient = centerAtomCoefficient;
-
-        twoAtomsFlag = true;
-        diatomicFlag = true;
+    public ChemFormulaBuilder(Element centerAtom, Element[] attachedAtoms){
+        //this.centerAtom = centerAtom.getChemSymbol();
+        //cycle through input
+        for(int i=0; i<attachedAtoms.length; i++) {
+            //only add to Elements if does not exist there already
+            boolean addToElements = true;
+            //index of where to add to Elements next
+            int elementAddIndex = 0;
+            //cycle through added Atoms
+            for (int n = 0; i < this.attachedElements.length; i++) {
+                if (attachedAtoms[i].equals(this.attachedElements[n])) {
+                    coefficients[n]++;
+                    addToElements = false;
+                    break;
+                }
+            }
+            if (addToElements) {
+                this.attachedElements[elementAddIndex] = attachedAtoms[i];
+                elementAddIndex++;
+            }
+        }
+        switch(attachedAtoms.length){
+            //#AtomsFlag counts the center atom because it is used for bond configuration
+            case 0:
+                //error
+                break;
+            case 1:
+                twoAtomsFlag=true;
+                if (attachedAtoms[0].equals(centerAtom)){
+                    diatomicFlag=true;
+                }
+                break;
+            case 2:
+                threeAtomsFlag=true;
+                break;
+            case 3:
+                fourAtomsFlag=true;
+                break;
+            case 4:
+                fiveAtomsFlag = true;
+                break;
+            case 5:
+                sixAtomsFlag = true;
+                break;
+            case 6:
+                sevenAtomsFlag = true;
+                break;
+        }
     }
     //*************************************Getters*************************************
 
-    public String getCenterAtom() {return centerAtom;}
-    public String getFirstAttachedAtom() {return firstAttachedAtom;}
-    public String getSecondAttachedAtom() {return secondAttachedAtom;}
-    public String getThirdAttachedAtom() {return thirdAttachedAtom;}
-    public String getFourthAttachedAtom() {return fourthAttachedAtom;}
-    public String getFifthAttachedAtom() {return fifthAttachedAtom;}
-    public String getSixthAttachedAtom() {return sixthAttachedAtom;}
     public int getCenterAtomCoefficient() {return centerAtomCoefficient;}
-    public int getFirstAtomCoefficient() {return firstAtomCoefficient;}
-    public int getSecondAtomCoefficient() {return secondAtomCoefficient;}
-    public int getThirdAtomCoefficient() {return thirdAtomCoefficient;}
-    public int getFourthAtomCoefficient() {return fourthAtomCoefficient;}
-    public int getFifthAtomCoefficient() {return fifthAtomCoefficient;}
-    public int getSixthAtomCoefficient() {return sixthAtomCoefficient;}
 
     public String[][] build(){
+
+        //take list of unique elements
+        //string put into formula array
+        //add coefficients accordingly
+        int numUniqueElements = attachedElements.length;
+        //?????will this always return 6?????
+        String[][] chemFormula = new String[2][numUniqueElements];
+
+        for (int i=0; i<numUniqueElements; i++){
+            chemFormula[0][i] = attachedElements[i].getChemSymbol();
+            chemFormula[1][i] = Integer.toString(coefficients[i]);
+        }
+
+        /*
         if (twoAtomsFlag){
             if(diatomicFlag){
                 return buildDiatomicFormula();
@@ -146,10 +104,10 @@ public class ChemFormulaBuilder {
         }
         else if (threeAtomsFlag){
             //this is a little redundent, but I'm not sure if I want to pass in 0 or 1
-            if(firstAtomCoefficient==2){
-                return buildTwoElementFormula()
+            if(coefficients[0]==2){
+                return buildTwoElementFormula();
             }
-            else if (firstAtomCoefficient==2){
+            else if {
 
             }
             else{
@@ -258,4 +216,5 @@ public class ChemFormulaBuilder {
         chemFormula[1][6] = Integer.toString(sixthAtomCoefficient);
         return chemFormula;
     }
+    */
 }
