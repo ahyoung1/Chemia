@@ -5,10 +5,11 @@ package chemia.httpsgithub.comahyoung1.chemia;
  */
 
 public class Molecule {
-    String formula;
+    ChemFormula formula;
     //maybe find a way to name? Naming is easy for these, right?
     String name;
-
+    Bond[] bondArray = new Bond[8];
+    //so this is going to work in such a way that a bond is created, then added tot he array
 
     public Molecule(Element centerAtom, Element firstAttachedAtom, Element secAttachedAtom){
         int numberOfDesiredBonds;
@@ -29,23 +30,41 @@ public class Molecule {
         switch (centerAtomValence){
             //
             case 1:
-                buildDiatomicGas(centerAtom);
+                if (isDiatomicGas(numOfAttachedAtoms, centerAtom, attachedAtoms[0])){
+                    buildDiatomicGas(centerAtom);
+                }
+                else{
+                    //error hydrogen CAN'T be center atom
+                }
                 break;
             //
             case 4:
                 break;
             //
             case 5:
+                if(isDiatomicGas(numOfAttachedAtoms, centerAtom, attachedAtoms[0])){
+                    buildDiatomicGas(centerAtom);
+                }
+                else{
+
+                }
                 break;
             //
             case 6:
+                if(isDiatomicGas(numOfAttachedAtoms, centerAtom, attachedAtoms[0])){
+                    buildDiatomicGas(centerAtom);
+                }
+                else{
+
+                }
                 break;
             //
             case 7:
-                if(numOfAttachedAtoms==1){
-                    if(attachedAtoms[0].equals(centerAtom)){
-                        buildDiatomicGas(centerAtom);
-                    }
+                if(isDiatomicGas(numOfAttachedAtoms, centerAtom, attachedAtoms[0])){
+                    buildDiatomicGas(centerAtom);
+                }
+                else{
+
                 }
                 break;
             //
@@ -60,7 +79,20 @@ public class Molecule {
         }
     }
 
+    private boolean isDiatomicGas(int numOfAttachedAtoms, Element centerAtom, Element attachedAtom){
+        if (numOfAttachedAtoms!=1){
+            return false;
+        }
+        else if (centerAtom.getName().equals(attachedAtom.getName())){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     private void buildDiatomicGas(Element centerAtom){
         this.name = centerAtom.getName()+" Gas";
+        this.formula = new ChemFormula(centerAtom.getChemSymbol(), 2);
     }
 }
