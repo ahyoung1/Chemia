@@ -4,10 +4,10 @@ package chemia.httpsgithub.comahyoung1.chemia;
  * Created by Aaron on 2/19/2017.
  */
 
-public class PeriodicTable {
+public class PeriodicTableBuilder {
     private Element[] listOfElements = new Element[18];
 
-    public PeriodicTable(){
+    public PeriodicTableBuilder(){
         listOfElements[0] = new Element("Hydrogen", 1, "H", false, false);
         listOfElements[1] = new Element("Boron", 3, "B", true, true);
         listOfElements[2] = new Element("Carbon", 4, "C", false, false);

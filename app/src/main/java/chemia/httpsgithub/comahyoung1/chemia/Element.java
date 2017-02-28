@@ -10,10 +10,12 @@ public class Element {
     private String chemSymbol;
     private boolean canHaveSimpleOctet;
     private boolean canHaveExpandedOctet;
+    //"canHaveSimpleOctet" in this context means that the element (only Boron in this context) is "happy" with 6 valence electrons instead of 8
+    //"canHaveExpandedOctet" in this context means that
 
-    public Element(String name, int numOfElectrons, String chemSymbol, boolean canHaveSimpleOctet, boolean canHaveExpandedOctet){
+    public Element(String name, int numOfValenceElectrons, String chemSymbol, boolean canHaveSimpleOctet, boolean canHaveExpandedOctet){
         this.name = name;
-        this.numOfElectrons = numOfElectrons;
+        this.numOfElectrons = numOfValenceElectrons;
         this.chemSymbol = chemSymbol;
         this.canHaveSimpleOctet = canHaveSimpleOctet;
         this.canHaveExpandedOctet = canHaveExpandedOctet;

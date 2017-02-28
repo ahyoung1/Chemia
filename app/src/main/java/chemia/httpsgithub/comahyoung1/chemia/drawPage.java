@@ -18,7 +18,7 @@ public class drawPage extends AppCompatActivity {
     private Spinner centerAtomSpinner;
     private Spinner attachedAtomSpinner;
 
-    private PeriodicTable periodicTable = new PeriodicTable();
+    private PeriodicTableBuilder periodicTableBuilder = new PeriodicTableBuilder();
 
 
     @Override
@@ -29,7 +29,7 @@ public class drawPage extends AppCompatActivity {
         chemFormulaTV.setTextColor(Color.parseColor("#999999"));
         centerAtomSpinner = (Spinner)findViewById(R.id.centerAtomSpinner);
         attachedAtomSpinner = (Spinner) findViewById(R.id.atchd_Elements_spnr);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, periodicTable.getListOfElementNames());
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, periodicTableBuilder.getListOfElementNames());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         centerAtomSpinner.setAdapter(adapter);
         attachedAtomSpinner.setAdapter(adapter);
