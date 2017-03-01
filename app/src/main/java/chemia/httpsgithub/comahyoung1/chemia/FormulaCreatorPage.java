@@ -15,29 +15,44 @@ import org.w3c.dom.Text;
 
 public class FormulaCreatorPage extends AppCompatActivity {
     private PeriodicTableBuilder periodicTable = new PeriodicTableBuilder();
-    private TextView centerAtomTV = (TextView) findViewById(R.id.center_atom_display);
-    private TextView firstAttachedAtomTV = (TextView)findViewById(R.id.first_attached_atom_display);
-    private TextView secondAttachedAtomTV = (TextView)findViewById(R.id.second_attached_atom_display);
-    private TextView thirdAttachedAtomTV = (TextView)findViewById(R.id.third_attached_atom_display);
-    private TextView fourthAttachedAtomTV = (TextView)findViewById(R.id.fourth_attached_atom_display);
-    private TextView fifthAttachedAtomTV = (TextView)findViewById(R.id.fifth_attached_atom_display);
-    private TextView sixthAttachedAtomTV = (TextView)findViewById(R.id.sixth_attached_atom_display);
-    private TextView centerAtomCoefficientTV = (TextView)findViewById(R.id.num_center_atoms);
-    private TextView firstAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_first_attached_atoms);
-    private TextView secondAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_second_attached_atoms);
-    private TextView thirdAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_third_attached_atoms);
-    private TextView fourthAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_fourth_attached_atoms);
-    private TextView fifthAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_fifth_attached_atoms);
-    private TextView sixthAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_sixth_attached_atoms);
-    private Spinner centerAtomSpinner = (Spinner)findViewById(R.id.center_atom_spinner);
-    private Spinner attachedAtomSpinner = (Spinner) findViewById(R.id.attached_elements_spinner);
+    private TextView centerAtomTV;
+    private TextView firstAttachedAtomTV;
+    private TextView secondAttachedAtomTV;
+    private TextView thirdAttachedAtomTV;
+    private TextView fourthAttachedAtomTV;
+    private TextView fifthAttachedAtomTV;
+    private TextView sixthAttachedAtomTV;
+    private TextView centerAtomCoefficientTV;
+    private TextView firstAttachedAtomCoefficientTV;
+    private TextView secondAttachedAtomCoefficientTV;
+    private TextView thirdAttachedAtomCoefficientTV;
+    private TextView fourthAttachedAtomCoefficientTV;
+    private TextView fifthAttachedAtomCoefficientTV;
+    private TextView sixthAttachedAtomCoefficientTV;
+    private Spinner centerAtomSpinner;
+    private Spinner attachedAtomSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formula_creator);
+        centerAtomTV = (TextView) findViewById(R.id.center_atom_display);
+        firstAttachedAtomTV = (TextView)findViewById(R.id.first_attached_atom_display);
+        secondAttachedAtomTV = (TextView)findViewById(R.id.second_attached_atom_display);
+        thirdAttachedAtomTV = (TextView)findViewById(R.id.third_attached_atom_display);
+        fourthAttachedAtomTV = (TextView)findViewById(R.id.fourth_attached_atom_display);
+        fifthAttachedAtomTV = (TextView)findViewById(R.id.fifth_attached_atom_display);
+        sixthAttachedAtomTV = (TextView)findViewById(R.id.sixth_attached_atom_display);
+        centerAtomCoefficientTV = (TextView)findViewById(R.id.num_center_atoms);
+        firstAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_first_attached_atoms);
+        secondAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_second_attached_atoms);
+        thirdAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_third_attached_atoms);
+        fourthAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_fourth_attached_atoms);
+        fifthAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_fifth_attached_atoms);
+        sixthAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_sixth_attached_atoms);
         centerAtomSpinner = (Spinner)findViewById(R.id.center_atom_spinner);
         attachedAtomSpinner = (Spinner) findViewById(R.id.attached_elements_spinner);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, periodicTable.getListOfElementNames());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         centerAtomSpinner.setAdapter(adapter);
