@@ -26,7 +26,7 @@ public class HomePage extends AppCompatActivity {
         drawBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent FormulaCreatorPage = new Intent(getApplicationContext(), FormulaCreatorPage.class);
+                Intent FormulaCreatorPage = new Intent(getApplicationContext(), chemia.httpsgithub.comahyoung1.chemia.FormulaCreatorPage.class);
                 startActivity(FormulaCreatorPage);
             }
         });
