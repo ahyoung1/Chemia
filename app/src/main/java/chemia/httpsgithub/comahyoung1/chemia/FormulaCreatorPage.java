@@ -32,16 +32,13 @@ public class FormulaCreatorPage extends AppCompatActivity {
     private Spinner centerAtomSpinner = (Spinner)findViewById(R.id.center_atom_spinner);
     private Spinner attachedAtomSpinner = (Spinner) findViewById(R.id.attached_elements_spinner);
 
-    private PeriodicTableBuilder periodicTableBuilder = new PeriodicTableBuilder();
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formula_creator);
         centerAtomSpinner = (Spinner)findViewById(R.id.center_atom_spinner);
         attachedAtomSpinner = (Spinner) findViewById(R.id.attached_elements_spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, periodicTableBuilder.getListOfElementNames());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, periodicTable.getListOfElementNames());
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         centerAtomSpinner.setAdapter(adapter);
         attachedAtomSpinner.setAdapter(adapter);
@@ -57,6 +54,8 @@ public class FormulaCreatorPage extends AppCompatActivity {
         //get chem symbol from
     }
 
+    //clears the formula TextViews
+    //does NOTHING with MoleculeBuilder etc. Only aesthetic, storage
     public void onReset(){
         Button resetButton = (Button)findViewById(R.id.reset_formula_btn);
         resetButton.setOnClickListener(new View.OnClickListener(){
