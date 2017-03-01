@@ -6,6 +6,7 @@ package chemia.httpsgithub.comahyoung1.chemia;
 
 public class MoleculeBuilder {
     Element[] attachedAtoms;
+    String name="";
     ChemFormulaBuilder formula;
     private MoleculeBuilder(Element centerAtom, Element[] attachedAtoms){
         this.attachedAtoms = attachedAtoms;
@@ -107,7 +108,8 @@ public class MoleculeBuilder {
     }
 
     private void buildHyperValentMolecule(Element centerAtom, Element[] attachedAtoms){
-        //this.name = new ChemNameBuilder.getName(centerAtom, attachedAtoms);
+        ChemNameBuilder nameBuilder = new ChemNameBuilder(centerAtom, attachedAtoms);
+        this.name = nameBuilder.getName();
         this.formula = new ChemFormulaBuilder(centerAtom, attachedAtoms);
     }
 }
