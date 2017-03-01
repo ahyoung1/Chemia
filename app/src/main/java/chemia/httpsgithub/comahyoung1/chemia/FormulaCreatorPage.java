@@ -71,7 +71,7 @@ public class FormulaCreatorPage extends AppCompatActivity {
 
     //clears the formula TextViews
     //does NOTHING with MoleculeBuilder etc. Only aesthetic, storage
-    public void onReset(){
+    public void onReset(View v){
         Button resetButton = (Button)findViewById(R.id.reset_formula_btn);
         resetButton.setOnClickListener(new View.OnClickListener(){
             @Override
