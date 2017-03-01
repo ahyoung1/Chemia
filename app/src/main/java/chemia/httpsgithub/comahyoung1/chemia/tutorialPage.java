@@ -23,7 +23,7 @@ public class tutorialPage extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
             case R.id.action_home:
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, HomePage.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);

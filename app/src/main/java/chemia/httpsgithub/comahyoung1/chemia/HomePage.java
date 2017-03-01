@@ -3,17 +3,15 @@ package chemia.httpsgithub.comahyoung1.chemia;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class HomePage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
 
         Button tutorialBtn = (Button) findViewById(R.id.tutorial_btn);
         tutorialBtn.setOnClickListener(new View.OnClickListener() {
@@ -28,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         drawBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent drawPage = new Intent(getApplicationContext(), chemia.httpsgithub.comahyoung1.chemia.drawPage.class);
+                Intent drawPage = new Intent(getApplicationContext(), FormulaCreatorPage.class);
                 startActivity(drawPage);
             }
         });
