@@ -10,9 +10,9 @@ public class Molecule implements Serializable{
     //Chemical formulas are going to be 2D string arrays
     //formula[0][n] will be chem symbol
     //formula[1][n] will be coefficient - empty string if none
-    ChemFormulaBuilder formula;
+    //ChemFormulaBuilder formula;
     //maybe find a way to name? Naming is easy for these, right?
-    String name;
+    //String name;
     Bond[] bondArray = new Bond[8];
 
     //so this is going to work in such a way that a bond is created, then added tot he array

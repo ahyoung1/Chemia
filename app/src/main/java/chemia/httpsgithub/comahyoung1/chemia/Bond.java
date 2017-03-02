@@ -1,10 +1,12 @@
 package chemia.httpsgithub.comahyoung1.chemia;
 
+import java.io.Serializable;
+
 /**
  * Created by Aaron on 2/27/2017.
  */
 
-public class Bond {
+public class Bond implements Serializable{
     private String bondType;
     private Element centerAtom;
     private Element attachedAtom;

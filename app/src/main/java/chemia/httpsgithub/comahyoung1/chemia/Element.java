@@ -1,10 +1,12 @@
 package chemia.httpsgithub.comahyoung1.chemia;
 
+import java.io.Serializable;
+
 /**
  * Created by Aaron on 2/19/2017.
  */
 
-public class Element {
+public class Element implements Serializable{
     private String name;
     private int numOfElectrons;
     private String chemSymbol;
