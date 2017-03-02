@@ -49,12 +49,12 @@ public class FormulaCreatorPage extends AppCompatActivity {
 
     //keep logic outta here!!!!!!
 
-    public void onCenterAtomSet(){
+    public void onCenterAtomSet(View v){
         selectedCenterAtom = centerAtomSpinner.getSelectedItem().toString();
         centerAtomTV.setText(periodicTable.getElementByName(selectedCenterAtom).getChemSymbol());
     }
 
-    public void onAttachedAtomAdded(){
+    public void onAttachedAtomAdded(View v){
         if (hasSixAtoms()){
             AlertDialog.Builder alertSixAtoms = new AlertDialog.Builder(this);
             alertSixAtoms.setMessage("You cannot add any more atoms.\nTry removing some???");
