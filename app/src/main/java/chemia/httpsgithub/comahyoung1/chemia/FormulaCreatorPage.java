@@ -77,7 +77,8 @@ public class FormulaCreatorPage extends AppCompatActivity {
 
     private boolean attachAtomToFormula(String selectedAttachedAtom){
         for (int i=0; i<6; i++){
-            if (attachedAtomsArray[i] != null){
+            //if text of ith TextView in array is ""
+            if (!attachedAtomsArray[i].getText().equals("")){
                 if (attachedAtomsArray[i].getText().equals(selectedAttachedAtom)) {
                     int coefficient = Integer.valueOf(attachedAtomsCoefficientArray[i].getText().toString());
                     coefficient++;
@@ -87,9 +88,10 @@ public class FormulaCreatorPage extends AppCompatActivity {
             }
         }
         for (int n=0; n<6; n++){
-            if(attachedAtomsArray[n] == null){
+            if(attachedAtomsArray[n].getText().equals("")){
                 String chemSymbol = periodicTable.getElementByName(selectedAttachedAtom).getChemSymbol();
                 attachedAtomsArray[n].setText(chemSymbol);
+                return true;
             }
         }
         return false;
@@ -98,19 +100,11 @@ public class FormulaCreatorPage extends AppCompatActivity {
     //clears the formula TextViews --- does NOTHING with MoleculeBuilder etc. Only aesthetic, storage
     public void onResetClick(View v){
         centerAtomTV.setText("");
-        firstAttachedAtomTV.setText("");
-        secondAttachedAtomTV.setText("");
-        thirdAttachedAtomTV.setText("");
-        fourthAttachedAtomTV.setText("");
-        fifthAttachedAtomTV.setText("");
-        sixthAttachedAtomTV.setText("");
+        for (int n=0; n<6; n++){
+            attachedAtomsArray[n].setText("");
+            attachedAtomsCoefficientArray[n].setText("");
+        }
         centerAtomCoefficientTV.setText("");
-        firstAttachedAtomCoefficientTV.setText("");
-        secondAttachedAtomCoefficientTV.setText("");
-        thirdAttachedAtomCoefficientTV.setText("");
-        fourthAttachedAtomCoefficientTV.setText("");
-        fifthAttachedAtomCoefficientTV.setText("");
-        sixthAttachedAtomCoefficientTV.setText("");
     }
 
     public void onMakeMoleculeClick(View v){
@@ -149,16 +143,29 @@ public class FormulaCreatorPage extends AppCompatActivity {
         sixthAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_sixth_attached_atoms);
         centerAtomSpinner = (Spinner)findViewById(R.id.center_atom_spinner);
         attachedAtomSpinner = (Spinner) findViewById(R.id.attached_elements_spinner);
-    }
+        attachedAtomsArray[0] = firstAttachedAtomTV;
+        attachedAtomsArray[1] = secondAttachedAtomTV;
+        attachedAtomsArray[2] = thirdAttachedAtomTV;
+        attachedAtomsArray[3] = fourthAttachedAtomTV;
+        attachedAtomsArray[4] = fifthAttachedAtomTV;
+        attachedAtomsArray[5] = sixthAttachedAtomTV;
+        attachedAtomsCoefficientArray[0] = firstAttachedAtomCoefficientTV;
+        attachedAtomsCoefficientArray[1] = secondAttachedAtomCoefficientTV;
+        attachedAtomsCoefficientArray[2] = thirdAttachedAtomCoefficientTV;
+        attachedAtomsCoefficientArray[3] = fourthAttachedAtomCoefficientTV;
+        attachedAtomsCoefficientArray[4] = fifthAttachedAtomCoefficientTV;
+        attachedAtomsCoefficientArray[5] = sixthAttachedAtomCoefficientTV;
+        }
 
 
+    //a note: .getText().equals("") is similar to checking for null
     private boolean hasSixAtoms(){
         int numberOfAtoms = 0;
         for (int n=0; n<6; n++){
-            if(attachedAtomsArray[n] == null){
+            if(attachedAtomsArray[n].getText().equals("")){
                 break;
             }
-            else if (attachedAtomsCoefficientArray[n] != null){
+            else if (!attachedAtomsCoefficientArray[n].getText().equals("")){
                 numberOfAtoms += Integer.valueOf(attachedAtomsCoefficientArray[n].getText().toString());
             }
             else{
