@@ -16,10 +16,10 @@ public class Molecule implements Serializable{
     Bond[] bondArray = new Bond[8];
     int numberOfTotalValence;
     //so this is going to work in such a way that a bond is created, then added tot he array
-    Element centerAtom;
-    Element[] attachedElementArray;
-    String[] attachedAtomCoefficientArray;
-    String centerAtomCoefficient;
+    private Element centerAtom;
+    private Element[] attachedElementArray;
+    private String[] attachedAtomCoefficientArray;
+    private String centerAtomCoefficient;
 
     public Molecule(Element centerAtom, String centerAtomCoefficient, Element[] attachedAtoms, String[] attachedAtomCoefficientArray){
         this.centerAtom = centerAtom;
@@ -45,21 +45,21 @@ public class Molecule implements Serializable{
 
     private int calculateTotalValence(){
         int sumOfAttached=0;
-        if(centerAtomCoefficient.equals("")){
+        if(!centerAtomCoefficient.equals("")){
             return 2*centerAtom.getNumOfValenceElectrons();
         }
         else {
             for (int i = 0; i < attachedElementArray.length; i++) {
-                if (attachedElementArray != null){
+                if (attachedElementArray[i] != null){
                     int coefficient=1;
                     //*********************************watch this part
                     if (!attachedAtomCoefficientArray[i].equals("")){
                         coefficient=Integer.valueOf(attachedAtomCoefficientArray[i]);
                     }
-                    sumOfAttached += (coefficient*attachedElementArray[i].getNumOfValenceElectrons());
+                    sumOfAttached = sumOfAttached+(coefficient*attachedElementArray[i].getNumOfValenceElectrons());
                 }
             }
-            return sumOfAttached + centerAtom.getNumOfValenceElectrons();
+            return (sumOfAttached + centerAtom.getNumOfValenceElectrons());
         }
     }
 
@@ -70,5 +70,7 @@ public class Molecule implements Serializable{
     //****************Getters*********************
     public Element getCenterAtom() {return centerAtom;}
     public Element[] getAttachedElementArray() {return attachedElementArray;}
+    public String[] getAttachedAtomCoefficientArray(){return attachedAtomCoefficientArray;}
+    public String getCenterAtomCoefficient(){return centerAtomCoefficient;}
 
 }

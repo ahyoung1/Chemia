@@ -68,6 +68,8 @@ public class ValenceQuestionPage extends AppCompatActivity {
         Element centerAtom = molecule.getCenterAtom();
         centerAtomTV = (TextView)findViewById(R.id.center_atom_display);
         centerAtomTV.setText(centerAtom.getChemSymbol());
+        centerAtomSub = (TextView)findViewById(R.id.num_center_atoms);
+        centerAtomSub.setText(molecule.getCenterAtomCoefficient());
         attachedElementTVArray[0]=(TextView)findViewById(R.id.first_attached_atom_display);
         attachedElementTVArray[1]=(TextView)findViewById(R.id.second_attached_atom_display);
         attachedElementTVArray[2]=(TextView)findViewById(R.id.third_attached_atom_display);
@@ -75,11 +77,13 @@ public class ValenceQuestionPage extends AppCompatActivity {
         attachedElementTVArray[4]=(TextView)findViewById(R.id.fifth_attached_atom_display);
         attachedElementTVArray[5]=(TextView)findViewById(R.id.sixth_attached_atom_display);
         for (int i=0; i<6; i++){
-            if (molecule.attachedElementArray[i] != null){
-                attachedElementTVArray[i].setText(molecule.attachedElementArray[i].getChemSymbol());
+            if (molecule.getAttachedElementArray()[i] != null){
+                attachedElementTVArray[i].setText(molecule.getAttachedElementArray()[i].getChemSymbol());
+                attachedElementSubsTVArray[i].setText(molecule.getAttachedAtomCoefficientArray()[i]);
             }
             else{
                 attachedElementTVArray[i].setText("");
+                attachedElementSubsTVArray[i].setText("");
             }
         }
     }

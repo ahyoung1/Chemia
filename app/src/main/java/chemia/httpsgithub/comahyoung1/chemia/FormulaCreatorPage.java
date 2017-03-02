@@ -171,8 +171,10 @@ public class FormulaCreatorPage extends AppCompatActivity {
     private void removeAttachedAtom(int n){
         for (int i=n; i<5; i++){
             attachedAtomsArray[i].setText(attachedAtomsArray[i+1].getText());
+            attachedAtomsCoefficientArray[i].setText(attachedAtomsCoefficientArray[i+1].getText());
         }
         attachedAtomsArray[5].setText("");
+        attachedAtomsCoefficientArray[5].setText("");
     }
 
     private void reduceAttachedAtomCoefficient(int n){
