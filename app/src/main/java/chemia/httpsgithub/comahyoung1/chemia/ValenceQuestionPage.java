@@ -2,20 +2,15 @@ package chemia.httpsgithub.comahyoung1.chemia;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by Aaron on 3/1/2017.
@@ -31,21 +26,42 @@ public class ValenceQuestionPage extends AppCompatActivity {
     private TextView feedbackTV;
     private Molecule molecule;
     private TextView[] attachedElementTVArray = new TextView[6];
+    private TextView centerAtomTV;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_valence_question);
-        radioGroup = (RadioGroup)findViewById(R.id.answer_radio_group);
-        radioButtonOne = (RadioButton)findViewById(R.id.valence_radio_one);
-        radioButtonTwo = (RadioButton)findViewById(R.id.valence_radio_two);
-        radioButtonThree = (RadioButton)findViewById(R.id.valence_radio_three);
-        radioButtonFour = (RadioButton)findViewById(R.id.valence_radio_four);
+        initializeRadioGroup();
         feedbackTV = (TextView)findViewById(R.id.answer_feedback_tv);
+        populateFormulaTVs();
+    }
+
+    public void submitValence(View v){
+        int selectedRadioID = radioGroup.getCheckedRadioButtonId();
+        if (selectedRadioID!=-1) {
+            radioButtonRightorWrong(selectedRadioID);
+        }
+        else{
+            noRadioSelectedFeedback();
+        }
+    }
+
+    private void radioButtonRightorWrong(int selectedRadioID){
+        RadioButton selectedRadio = (RadioButton) findViewById(selectedRadioID);
+        if (Integer.toString(this.numOfValence).equals(selectedRadio.getText())) {
+            correctRadioSelectedFeedback();
+        }
+        else {
+            wrongRadioSelectedFeedback();
+        }
+    }
+    private void populateFormulaTVs(){
         Intent intent = getIntent();
         molecule = (Molecule)intent.getSerializableExtra("molecule");
         Element centerAtom = molecule.getCenterAtom();
-        TextView centerAtomTV = (TextView)findViewById(R.id.center_atom_display);
+        centerAtomTV = (TextView)findViewById(R.id.center_atom_display);
         centerAtomTV.setText(centerAtom.getChemSymbol());
         attachedElementTVArray[0]=(TextView)findViewById(R.id.first_attached_atom_display);
         attachedElementTVArray[1]=(TextView)findViewById(R.id.second_attached_atom_display);
@@ -62,24 +78,32 @@ public class ValenceQuestionPage extends AppCompatActivity {
             }
         }
     }
-
-    public void submitValence(View v){
-        int selectedRadioID = radioGroup.getCheckedRadioButtonId();
-        if (selectedRadioID!=-1) {
-            RadioButton selectedRadio = (RadioButton) findViewById(selectedRadioID);
-            if (Integer.toString(this.numOfValence).equals(selectedRadio.getText())) {
-                feedbackTV.setText("Correct!");
-                feedbackTV.setTextColor(Color.parseColor("#42f468"));
-            } else {
-                feedbackTV.setText("Try Again...");
-                feedbackTV.setTextColor(Color.parseColor("#e20000"));
-            }
-        }
-        else{
-            feedbackTV.setText("You need to select an option");
-            feedbackTV.setTextColor(Color.parseColor("#000000"));
-            feedbackTV.setBackgroundColor(Color.parseColor("#fffb3f"));
-        }
+    private void initializeRadioGroup(){
+        radioGroup = (RadioGroup)findViewById(R.id.answer_radio_group);
+        radioButtonOne = (RadioButton)findViewById(R.id.valence_radio_one);
+        radioButtonTwo = (RadioButton)findViewById(R.id.valence_radio_two);
+        radioButtonThree = (RadioButton)findViewById(R.id.valence_radio_three);
+        radioButtonFour = (RadioButton)findViewById(R.id.valence_radio_four);
+        radioButtonOne.setText("1");
+        //these should all be randomized somehow, but going to be fixed for now
+        radioButtonTwo.setText(Integer.toString(molecule.getNumberOfTotalValence()));
+        radioButtonThree.setText("3");
+        radioButtonFour.setText("5");
+    }
+    private void correctRadioSelectedFeedback(){
+        feedbackTV.setText("Correct!");
+        feedbackTV.setTextColor(Color.parseColor("#42f468"));
+        feedbackTV.setBackgroundColor(Color.parseColor("#ffffff"));
+    }
+    private void wrongRadioSelectedFeedback(){
+        feedbackTV.setText("Try Again...");
+        feedbackTV.setTextColor(Color.parseColor("#e20000"));
+        feedbackTV.setBackgroundColor(Color.parseColor("#ffffff"));
+    }
+    private void noRadioSelectedFeedback(){
+        feedbackTV.setText("You need to select an option");
+        feedbackTV.setTextColor(Color.parseColor("#dc42f4"));
+        feedbackTV.setBackgroundColor(Color.parseColor("#fffb3f"));
     }
 
     //menu bar and home button

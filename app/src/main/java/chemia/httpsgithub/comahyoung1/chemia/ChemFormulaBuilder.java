@@ -1,12 +1,14 @@
 package chemia.httpsgithub.comahyoung1.chemia;
 
+import java.io.Serializable;
+
 /**
  * Created by Aaron on 2/27/2017.
  * This is a data-storage/formatting class that is used when displaying the chemical formula
  * of molecules to the user
  */
 
-public class ChemFormulaBuilder {
+public class ChemFormulaBuilder implements Serializable{
     //"Atom" is given as chemical symbol
     private Element centerAtom;
     private Element[] attachedElements = new Element[6];
