@@ -145,18 +145,22 @@ public class FormulaCreatorPage extends AppCompatActivity {
             }
         }
         else{
+            boolean atomPresentFlag = false;
             for (int n=0; n<6; n++){
                 if (attachedAtomsArray[n].getText().equals(selectedAttachedAtomChemSymbol)){
                     if (attachedAtomsCoefficientArray[n].getText().equals("")){
                         removeAttachedAtom(n);
+                        atomPresentFlag = true;
                     }
                     else{
                         reduceAttachedAtomCoefficient(n);
-                        //if 2, then remove entirely
+                        atomPresentFlag = true;
                     }
                 }
             }
-            showSelectedNotAttachedAlert();
+            if (!atomPresentFlag){
+                showSelectedNotAttachedAlert();
+            }
         }
     }
 
@@ -170,7 +174,7 @@ public class FormulaCreatorPage extends AppCompatActivity {
         }
         attachedAtomsArray[5].setText("");
     }
-    
+
     private void reduceAttachedAtomCoefficient(int n){
         if (attachedAtomsCoefficientArray[n].getText().equals("2")){
             attachedAtomsCoefficientArray[n].setText("");
