@@ -65,7 +65,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/answer_radio_group"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="30dp"
+        android:onClick="submitValence"/>
 
     <TextView
         android:id="@+id/answer_feedback_tv"
