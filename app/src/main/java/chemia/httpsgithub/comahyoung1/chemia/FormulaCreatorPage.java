@@ -52,26 +52,35 @@ public class FormulaCreatorPage extends AppCompatActivity {
     //keep logic outta here!!!!!!
 
     public void onCenterAtomSet(View v){
+        for (int n=0; n<6; n++){
+            attachedAtomsArray[n].setText("");
+            attachedAtomsCoefficientArray[n].setText("");
+        }
         selectedCenterAtom = centerAtomSpinner.getSelectedItem().toString();
         selectedCenterAtomChemSymbol = periodicTable.getElementByName(selectedCenterAtom).getChemSymbol();
         centerAtomTV.setText(selectedCenterAtomChemSymbol);
+        centerAtomCoefficientTV.setText("");
     }
 
     public void onAttachedAtomAdded(View v){
+        //works
         if (centerAtomTV.getText().equals("")){
             showSetCenterAtomAlert();
         }
+        //works
         else if (hasSixAtoms()){
             showSixAtomsAlert();
         }
+        //works
         else if(centerAtomCoefficientTV.getText().equals("2")){
             showDiatomicAlert();
         }
+        //HERE FIX PLEASE
         else{
             selectedAttachedAtom = attachedAtomSpinner.getSelectedItem().toString();
             selectedAttachedAtomChemSymbol = periodicTable.getElementByName(selectedAttachedAtom).getChemSymbol();
             if(!attachAtomToFormula()) {
-                showMysterAddingAlert();
+                showMysteryAddingAlert();
             }
         }
     }
@@ -91,7 +100,7 @@ public class FormulaCreatorPage extends AppCompatActivity {
                     else{
                         int coefficient = Integer.valueOf(attachedAtomsCoefficientArray[i].getText().toString());
                         coefficient++;
-                        attachedAtomsCoefficientArray[i].setText(coefficient);
+                        attachedAtomsCoefficientArray[i].setText(Integer.toString(coefficient));
                     }
                     return true;
                 }
@@ -233,7 +242,7 @@ public class FormulaCreatorPage extends AppCompatActivity {
         }).create();
         diatomicAlert.show();
     }
-    private void showMysterAddingAlert(){
+    private void showMysteryAddingAlert(){
         AlertDialog.Builder mysteryAddingAlert = new AlertDialog.Builder(this);
         mysteryAddingAlert.setMessage("Mystery Error?");
         mysteryAddingAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
