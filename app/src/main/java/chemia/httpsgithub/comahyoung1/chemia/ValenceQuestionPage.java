@@ -15,6 +15,8 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 /**
  * Created by Aaron on 3/1/2017.
  */
@@ -27,6 +29,8 @@ public class ValenceQuestionPage extends AppCompatActivity {
     private RadioButton radioButtonFour;
     private int numOfValence;
     private TextView feedbackTV;
+    private Molecule molecule;
+    private TextView[] attachedElementTVArray = new TextView[6];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,25 @@ public class ValenceQuestionPage extends AppCompatActivity {
         radioButtonThree = (RadioButton)findViewById(R.id.valence_radio_three);
         radioButtonFour = (RadioButton)findViewById(R.id.valence_radio_four);
         feedbackTV = (TextView)findViewById(R.id.answer_feedback_tv);
+        Intent intent = getIntent();
+        molecule = (Molecule)intent.getSerializableExtra("molecule");
+        Element centerAtom = molecule.getCenterAtom();
+        TextView centerAtomTV = (TextView)findViewById(R.id.center_atom_display);
+        centerAtomTV.setText(centerAtom.getChemSymbol());
+        attachedElementTVArray[0]=(TextView)findViewById(R.id.first_attached_atom_display);
+        attachedElementTVArray[1]=(TextView)findViewById(R.id.second_attached_atom_display);
+        attachedElementTVArray[2]=(TextView)findViewById(R.id.third_attached_atom_display);
+        attachedElementTVArray[3]=(TextView)findViewById(R.id.fourth_attached_atom_display);
+        attachedElementTVArray[4]=(TextView)findViewById(R.id.fifth_attached_atom_display);
+        attachedElementTVArray[5]=(TextView)findViewById(R.id.sixth_attached_atom_display);
+        for (int i=0; i<6; i++){
+            if (molecule.attachedAtomArray[i] != null){
+                attachedElementTVArray[i].setText(molecule.attachedAtomArray[i].getChemSymbol());
+            }
+            else{
+                attachedElementTVArray[i].setText("");
+            }
+        }
     }
 
     public void submitValence(View v){
@@ -52,7 +75,6 @@ public class ValenceQuestionPage extends AppCompatActivity {
             feedbackTV.setTextColor(Color.parseColor("#e20000"));
         }
     }
-
 
     //menu bar and home button
     public boolean onCreateOptionsMenu(Menu menu){

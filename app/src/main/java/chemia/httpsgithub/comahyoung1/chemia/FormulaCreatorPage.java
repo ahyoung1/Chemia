@@ -31,6 +31,7 @@ public class FormulaCreatorPage extends AppCompatActivity {
     private TextView sixthAttachedAtomCoefficientTV;
     private Spinner centerAtomSpinner;
     private Spinner attachedAtomSpinner;
+    private Molecule molecule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +89,21 @@ public class FormulaCreatorPage extends AppCompatActivity {
     }
 
     public void onMakeMoleculeClick(View v){
-
+        //NEED method call here to
+        //TEMPORARY
+        Element centerAtom = periodicTable.getElementByName("Hydrogen");
+        Element attachedAtom = periodicTable.getElementByName("Hydrogen");
+        Element[] elementArray = new Element[6];
+        elementArray[0] = attachedAtom;
+        Molecule molecule = new Molecule(centerAtom, elementArray);
+        sendMoleculeToValenceQuestion(molecule);
     }
 
+    private void sendMoleculeToValenceQuestion(Molecule molecule){
+        Intent ValenceQuestionPage = new Intent(getApplicationContext(), chemia.httpsgithub.comahyoung1.chemia.ValenceQuestionPage.class);
+        ValenceQuestionPage.putExtra("molecule", molecule);
+        startActivity(ValenceQuestionPage);
+    }
     //menu bar and home button
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.main, menu);

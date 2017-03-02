@@ -1,10 +1,12 @@
 package chemia.httpsgithub.comahyoung1.chemia;
 
+import java.io.Serializable;
+
 /**
  * Created by Aaron on 2/19/2017.
  */
 
-public class Molecule {
+public class Molecule implements Serializable{
     //Chemical formulas are going to be 2D string arrays
     //formula[0][n] will be chem symbol
     //formula[1][n] will be coefficient - empty string if none
@@ -12,9 +14,15 @@ public class Molecule {
     //maybe find a way to name? Naming is easy for these, right?
     String name;
     Bond[] bondArray = new Bond[8];
+
     //so this is going to work in such a way that a bond is created, then added tot he array
+    Element centerAtom;
+    Element[] attachedAtomArray;
 
     public Molecule(Element centerAtom, Element[] attachedAtoms){
+        this.centerAtom = centerAtom;
+        this.attachedAtomArray = attachedAtoms;
+
         int numberOfDesiredBonds;
         if(centerAtom.getCanHaveSimpleOctet()){
             numberOfDesiredBonds = 3;
@@ -26,5 +34,9 @@ public class Molecule {
             //someFunctionThatINeed();
         }
     }
+
+    //****************Getters*********************
+    public Element getCenterAtom() {return centerAtom;}
+    public Element[] getAttachedAtomArray() {return attachedAtomArray;}
 
 }
