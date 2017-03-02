@@ -1,6 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/formula_announcer_tv"
+        android:text="Formula:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="11dp"
+        android:textSize="30dp"
+        />
+
+    <TextView
+        android:id="@+id/question_announcer_tv"
+        android:text="How many valence electrons does this formula have?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="11dp"
+        android:textSize="20dp"
+        android:layout_below="@+id/center_atom_display"
+        android:layout_marginTop="30dp"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        />
+
+    <RadioGroup
+        android:id="@+id/answer_radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/question_announcer_tv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="49dp">
+        <RadioButton
+            android:id="@+id/valence_radio_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="one"
+            android:checked="false"/>
+        <RadioButton
+            android:id="@+id/valence_radio_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="two"
+            android:checked="false"/>
+        <RadioButton
+            android:id="@+id/valence_radio_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="three"
+            android:checked="false"/>
+        <RadioButton
+            android:id="@+id/valence_radio_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="four"
+            android:checked="false"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/submit_button"
+        android:text="Submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/answer_radio_group"
+        android:layout_marginTop="30dp"/>
+
+    <TextView
+        android:id="@+id/answer_feedback_tv"
+        android:text="FEEDBACK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/submit_button"
+        android:layout_marginTop="30dp"
+        android:textSize="30dp"
+        />
+
+    <!--Begin chem formula TVs-->
+    <TextView
+        android:id="@+id/center_atom_display"
+        android:text="C"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/formula_announcer_tv"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/num_center_atoms"
+        android:text="2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="10dp"
+        android:layout_alignBottom="@id/center_atom_display"
+        android:layout_toRightOf="@id/center_atom_display"/>
+
+    <TextView
+        android:id="@+id/first_attached_atom_display"
+        android:text="O"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:layout_alignTop="@id/center_atom_display"
+        android:layout_marginLeft="4dp"
+        android:layout_toRightOf="@+id/num_center_atoms" />
+
+    <TextView
+        android:id="@+id/num_first_attached_atoms"
+        android:text="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="10dp"
+        android:layout_alignBottom="@id/center_atom_display"
+        android:layout_toRightOf="@id/first_attached_atom_display"/>
+
+    <TextView
+        android:id="@+id/second_attached_atom_display"
+        android:text="H"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:layout_alignTop="@id/center_atom_display"
+        android:layout_toRightOf="@+id/num_first_attached_atoms"
+        android:layout_marginLeft="4dp"/>
+
+    <TextView
+        android:id="@+id/num_second_attached_atoms"
+        android:text="2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="10dp"
+        android:layout_alignBottom="@id/center_atom_display"
+        android:layout_toRightOf="@+id/second_attached_atom_display"/>
+
+    <TextView
+        android:id="@+id/third_attached_atom_display"
+        android:text="C"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:layout_alignTop="@id/center_atom_display"
+        android:layout_toRightOf="@+id/num_second_attached_atoms"
+        android:layout_marginLeft="4dp"/>
+
+    <TextView
+        android:id="@+id/num_third_attached_atoms"
+        android:text="3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="10dp"
+        android:layout_alignBottom="@id/center_atom_display"
+        android:layout_toRightOf="@+id/third_attached_atom_display"/>
+
+    <TextView
+        android:id="@+id/fourth_attached_atom_display"
+        android:text="P"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:layout_alignTop="@id/center_atom_display"
+        android:layout_toRightOf="@+id/num_third_attached_atoms"
+        android:layout_marginLeft="4dp"/>
+
+    <TextView
+        android:id="@+id/num_fourth_attached_atoms"
+        android:text="4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="10dp"
+        android:layout_alignBottom="@id/center_atom_display"
+        android:layout_toRightOf="@+id/fourth_attached_atom_display"/>
+
+    <TextView
+        android:id="@+id/fifth_attached_atom_display"
+        android:text="Xe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:layout_alignTop="@id/center_atom_display"
+        android:layout_toRightOf="@+id/num_fourth_attached_atoms"
+        android:layout_marginLeft="4dp"/>
+
+    <TextView
+        android:id="@+id/num_fifth_attached_atoms"
+        android:text="5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="10dp"
+        android:layout_alignBottom="@id/center_atom_display"
+        android:layout_toRightOf="@+id/fifth_attached_atom_display"/>
+
+    <TextView
+        android:id="@+id/sixth_attached_atom_display"
+        android:text="As"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:layout_alignTop="@id/center_atom_display"
+        android:layout_toRightOf="@+id/num_fifth_attached_atoms"
+        android:layout_marginLeft="4dp"/>
+
+    <TextView
+        android:id="@+id/num_sixth_attached_atoms"
+        android:text="6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="10dp"
+        android:layout_alignBottom="@id/center_atom_display"
+        android:layout_toRightOf="@+id/sixth_attached_atom_display"/>
+
+</RelativeLayout>
