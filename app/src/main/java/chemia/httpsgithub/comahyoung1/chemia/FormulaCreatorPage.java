@@ -158,6 +158,13 @@ public class FormulaCreatorPage extends AppCompatActivity {
         fourthAttachedAtomTV = (TextView)findViewById(R.id.fourth_attached_atom_display);
         fifthAttachedAtomTV = (TextView)findViewById(R.id.fifth_attached_atom_display);
         sixthAttachedAtomTV = (TextView)findViewById(R.id.sixth_attached_atom_display);
+        centerAtomTV.setText("");
+        firstAttachedAtomTV.setText("");
+        secondAttachedAtomTV.setText("");
+        thirdAttachedAtomTV.setText("");
+        fourthAttachedAtomTV.setText("");
+        fifthAttachedAtomTV.setText("");
+        sixthAttachedAtomTV.setText("");
         centerAtomCoefficientTV = (TextView)findViewById(R.id.num_center_atoms);
         firstAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_first_attached_atoms);
         secondAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_second_attached_atoms);
@@ -165,6 +172,13 @@ public class FormulaCreatorPage extends AppCompatActivity {
         fourthAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_fourth_attached_atoms);
         fifthAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_fifth_attached_atoms);
         sixthAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_sixth_attached_atoms);
+        centerAtomCoefficientTV.setText("");
+        firstAttachedAtomCoefficientTV.setText("");
+        secondAttachedAtomCoefficientTV.setText("");
+        thirdAttachedAtomCoefficientTV.setText("");
+        fourthAttachedAtomCoefficientTV.setText("");
+        fifthAttachedAtomCoefficientTV.setText("");
+        sixthAttachedAtomCoefficientTV.setText("");
         centerAtomSpinner = (Spinner)findViewById(R.id.center_atom_spinner);
         attachedAtomSpinner = (Spinner) findViewById(R.id.attached_elements_spinner);
         attachedAtomsArray[0] = firstAttachedAtomTV;
