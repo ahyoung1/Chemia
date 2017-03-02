@@ -33,7 +33,9 @@ public class FormulaCreatorPage extends AppCompatActivity {
     private Spinner centerAtomSpinner;
     private Spinner attachedAtomSpinner;
     private String selectedCenterAtom;
+    private String selectedCenterAtomChemSymbol;
     private String selectedAttachedAtom;
+    private String selectedAttachedAtomChemSymbol;
     private Molecule molecule;
 
     @Override
@@ -51,7 +53,8 @@ public class FormulaCreatorPage extends AppCompatActivity {
 
     public void onCenterAtomSet(View v){
         selectedCenterAtom = centerAtomSpinner.getSelectedItem().toString();
-        centerAtomTV.setText(periodicTable.getElementByName(selectedCenterAtom).getChemSymbol());
+        selectedCenterAtomChemSymbol = periodicTable.getElementByName(selectedCenterAtom).getChemSymbol();
+        centerAtomTV.setText(selectedCenterAtomChemSymbol);
     }
 
     public void onAttachedAtomAdded(View v){
@@ -66,21 +69,22 @@ public class FormulaCreatorPage extends AppCompatActivity {
         }
         else{
             selectedAttachedAtom = attachedAtomSpinner.getSelectedItem().toString();
-            if(!attachAtomToFormula(selectedAttachedAtom)) {
+            selectedAttachedAtomChemSymbol = periodicTable.getElementByName(selectedAttachedAtom).getChemSymbol();
+            if(!attachAtomToFormula()) {
                 showMysterAddingAlert();
             }
         }
     }
 
-    private boolean attachAtomToFormula(String selectedAttachedAtom){
-        if(centerAtomTV.getText().equals(selectedAttachedAtom)){
+    private boolean attachAtomToFormula(){
+        if(centerAtomTV.getText().equals(selectedAttachedAtomChemSymbol)){
             centerAtomCoefficientTV.setText("2");
             return true;
         }
         for (int i=0; i<6; i++){
             //if text of ith TextView in array is NOT ""
             if (!attachedAtomsArray[i].getText().equals("")){
-                if (attachedAtomsArray[i].getText().equals(selectedAttachedAtom)) {
+                if (attachedAtomsArray[i].getText().equals(selectedAttachedAtomChemSymbol)) {
                     if (attachedAtomsCoefficientArray[i].getText()==""){
                         attachedAtomsCoefficientArray[i].setText("2");
                     }
