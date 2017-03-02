@@ -77,11 +77,13 @@ public class FormulaCreatorPage extends AppCompatActivity {
 
     private boolean attachAtomToFormula(String selectedAttachedAtom){
         for (int i=0; i<6; i++){
-            if (attachedAtomsArray[i].getText().equals(selectedAttachedAtom)){
-                int coefficient = Integer.valueOf(attachedAtomsCoefficientArray[i].getText().toString());
-                coefficient++;
-                attachedAtomsCoefficientArray[i].setText(coefficient);
-                return true;
+            if (attachedAtomsArray[i] != null){
+                if (attachedAtomsArray[i].getText().equals(selectedAttachedAtom)) {
+                    int coefficient = Integer.valueOf(attachedAtomsCoefficientArray[i].getText().toString());
+                    coefficient++;
+                    attachedAtomsCoefficientArray[i].setText(coefficient);
+                    return true;
+                }
             }
         }
         for (int n=0; n<6; n++){
