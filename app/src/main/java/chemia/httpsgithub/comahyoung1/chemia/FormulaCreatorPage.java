@@ -55,34 +55,40 @@ public class FormulaCreatorPage extends AppCompatActivity {
     }
 
     public void onAttachedAtomAdded(View v){
-        if (hasSixAtoms()){
-            AlertDialog.Builder alertSixAtoms = new AlertDialog.Builder(this);
-            alertSixAtoms.setMessage("You cannot add any more atoms.\nTry removing some???");
-            alertSixAtoms.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
-                @Override
-                public void onClick(DialogInterface dialog, int which){
-                    dialog.dismiss();
-                }
-            }).create();
-            alertSixAtoms.show();
+        if (centerAtomTV.getText().equals("")){
+            showSetCenterAtomAlert();
         }
-        //number of attached atoms
-        //add unique elements
-        //then for each coefficient c-1
+        else if (hasSixAtoms()){
+            showSixAtomsAlert();
+        }
+        else if(centerAtomCoefficientTV.getText().equals("2")){
+            showDiatomicAlert();
+        }
         else{
             selectedAttachedAtom = attachedAtomSpinner.getSelectedItem().toString();
-            attachAtomToFormula(selectedAttachedAtom);
+            if(!attachAtomToFormula(selectedAttachedAtom)) {
+                showMysterAddingAlert();
+            }
         }
     }
 
     private boolean attachAtomToFormula(String selectedAttachedAtom){
+        if(centerAtomTV.getText().equals(selectedAttachedAtom)){
+            centerAtomCoefficientTV.setText("2");
+            return true;
+        }
         for (int i=0; i<6; i++){
-            //if text of ith TextView in array is ""
+            //if text of ith TextView in array is NOT ""
             if (!attachedAtomsArray[i].getText().equals("")){
                 if (attachedAtomsArray[i].getText().equals(selectedAttachedAtom)) {
-                    int coefficient = Integer.valueOf(attachedAtomsCoefficientArray[i].getText().toString());
-                    coefficient++;
-                    attachedAtomsCoefficientArray[i].setText(coefficient);
+                    if (attachedAtomsCoefficientArray[i].getText()==""){
+                        attachedAtomsCoefficientArray[i].setText("2");
+                    }
+                    else{
+                        int coefficient = Integer.valueOf(attachedAtomsCoefficientArray[i].getText().toString());
+                        coefficient++;
+                        attachedAtomsCoefficientArray[i].setText(coefficient);
+                    }
                     return true;
                 }
             }
@@ -95,6 +101,23 @@ public class FormulaCreatorPage extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    //a note: .getText().equals("") is similar to checking for null
+    private boolean hasSixAtoms(){
+        int numberOfAtoms = 0;
+        for (int n=0; n<6; n++){
+            if(attachedAtomsArray[n].getText().equals("")){
+                continue;
+            }
+            else if (!attachedAtomsCoefficientArray[n].getText().equals("")){
+                numberOfAtoms += Integer.valueOf(attachedAtomsCoefficientArray[n].getText().toString());
+            }
+            else{
+                numberOfAtoms++;
+            }
+        }
+        return numberOfAtoms == 6;
     }
 
     //clears the formula TextViews --- does NOTHING with MoleculeBuilder etc. Only aesthetic, storage
@@ -126,6 +149,7 @@ public class FormulaCreatorPage extends AppCompatActivity {
         startActivity(ValenceQuestionPage);
     }
 
+    //*******************initialization*******************
     private void initializePageElements(){
         centerAtomTV = (TextView) findViewById(R.id.center_atom_display);
         firstAttachedAtomTV = (TextView)findViewById(R.id.first_attached_atom_display);
@@ -155,32 +179,58 @@ public class FormulaCreatorPage extends AppCompatActivity {
         attachedAtomsCoefficientArray[3] = fourthAttachedAtomCoefficientTV;
         attachedAtomsCoefficientArray[4] = fifthAttachedAtomCoefficientTV;
         attachedAtomsCoefficientArray[5] = sixthAttachedAtomCoefficientTV;
-        }
-
-
-    //a note: .getText().equals("") is similar to checking for null
-    private boolean hasSixAtoms(){
-        int numberOfAtoms = 0;
-        for (int n=0; n<6; n++){
-            if(attachedAtomsArray[n].getText().equals("")){
-                break;
-            }
-            else if (!attachedAtomsCoefficientArray[n].getText().equals("")){
-                numberOfAtoms += Integer.valueOf(attachedAtomsCoefficientArray[n].getText().toString());
-            }
-            else{
-                numberOfAtoms++;
-            }
-        }
-        return numberOfAtoms == 6;
     }
 
-    //menu bar and home button
+    //*******************alerts*******************
+    private void showSixAtomsAlert(){
+        AlertDialog.Builder alertSixAtoms = new AlertDialog.Builder(this);
+        alertSixAtoms.setMessage("You cannot add any more atoms.\nTry removing some???");
+        alertSixAtoms.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which){
+                dialog.dismiss();
+            }
+        }).create();
+        alertSixAtoms.show();
+    }
+    private void showSetCenterAtomAlert(){
+        AlertDialog.Builder alertSetCenterAtom = new AlertDialog.Builder(this);
+        alertSetCenterAtom.setMessage("You need to set the center atom before attaching any atoms");
+        alertSetCenterAtom.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which){
+                dialog.dismiss();
+            }
+        }).create();
+        alertSetCenterAtom.show();
+    }
+    private void showDiatomicAlert(){
+        AlertDialog.Builder diatomicAlert = new AlertDialog.Builder(this);
+        diatomicAlert.setMessage("You cannot add anymore atoms because you have made a diatomic molecule");
+        diatomicAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which){
+                dialog.dismiss();
+            }
+        }).create();
+        diatomicAlert.show();
+    }
+    private void showMysterAddingAlert(){
+        AlertDialog.Builder mysteryAddingAlert = new AlertDialog.Builder(this);
+        mysteryAddingAlert.setMessage("Mystery Error?");
+        mysteryAddingAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which){
+                dialog.dismiss();
+            }
+        }).create();
+        mysteryAddingAlert.show();
+    }
+    //*******************menu bar and home button*******************
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
