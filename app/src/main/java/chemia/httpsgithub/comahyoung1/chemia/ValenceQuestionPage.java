@@ -27,7 +27,7 @@ public class ValenceQuestionPage extends AppCompatActivity {
     private RadioButton radioButtonTwo;
     private RadioButton radioButtonThree;
     private RadioButton radioButtonFour;
-    private int numOfValence;
+    private int numOfValence = 0;
     private TextView feedbackTV;
     private Molecule molecule;
     private TextView[] attachedElementTVArray = new TextView[6];
@@ -65,14 +65,20 @@ public class ValenceQuestionPage extends AppCompatActivity {
 
     public void submitValence(View v){
         int selectedRadioID = radioGroup.getCheckedRadioButtonId();
-        RadioButton selectedRadio = (RadioButton)findViewById(selectedRadioID);
-        if (Integer.toString(numOfValence).equals(selectedRadio.getText())){
-            feedbackTV.setText("Correct!");
-            feedbackTV.setTextColor(Color.parseColor("#42f468"));
+        if (selectedRadioID!=-1) {
+            RadioButton selectedRadio = (RadioButton) findViewById(selectedRadioID);
+            if (Integer.toString(this.numOfValence).equals(selectedRadio.getText())) {
+                feedbackTV.setText("Correct!");
+                feedbackTV.setTextColor(Color.parseColor("#42f468"));
+            } else {
+                feedbackTV.setText("Try Again...");
+                feedbackTV.setTextColor(Color.parseColor("#e20000"));
+            }
         }
         else{
-            feedbackTV.setText("Try Again...");
-            feedbackTV.setTextColor(Color.parseColor("#e20000"));
+            feedbackTV.setText("You need to select an option");
+            feedbackTV.setTextColor(Color.parseColor("#000000"));
+            feedbackTV.setBackgroundColor(Color.parseColor("#fffb3f"));
         }
     }
 
