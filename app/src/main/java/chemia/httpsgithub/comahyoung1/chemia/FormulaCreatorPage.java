@@ -135,7 +135,7 @@ public class FormulaCreatorPage extends AppCompatActivity {
     //************************Subtract Atoms************************
     public void onAttachedAtomSubtracted(View v){
         selectedAttachedAtom = attachedAtomSpinner.getSelectedItem().toString();
-        selectedCenterAtomChemSymbol = periodicTable.getElementByName(selectedAttachedAtom).getChemSymbol();
+        selectedAttachedAtomChemSymbol = periodicTable.getElementByName(selectedAttachedAtom).getChemSymbol();
         if (centerAtomTV.getText().equals(selectedAttachedAtomChemSymbol)){
             if (centerAtomCoefficientTV.getText().equals("2")){
                 removeDiatomicCoefficient();
