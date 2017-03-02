@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -76,8 +75,8 @@ public class ValenceQuestionPage extends AppCompatActivity {
         attachedElementTVArray[4]=(TextView)findViewById(R.id.fifth_attached_atom_display);
         attachedElementTVArray[5]=(TextView)findViewById(R.id.sixth_attached_atom_display);
         for (int i=0; i<6; i++){
-            if (molecule.attachedAtomArray[i] != null){
-                attachedElementTVArray[i].setText(molecule.attachedAtomArray[i].getChemSymbol());
+            if (molecule.attachedElementArray[i] != null){
+                attachedElementTVArray[i].setText(molecule.attachedElementArray[i].getChemSymbol());
             }
             else{
                 attachedElementTVArray[i].setText("");
