@@ -15,7 +15,6 @@ public class Molecule implements Serializable{
     String name;
     Bond[] bondArray = new Bond[8];
     int numberOfTotalValence;
-
     //so this is going to work in such a way that a bond is created, then added tot he array
     Element centerAtom;
     Element[] attachedAtomArray;
@@ -25,7 +24,8 @@ public class Molecule implements Serializable{
         this.attachedAtomArray = attachedAtoms;
 
         numberOfTotalValence = calculateTotalValence();
-
+        //This is a silly logic block
+        /*
         int numberOfDesiredBonds;
         if(centerAtom.getCanHaveSimpleOctet()){
             numberOfDesiredBonds = 3;
@@ -36,6 +36,7 @@ public class Molecule implements Serializable{
         else{
             //someFunctionThatINeed();
         }
+        */
     }
 
     private int calculateTotalValence(){

@@ -27,6 +27,7 @@ public class ValenceQuestionPage extends AppCompatActivity {
     private TextView[] attachedElementTVArray = new TextView[6];
     private TextView[] attachedElementSubsTVArray = new TextView[6];
     private TextView centerAtomTV;
+    private TextView centerAtomSub;
 
 
     @Override
@@ -113,6 +114,8 @@ public class ValenceQuestionPage extends AppCompatActivity {
     private void initializeFormulaAndFeedback(){
         feedbackTV = (TextView)findViewById(R.id.answer_feedback_tv);
         feedbackTV.setText("");
+        centerAtomSub = (TextView)findViewById(R.id.num_center_atoms);
+        centerAtomSub.setText("");
         attachedElementSubsTVArray[0] = (TextView)findViewById(R.id.num_first_attached_atoms);
         attachedElementSubsTVArray[1] = (TextView)findViewById(R.id.num_second_attached_atoms);
         attachedElementSubsTVArray[2] = (TextView)findViewById(R.id.num_third_attached_atoms);
