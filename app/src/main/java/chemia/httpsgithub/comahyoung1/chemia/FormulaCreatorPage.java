@@ -69,29 +69,26 @@ public class FormulaCreatorPage extends AppCompatActivity {
         //get chem symbol from
     }
 
-    //clears the formula TextViews
-    //does NOTHING with MoleculeBuilder etc. Only aesthetic, storage
-    public void onReset(View v){
-        Button resetButton = (Button)findViewById(R.id.reset_formula_btn);
-        resetButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                centerAtomTV.setText("");
-                firstAttachedAtomTV.setText("");
-                secondAttachedAtomTV.setText("");
-                thirdAttachedAtomTV.setText("");
-                fourthAttachedAtomTV.setText("");
-                fifthAttachedAtomTV.setText("");
-                sixthAttachedAtomTV.setText("");
-                centerAtomCoefficientTV.setText("");
-                firstAttachedAtomCoefficientTV.setText("");
-                secondAttachedAtomCoefficientTV.setText("");
-                thirdAttachedAtomCoefficientTV.setText("");
-                fourthAttachedAtomCoefficientTV.setText("");
-                fifthAttachedAtomCoefficientTV.setText("");
-                sixthAttachedAtomCoefficientTV.setText("");
-            }
-        });
+    //clears the formula TextViews --- does NOTHING with MoleculeBuilder etc. Only aesthetic, storage
+    public void onResetClick(View v){
+        centerAtomTV.setText("");
+        firstAttachedAtomTV.setText("");
+        secondAttachedAtomTV.setText("");
+        thirdAttachedAtomTV.setText("");
+        fourthAttachedAtomTV.setText("");
+        fifthAttachedAtomTV.setText("");
+        sixthAttachedAtomTV.setText("");
+        centerAtomCoefficientTV.setText("");
+        firstAttachedAtomCoefficientTV.setText("");
+        secondAttachedAtomCoefficientTV.setText("");
+        thirdAttachedAtomCoefficientTV.setText("");
+        fourthAttachedAtomCoefficientTV.setText("");
+        fifthAttachedAtomCoefficientTV.setText("");
+        sixthAttachedAtomCoefficientTV.setText("");
+    }
+
+    public void onMakeMoleculeClick(View v){
+
     }
 
     //menu bar and home button
