@@ -243,9 +243,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/get_formula_btn"
-        android:layout_alignTop="@+id/second_attached_atom_display"
-        android:layout_toRightOf="@+id/attached_elements_spinner"
-        android:layout_toEndOf="@+id/attached_elements_spinner" />
+        android:layout_alignTop="@id/center_atom_display"
+        android:layout_toRightOf="@+id/num_sixth_attached_atoms"
+        android:layout_marginLeft="40dp"/>
 
     <Button
         android:text="Reset"
