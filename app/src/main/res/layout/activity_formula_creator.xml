@@ -238,7 +238,8 @@
         android:id="@+id/attached_atom_minus_btn"
         android:layout_alignTop="@+id/attached_atom_add_btn"
         android:layout_toLeftOf="@+id/attached_atom_add_btn"
-        android:layout_toStartOf="@+id/attached_atom_add_btn" />
+        android:layout_toStartOf="@+id/attached_atom_add_btn"
+        android:onClick="onAttachedAtomSubtracted"/>
 
     <Button
         android:text="Make Formula"

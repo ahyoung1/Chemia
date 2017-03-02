@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class FormulaCreatorPage extends AppCompatActivity {
     private PeriodicTableBuilder periodicTable = new PeriodicTableBuilder();
     private TextView centerAtomTV;
@@ -62,20 +64,17 @@ public class FormulaCreatorPage extends AppCompatActivity {
         centerAtomCoefficientTV.setText("");
     }
 
+    //************************Add attached atoms************************
     public void onAttachedAtomAdded(View v){
-        //works
         if (centerAtomTV.getText().equals("")){
             showSetCenterAtomAlert();
         }
-        //works
         else if (hasSixAtoms()){
             showSixAtomsAlert();
         }
-        //works
         else if(centerAtomCoefficientTV.getText().equals("2")){
             showDiatomicAlert();
         }
-        //HERE FIX PLEASE
         else{
             selectedAttachedAtom = attachedAtomSpinner.getSelectedItem().toString();
             selectedAttachedAtomChemSymbol = periodicTable.getElementByName(selectedAttachedAtom).getChemSymbol();
@@ -131,6 +130,56 @@ public class FormulaCreatorPage extends AppCompatActivity {
             }
         }
         return numberOfAtoms == 6;
+    }
+
+    //************************Subtract Atoms************************
+    public void onAttachedAtomSubtracted(View v){
+        selectedAttachedAtom = attachedAtomSpinner.getSelectedItem().toString();
+        selectedCenterAtomChemSymbol = periodicTable.getElementByName(selectedAttachedAtom).getChemSymbol();
+        if (centerAtomTV.getText().equals(selectedAttachedAtomChemSymbol)){
+            if (centerAtomCoefficientTV.getText().equals("2")){
+                removeDiatomicCoefficient();
+            }
+            else{
+                showSubtractCenterAtomAlert();
+            }
+        }
+        else{
+            for (int n=0; n<6; n++){
+                if (attachedAtomsArray[n].getText().equals(selectedAttachedAtomChemSymbol)){
+                    if (attachedAtomsCoefficientArray[n].getText().equals("")){
+                        removeAttachedAtom(n);
+                    }
+                    else{
+                        reduceAttachedAtomCoefficient(n);
+                        //if 2, then remove entirely
+                    }
+                }
+            }
+            showSelectedNotAttachedAlert();
+        }
+    }
+
+    private void removeDiatomicCoefficient(){
+        centerAtomCoefficientTV.setText("");
+    }
+
+    private void removeAttachedAtom(int n){
+        for (int i=n; i<5; i++){
+            attachedAtomsArray[i].setText(attachedAtomsArray[i+1].getText());
+        }
+        attachedAtomsArray[5].setText("");
+    }
+    
+    private void reduceAttachedAtomCoefficient(int n){
+        if (attachedAtomsCoefficientArray[n].getText().equals("2")){
+            attachedAtomsCoefficientArray[n].setText("");
+        }
+        else{
+            int newCoefficient = Integer.valueOf(attachedAtomsCoefficientArray[n].getText().toString());
+            newCoefficient -=1;
+            attachedAtomsCoefficientArray[n].setText(Integer.toString(newCoefficient));
+        }
     }
 
     //clears the formula TextViews --- does NOTHING with MoleculeBuilder etc. Only aesthetic, storage
@@ -252,6 +301,28 @@ public class FormulaCreatorPage extends AppCompatActivity {
             }
         }).create();
         mysteryAddingAlert.show();
+    }
+    private void showSubtractCenterAtomAlert(){
+        AlertDialog.Builder subtractCenterAtomAlert = new AlertDialog.Builder(this);
+        subtractCenterAtomAlert.setMessage("You cannot subtract the center atom. Try setting a different atom as the center instead.");
+        subtractCenterAtomAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which){
+                dialog.dismiss();
+            }
+        }).create();
+        subtractCenterAtomAlert.show();
+    }
+    private void showSelectedNotAttachedAlert(){
+        AlertDialog.Builder selectedNotAttachedAlert = new AlertDialog.Builder(this);
+        selectedNotAttachedAlert.setMessage("The atom you want to remove is not in this molecule. Try adding it before you remove it.");
+        selectedNotAttachedAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which){
+                dialog.dismiss();
+            }
+        }).create();
+        selectedNotAttachedAlert.show();
     }
     //*******************menu bar and home button*******************
     public boolean onCreateOptionsMenu(Menu menu){
