@@ -22,10 +22,10 @@ public class ValenceQuestionPage extends AppCompatActivity {
     private RadioButton radioButtonTwo;
     private RadioButton radioButtonThree;
     private RadioButton radioButtonFour;
-    private int numOfValence = 0;
     private TextView feedbackTV;
     private Molecule molecule;
     private TextView[] attachedElementTVArray = new TextView[6];
+    private TextView[] attachedElementSubsTVArray = new TextView[6];
     private TextView centerAtomTV;
 
 
@@ -33,15 +33,20 @@ public class ValenceQuestionPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_valence_question);
-        initializeRadioGroup();
-        feedbackTV = (TextView)findViewById(R.id.answer_feedback_tv);
+        //populateFormula must come before initializeRadio because it makes the molecule. MESSY.
+        //ALSO the initialize formula and feedback should be incorporated with populate formula so that I'm not repeating
+            //also they kind of belong together
+            //but not initializing feedback that should be elsewhere
+        initializeFormulaAndFeedback();
         populateFormulaTVs();
+        initializeRadioGroup();
     }
 
     public void submitValence(View v){
         int selectedRadioID = radioGroup.getCheckedRadioButtonId();
         if (selectedRadioID!=-1) {
             radioButtonRightorWrong(selectedRadioID);
+            //SOMETHING here about going to the next item
         }
         else{
             noRadioSelectedFeedback();
@@ -50,7 +55,7 @@ public class ValenceQuestionPage extends AppCompatActivity {
 
     private void radioButtonRightorWrong(int selectedRadioID){
         RadioButton selectedRadio = (RadioButton) findViewById(selectedRadioID);
-        if (Integer.toString(this.numOfValence).equals(selectedRadio.getText())) {
+        if (Integer.toString(molecule.getNumberOfTotalValence()).equals(selectedRadio.getText())) {
             correctRadioSelectedFeedback();
         }
         else {
@@ -93,17 +98,30 @@ public class ValenceQuestionPage extends AppCompatActivity {
     private void correctRadioSelectedFeedback(){
         feedbackTV.setText("Correct!");
         feedbackTV.setTextColor(Color.parseColor("#42f468"));
-        feedbackTV.setBackgroundColor(Color.parseColor("#ffffff"));
+        feedbackTV.setBackgroundColor(Color.parseColor("#00ffffff"));
     }
     private void wrongRadioSelectedFeedback(){
         feedbackTV.setText("Try Again...");
         feedbackTV.setTextColor(Color.parseColor("#e20000"));
-        feedbackTV.setBackgroundColor(Color.parseColor("#ffffff"));
+        feedbackTV.setBackgroundColor(Color.parseColor("#00ffffff"));
     }
     private void noRadioSelectedFeedback(){
         feedbackTV.setText("You need to select an option");
         feedbackTV.setTextColor(Color.parseColor("#dc42f4"));
         feedbackTV.setBackgroundColor(Color.parseColor("#fffb3f"));
+    }
+    private void initializeFormulaAndFeedback(){
+        feedbackTV = (TextView)findViewById(R.id.answer_feedback_tv);
+        feedbackTV.setText("");
+        attachedElementSubsTVArray[0] = (TextView)findViewById(R.id.num_first_attached_atoms);
+        attachedElementSubsTVArray[1] = (TextView)findViewById(R.id.num_second_attached_atoms);
+        attachedElementSubsTVArray[2] = (TextView)findViewById(R.id.num_third_attached_atoms);
+        attachedElementSubsTVArray[3] = (TextView)findViewById(R.id.num_fourth_attached_atoms);
+        attachedElementSubsTVArray[4] = (TextView)findViewById(R.id.num_fifth_attached_atoms);
+        attachedElementSubsTVArray[5] = (TextView)findViewById(R.id.num_sixth_attached_atoms);
+        for (int i=0; i<6; i++){
+            attachedElementSubsTVArray[i].setText("");
+        }
     }
 
     //menu bar and home button
