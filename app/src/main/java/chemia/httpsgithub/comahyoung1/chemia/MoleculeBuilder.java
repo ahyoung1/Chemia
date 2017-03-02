@@ -18,7 +18,7 @@ public class MoleculeBuilder {
             case 1:
                 if (isDiatomicGas(attachedAtoms.length, centerAtom, attachedAtoms[0])){
                     typeOfBond = "singleBond";
-                    buildDiatomicGas(centerAtom, typeOfBond);
+                  //  buildDiatomicGas(centerAtom, typeOfBond);
                 }
                 else{
                     //error hydrogen CAN'T be center atom
@@ -35,7 +35,7 @@ public class MoleculeBuilder {
             case 5:
                 if(isDiatomicGas(attachedAtoms.length, centerAtom, attachedAtoms[0])){
                     typeOfBond = "tripleBond";
-                    buildDiatomicGas(centerAtom, typeOfBond);
+                   // buildDiatomicGas(centerAtom, typeOfBond);
                 }
                 else{
 
@@ -45,7 +45,7 @@ public class MoleculeBuilder {
             case 6:
                 if(isDiatomicGas(attachedAtoms.length, centerAtom, attachedAtoms[0])){
                     typeOfBond = "doubleBond";
-                    buildDiatomicGas(centerAtom, typeOfBond);
+                   // buildDiatomicGas(centerAtom, typeOfBond);
                 }
                 else{
 
@@ -55,7 +55,7 @@ public class MoleculeBuilder {
             case 7:
                 if(isDiatomicGas(attachedAtoms.length, centerAtom, attachedAtoms[0])){
                     typeOfBond = "singleBond";
-                    buildDiatomicGas(centerAtom, typeOfBond);
+                    //buildDiatomicGas(centerAtom, typeOfBond);
                 }
                 else{
 
@@ -84,7 +84,7 @@ public class MoleculeBuilder {
             return false;
         }
     }
-
+/*
     private Molecule buildDiatomicGas(Element centerAtom, String typeOfBond){
         String name = centerAtom.getName()+" Gas";
         String[][] formula = new ChemFormulaBuilder(centerAtom, attachedAtoms).build();
@@ -92,7 +92,7 @@ public class MoleculeBuilder {
         bondArray[0] = new Bond(typeOfBond, centerAtom, centerAtom);
         Molecule molecule = new Molecule(centerAtom, attachedAtoms);
         return molecule;
-    }
+    }*/
 
     private boolean isHyperValentMolecule(Element centerAtom, Element[] attachedAtoms){
         if (centerAtom.getCanHaveExpandedOctet() && attachedAtoms.length>4) {

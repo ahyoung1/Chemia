@@ -197,20 +197,20 @@ public class FormulaCreatorPage extends AppCompatActivity {
     }
 //*******************************************working on*****************************************************************************************************
     public void onMakeMoleculeClick(View v){
-        Element centerAtom = periodicTable.getElementBySymbol(centerAtomTV.toString());
-        String centerAtomCoefficient = centerAtomCoefficientTV.toString();
+        Element centerAtom = periodicTable.getElementBySymbol(centerAtomTV.getText().toString());
+        String centerAtomCoefficient = centerAtomCoefficientTV.getText().toString();
         Element[] elementArray = new Element[6];
         for (int n=0; n<6; n++) {
             if (attachedAtomsArray[n].getText().equals("")){
                 continue;
             }
             else {
-                elementArray[n] = periodicTable.getElementBySymbol(attachedAtomsArray[n].toString());
+                elementArray[n] = periodicTable.getElementBySymbol(attachedAtomsArray[n].getText().toString());
             }
         }
         String[] coefficientArray = new String[6];
         for (int n=0; n<6; n++){
-            coefficientArray[n] = attachedAtomsCoefficientArray[n].toString();
+            coefficientArray[n] = attachedAtomsCoefficientArray[n].getText().toString();
         }
         molecule = new Molecule(centerAtom, centerAtomCoefficient, elementArray, coefficientArray);
         sendMoleculeToValenceQuestionPage(molecule);
