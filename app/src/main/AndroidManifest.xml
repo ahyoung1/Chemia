@@ -17,6 +17,7 @@
         </activity>
         <activity android:name=".tutorialPage" android:screenOrientation="portrait"></activity>
         <activity android:name=".FormulaCreatorPage" android:screenOrientation="portrait" ></activity>
+        <activity android:name=".ValenceQuestionPage" android:screenOrientation="portrait" ></activity>
     </application>
 
 </manifest>
