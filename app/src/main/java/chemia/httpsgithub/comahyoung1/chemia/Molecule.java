@@ -18,14 +18,14 @@ public class Molecule implements Serializable{
     //so this is going to work in such a way that a bond is created, then added tot he array
     private Element centerAtom;
     private Element[] attachedElementArray;
-    private String[] attachedAtomCoefficientArray;
-    private String centerAtomCoefficient;
+    private String[] attachedAtomSubscriptArray;
+    private String centerAtomSubscript;
 
-    public Molecule(Element centerAtom, String centerAtomCoefficient, Element[] attachedAtoms, String[] attachedAtomCoefficientArray){
+    public Molecule(Element centerAtom, String centerAtomSubscript, Element[] attachedAtoms, String[] attachedAtomSubscriptArray){
         this.centerAtom = centerAtom;
-        this.centerAtomCoefficient = centerAtomCoefficient;
+        this.centerAtomSubscript = centerAtomSubscript;
         this.attachedElementArray = attachedAtoms;
-        this.attachedAtomCoefficientArray = attachedAtomCoefficientArray;
+        this.attachedAtomSubscriptArray = attachedAtomSubscriptArray;
 
         numberOfTotalValence = calculateTotalValence();
         //This is a silly logic block
@@ -45,18 +45,18 @@ public class Molecule implements Serializable{
 
     private int calculateTotalValence(){
         int sumOfAttached=0;
-        if(!centerAtomCoefficient.equals("")){
+        if(!centerAtomSubscript.equals("")){
             return 2*centerAtom.getNumOfValenceElectrons();
         }
         else {
             for (int i = 0; i < attachedElementArray.length; i++) {
                 if (attachedElementArray[i] != null){
-                    int coefficient=1;
+                    int subscript=1;
                     //*********************************watch this part
-                    if (!attachedAtomCoefficientArray[i].equals("")){
-                        coefficient=Integer.valueOf(attachedAtomCoefficientArray[i]);
+                    if (!attachedAtomSubscriptArray[i].equals("")){
+                        subscript=Integer.valueOf(attachedAtomSubscriptArray[i]);
                     }
-                    sumOfAttached = sumOfAttached+(coefficient*attachedElementArray[i].getNumOfValenceElectrons());
+                    sumOfAttached = sumOfAttached+(subscript*attachedElementArray[i].getNumOfValenceElectrons());
                 }
             }
             return (sumOfAttached + centerAtom.getNumOfValenceElectrons());
@@ -70,7 +70,7 @@ public class Molecule implements Serializable{
     //****************Getters*********************
     public Element getCenterAtom() {return centerAtom;}
     public Element[] getAttachedElementArray() {return attachedElementArray;}
-    public String[] getAttachedAtomCoefficientArray(){return attachedAtomCoefficientArray;}
-    public String getCenterAtomCoefficient(){return centerAtomCoefficient;}
+    public String[] getAttachedAtomSubscriptArray(){return attachedAtomSubscriptArray;}
+    public String getCenterAtomSubscript(){return centerAtomSubscript;}
 
 }

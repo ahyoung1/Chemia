@@ -12,8 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 public class FormulaCreatorPage extends AppCompatActivity {
     private PeriodicTableBuilder periodicTable = new PeriodicTableBuilder();
     private TextView centerAtomTV;
@@ -23,15 +21,15 @@ public class FormulaCreatorPage extends AppCompatActivity {
     private TextView fourthAttachedAtomTV;
     private TextView fifthAttachedAtomTV;
     private TextView sixthAttachedAtomTV;
-    private TextView centerAtomCoefficientTV;
-    private TextView firstAttachedAtomCoefficientTV;
-    private TextView secondAttachedAtomCoefficientTV;
-    private TextView thirdAttachedAtomCoefficientTV;
-    private TextView fourthAttachedAtomCoefficientTV;
-    private TextView fifthAttachedAtomCoefficientTV;
-    private TextView sixthAttachedAtomCoefficientTV;
+    private TextView centerAtomSubscriptTV;
+    private TextView firstAttachedAtomSubscriptTV;
+    private TextView secondAttachedAtomSubscriptTV;
+    private TextView thirdAttachedAtomSubscriptTV;
+    private TextView fourthAttachedAtomSubscriptTV;
+    private TextView fifthAttachedAtomSubscriptTV;
+    private TextView sixthAttachedAtomSubscriptTV;
     private TextView[] attachedAtomsArray = new TextView[6];
-    private TextView[] attachedAtomsCoefficientArray = new TextView[6];
+    private TextView[] attachedAtomsSubscriptArray = new TextView[6];
     private Spinner centerAtomSpinner;
     private Spinner attachedAtomSpinner;
     private String selectedCenterAtom;
@@ -56,12 +54,12 @@ public class FormulaCreatorPage extends AppCompatActivity {
     public void onCenterAtomSet(View v){
         for (int n=0; n<6; n++){
             attachedAtomsArray[n].setText("");
-            attachedAtomsCoefficientArray[n].setText("");
+            attachedAtomsSubscriptArray[n].setText("");
         }
         selectedCenterAtom = centerAtomSpinner.getSelectedItem().toString();
         selectedCenterAtomChemSymbol = periodicTable.getElementByName(selectedCenterAtom).getChemSymbol();
         centerAtomTV.setText(selectedCenterAtomChemSymbol);
-        centerAtomCoefficientTV.setText("");
+        centerAtomSubscriptTV.setText("");
     }
 
     //************************Add attached atoms************************
@@ -72,7 +70,7 @@ public class FormulaCreatorPage extends AppCompatActivity {
         else if (hasSixAtoms()){
             showSixAtomsAlert();
         }
-        else if(centerAtomCoefficientTV.getText().equals("2")){
+        else if(centerAtomSubscriptTV.getText().equals("2")){
             showDiatomicAlert();
         }
         else{
@@ -86,20 +84,20 @@ public class FormulaCreatorPage extends AppCompatActivity {
 
     private boolean attachAtomToFormula(){
         if(centerAtomTV.getText().equals(selectedAttachedAtomChemSymbol)){
-            centerAtomCoefficientTV.setText("2");
+            centerAtomSubscriptTV.setText("2");
             return true;
         }
         for (int i=0; i<6; i++){
             //if text of ith TextView in array is NOT ""
             if (!attachedAtomsArray[i].getText().equals("")){
                 if (attachedAtomsArray[i].getText().equals(selectedAttachedAtomChemSymbol)) {
-                    if (attachedAtomsCoefficientArray[i].getText()==""){
-                        attachedAtomsCoefficientArray[i].setText("2");
+                    if (attachedAtomsSubscriptArray[i].getText()==""){
+                        attachedAtomsSubscriptArray[i].setText("2");
                     }
                     else{
-                        int coefficient = Integer.valueOf(attachedAtomsCoefficientArray[i].getText().toString());
-                        coefficient++;
-                        attachedAtomsCoefficientArray[i].setText(Integer.toString(coefficient));
+                        int subscript = Integer.valueOf(attachedAtomsSubscriptArray[i].getText().toString());
+                        subscript++;
+                        attachedAtomsSubscriptArray[i].setText(Integer.toString(subscript));
                     }
                     return true;
                 }
@@ -122,8 +120,8 @@ public class FormulaCreatorPage extends AppCompatActivity {
             if(attachedAtomsArray[n].getText().equals("")){
                 continue;
             }
-            else if (!attachedAtomsCoefficientArray[n].getText().equals("")){
-                numberOfAtoms += Integer.valueOf(attachedAtomsCoefficientArray[n].getText().toString());
+            else if (!attachedAtomsSubscriptArray[n].getText().equals("")){
+                numberOfAtoms += Integer.valueOf(attachedAtomsSubscriptArray[n].getText().toString());
             }
             else{
                 numberOfAtoms++;
@@ -137,8 +135,8 @@ public class FormulaCreatorPage extends AppCompatActivity {
         selectedAttachedAtom = attachedAtomSpinner.getSelectedItem().toString();
         selectedAttachedAtomChemSymbol = periodicTable.getElementByName(selectedAttachedAtom).getChemSymbol();
         if (centerAtomTV.getText().equals(selectedAttachedAtomChemSymbol)){
-            if (centerAtomCoefficientTV.getText().equals("2")){
-                removeDiatomicCoefficient();
+            if (centerAtomSubscriptTV.getText().equals("2")){
+                removeDiatomicSubscript();
             }
             else{
                 showSubtractCenterAtomAlert();
@@ -148,12 +146,12 @@ public class FormulaCreatorPage extends AppCompatActivity {
             boolean atomPresentFlag = false;
             for (int n=0; n<6; n++){
                 if (attachedAtomsArray[n].getText().equals(selectedAttachedAtomChemSymbol)){
-                    if (attachedAtomsCoefficientArray[n].getText().equals("")){
+                    if (attachedAtomsSubscriptArray[n].getText().equals("")){
                         removeAttachedAtom(n);
                         atomPresentFlag = true;
                     }
                     else{
-                        reduceAttachedAtomCoefficient(n);
+                        reduceAttachedAtomSubscript(n);
                         atomPresentFlag = true;
                     }
                 }
@@ -164,27 +162,27 @@ public class FormulaCreatorPage extends AppCompatActivity {
         }
     }
 
-    private void removeDiatomicCoefficient(){
-        centerAtomCoefficientTV.setText("");
+    private void removeDiatomicSubscript(){
+        centerAtomSubscriptTV.setText("");
     }
 
     private void removeAttachedAtom(int n){
         for (int i=n; i<5; i++){
             attachedAtomsArray[i].setText(attachedAtomsArray[i+1].getText());
-            attachedAtomsCoefficientArray[i].setText(attachedAtomsCoefficientArray[i+1].getText());
+            attachedAtomsSubscriptArray[i].setText(attachedAtomsSubscriptArray[i+1].getText());
         }
         attachedAtomsArray[5].setText("");
-        attachedAtomsCoefficientArray[5].setText("");
+        attachedAtomsSubscriptArray[5].setText("");
     }
 
-    private void reduceAttachedAtomCoefficient(int n){
-        if (attachedAtomsCoefficientArray[n].getText().equals("2")){
-            attachedAtomsCoefficientArray[n].setText("");
+    private void reduceAttachedAtomSubscript(int n){
+        if (attachedAtomsSubscriptArray[n].getText().equals("2")){
+            attachedAtomsSubscriptArray[n].setText("");
         }
         else{
-            int newCoefficient = Integer.valueOf(attachedAtomsCoefficientArray[n].getText().toString());
-            newCoefficient -=1;
-            attachedAtomsCoefficientArray[n].setText(Integer.toString(newCoefficient));
+            int newSubscript = Integer.valueOf(attachedAtomsSubscriptArray[n].getText().toString());
+            newSubscript -=1;
+            attachedAtomsSubscriptArray[n].setText(Integer.toString(newSubscript));
         }
     }
 
@@ -193,14 +191,14 @@ public class FormulaCreatorPage extends AppCompatActivity {
         centerAtomTV.setText("");
         for (int n=0; n<6; n++){
             attachedAtomsArray[n].setText("");
-            attachedAtomsCoefficientArray[n].setText("");
+            attachedAtomsSubscriptArray[n].setText("");
         }
-        centerAtomCoefficientTV.setText("");
+        centerAtomSubscriptTV.setText("");
     }
 //*******************************************working on*****************************************************************************************************
     public void onMakeMoleculeClick(View v){
         Element centerAtom = periodicTable.getElementBySymbol(centerAtomTV.getText().toString());
-        String centerAtomCoefficient = centerAtomCoefficientTV.getText().toString();
+        String centerAtomSubscript = centerAtomSubscriptTV.getText().toString();
         Element[] elementArray = new Element[6];
         for (int n=0; n<6; n++) {
             if (attachedAtomsArray[n].getText().equals("")){
@@ -210,11 +208,11 @@ public class FormulaCreatorPage extends AppCompatActivity {
                 elementArray[n] = periodicTable.getElementBySymbol(attachedAtomsArray[n].getText().toString());
             }
         }
-        String[] coefficientArray = new String[6];
+        String[] subscriptArray = new String[6];
         for (int n=0; n<6; n++){
-            coefficientArray[n] = attachedAtomsCoefficientArray[n].getText().toString();
+            subscriptArray[n] = attachedAtomsSubscriptArray[n].getText().toString();
         }
-        molecule = new Molecule(centerAtom, centerAtomCoefficient, elementArray, coefficientArray);
+        molecule = new Molecule(centerAtom, centerAtomSubscript, elementArray, subscriptArray);
         sendMoleculeToValenceQuestionPage(molecule);
     }
 
@@ -240,20 +238,20 @@ public class FormulaCreatorPage extends AppCompatActivity {
         fourthAttachedAtomTV.setText("");
         fifthAttachedAtomTV.setText("");
         sixthAttachedAtomTV.setText("");
-        centerAtomCoefficientTV = (TextView)findViewById(R.id.num_center_atoms);
-        firstAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_first_attached_atoms);
-        secondAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_second_attached_atoms);
-        thirdAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_third_attached_atoms);
-        fourthAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_fourth_attached_atoms);
-        fifthAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_fifth_attached_atoms);
-        sixthAttachedAtomCoefficientTV = (TextView)findViewById(R.id.num_sixth_attached_atoms);
-        centerAtomCoefficientTV.setText("");
-        firstAttachedAtomCoefficientTV.setText("");
-        secondAttachedAtomCoefficientTV.setText("");
-        thirdAttachedAtomCoefficientTV.setText("");
-        fourthAttachedAtomCoefficientTV.setText("");
-        fifthAttachedAtomCoefficientTV.setText("");
-        sixthAttachedAtomCoefficientTV.setText("");
+        centerAtomSubscriptTV = (TextView)findViewById(R.id.num_center_atoms);
+        firstAttachedAtomSubscriptTV = (TextView)findViewById(R.id.num_first_attached_atoms);
+        secondAttachedAtomSubscriptTV = (TextView)findViewById(R.id.num_second_attached_atoms);
+        thirdAttachedAtomSubscriptTV = (TextView)findViewById(R.id.num_third_attached_atoms);
+        fourthAttachedAtomSubscriptTV = (TextView)findViewById(R.id.num_fourth_attached_atoms);
+        fifthAttachedAtomSubscriptTV = (TextView)findViewById(R.id.num_fifth_attached_atoms);
+        sixthAttachedAtomSubscriptTV = (TextView)findViewById(R.id.num_sixth_attached_atoms);
+        centerAtomSubscriptTV.setText("");
+        firstAttachedAtomSubscriptTV.setText("");
+        secondAttachedAtomSubscriptTV.setText("");
+        thirdAttachedAtomSubscriptTV.setText("");
+        fourthAttachedAtomSubscriptTV.setText("");
+        fifthAttachedAtomSubscriptTV.setText("");
+        sixthAttachedAtomSubscriptTV.setText("");
         centerAtomSpinner = (Spinner)findViewById(R.id.center_atom_spinner);
         attachedAtomSpinner = (Spinner) findViewById(R.id.attached_elements_spinner);
         attachedAtomsArray[0] = firstAttachedAtomTV;
@@ -262,12 +260,12 @@ public class FormulaCreatorPage extends AppCompatActivity {
         attachedAtomsArray[3] = fourthAttachedAtomTV;
         attachedAtomsArray[4] = fifthAttachedAtomTV;
         attachedAtomsArray[5] = sixthAttachedAtomTV;
-        attachedAtomsCoefficientArray[0] = firstAttachedAtomCoefficientTV;
-        attachedAtomsCoefficientArray[1] = secondAttachedAtomCoefficientTV;
-        attachedAtomsCoefficientArray[2] = thirdAttachedAtomCoefficientTV;
-        attachedAtomsCoefficientArray[3] = fourthAttachedAtomCoefficientTV;
-        attachedAtomsCoefficientArray[4] = fifthAttachedAtomCoefficientTV;
-        attachedAtomsCoefficientArray[5] = sixthAttachedAtomCoefficientTV;
+        attachedAtomsSubscriptArray[0] = firstAttachedAtomSubscriptTV;
+        attachedAtomsSubscriptArray[1] = secondAttachedAtomSubscriptTV;
+        attachedAtomsSubscriptArray[2] = thirdAttachedAtomSubscriptTV;
+        attachedAtomsSubscriptArray[3] = fourthAttachedAtomSubscriptTV;
+        attachedAtomsSubscriptArray[4] = fifthAttachedAtomSubscriptTV;
+        attachedAtomsSubscriptArray[5] = sixthAttachedAtomSubscriptTV;
     }
 
     //*******************alerts*******************

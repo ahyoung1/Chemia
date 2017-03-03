@@ -69,7 +69,7 @@ public class ValenceQuestionPage extends AppCompatActivity {
         centerAtomTV = (TextView)findViewById(R.id.center_atom_display);
         centerAtomTV.setText(centerAtom.getChemSymbol());
         centerAtomSub = (TextView)findViewById(R.id.num_center_atoms);
-        centerAtomSub.setText(molecule.getCenterAtomCoefficient());
+        centerAtomSub.setText(molecule.getCenterAtomSubscript());
         attachedElementTVArray[0]=(TextView)findViewById(R.id.first_attached_atom_display);
         attachedElementTVArray[1]=(TextView)findViewById(R.id.second_attached_atom_display);
         attachedElementTVArray[2]=(TextView)findViewById(R.id.third_attached_atom_display);
@@ -79,7 +79,7 @@ public class ValenceQuestionPage extends AppCompatActivity {
         for (int i=0; i<6; i++){
             if (molecule.getAttachedElementArray()[i] != null){
                 attachedElementTVArray[i].setText(molecule.getAttachedElementArray()[i].getChemSymbol());
-                attachedElementSubsTVArray[i].setText(molecule.getAttachedAtomCoefficientArray()[i]);
+                attachedElementSubsTVArray[i].setText(molecule.getAttachedAtomSubscriptArray()[i]);
             }
             else{
                 attachedElementTVArray[i].setText("");
