@@ -21,6 +21,6 @@ public class HomeActivityTest {
 
     @Test
     public void shouldBeAbleToLaunchHomeScreen(){
-        onView(withText("Welcome")).check(ViewAssertions.matches(isDisplayed()));
+        onView(withText("Welcome to Chemia!")).check(ViewAssertions.matches(isDisplayed()));
     }
 }
