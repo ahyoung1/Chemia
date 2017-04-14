@@ -108,8 +108,6 @@ public class MoleculeBuilder {
     }
 
     private void buildHyperValentMolecule(Element centerAtom, Element[] attachedAtoms){
-        ChemNameBuilder nameBuilder = new ChemNameBuilder(centerAtom, attachedAtoms);
-        this.name = nameBuilder.getName();
         this.formula = new ChemFormulaBuilder(centerAtom, attachedAtoms);
     }
 }

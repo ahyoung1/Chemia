@@ -13,7 +13,6 @@ public class Molecule implements Serializable{
     ChemFormulaBuilder formula;
     //maybe find a way to name? Naming is easy for these, right? ------ NOT NECESSARY???
     String name;
-    Bond[] bondArray = new Bond[8];
     int numberOfTotalValence;
     //so this is going to work in such a way that a bond is created, then added tot he array
     private Element centerAtom;
