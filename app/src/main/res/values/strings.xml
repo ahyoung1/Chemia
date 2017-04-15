@@ -5,4 +5,17 @@
     <string name="welc_tv_txt">Welcome to Chemia!</string>
     <string name="draw_page_welc_tv_txt">Welcome to the Draw Page!</string>
     <string name="tutorial_page_welc_tv_txt">Welcome to the Tutorial Page!</string>
+    <string name="chemical_formula_tv">Chemical Formula</string>
+    <string name="center_atom_tv">Center Atom</string>
+    <string name="attached_elements_tv">Attached Elements</string>
+    <string name="setCenterAtom_btn">Set</string>
+    <string name="addAttachedElement_btn">+</string>
+    <string name="subAttachedElement_btn">-</string>
+    <string name="makeFormula_btn">Make Formula</string>
+    <string name="resetFormula_btn">Reset</string>
+    <string name="one_rdobtn">one</string>
+    <string name="two_rdobtn">two</string>
+    <string name="three_rdobtn">three</string>
+    <string name="four_rdobtn">four</string>
+    <string name="submitValenceNum_btn">Submit</string>
 </resources>
