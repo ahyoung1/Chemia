@@ -214,7 +214,9 @@ public class FormulaCreatorPage extends AppCompatActivity {
             subscriptArray[n] = attachedAtomsSubscriptTVArray[n].getText().toString();
         }
         molecule = new Molecule(centerAtom, centerAtomSubscript, elementArray, subscriptArray);
-        MoleculeRuleChecker ruleChecker = new MoleculeRuleChecker(molecule);
+        //MoleculeRuleChecker ruleChecker = new MoleculeRuleChecker(molecule);
+        //1 electronegativity
+        //not valid molecule --- for purposes of this exercise --- bonds and lone pairs cannot be configured
         sendMoleculeToValenceQuestionPage(molecule);
     }
 

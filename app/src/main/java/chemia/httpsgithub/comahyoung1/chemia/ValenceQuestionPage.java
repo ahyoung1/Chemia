@@ -11,6 +11,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 /**
  * Created by Aaron on 3/1/2017.
  */
@@ -88,16 +94,36 @@ public class ValenceQuestionPage extends AppCompatActivity {
         }
     }
     private void initializeRadioGroup(){
+        int totalValence = molecule.getNumberOfTotalValence();
+        ArrayList<Integer> radioChoices = createValenceOptionsList(totalValence);
         radioGroup = (RadioGroup)findViewById(R.id.answer_radio_group);
         radioButtonOne = (RadioButton)findViewById(R.id.valence_radio_one);
         radioButtonTwo = (RadioButton)findViewById(R.id.valence_radio_two);
         radioButtonThree = (RadioButton)findViewById(R.id.valence_radio_three);
         radioButtonFour = (RadioButton)findViewById(R.id.valence_radio_four);
-        radioButtonOne.setText("1");
-        //these should all be randomized somehow, but going to be fixed for now
-        radioButtonTwo.setText(Integer.toString(molecule.getNumberOfTotalValence()));
-        radioButtonThree.setText("3");
-        radioButtonFour.setText("5");
+        radioButtonOne.setText(Integer.toString(radioChoices.get(0)));
+        radioButtonTwo.setText(Integer.toString(radioChoices.get(1)));
+        radioButtonThree.setText(Integer.toString(radioChoices.get(2)));
+        radioButtonFour.setText(Integer.toString(radioChoices.get(3)));
+
+    }
+    //creates 3 alternative answers (+1, -1, +/-2 of correct answer) adds to a list, randomizes, returns
+    private ArrayList<Integer> createValenceOptionsList(int totalValence){
+        int high = totalValence + 1;
+        int low = totalValence -1;
+        Random random = new Random();
+        int randPosNeg = (random.nextInt(3)-1);
+        while(randPosNeg == 0){
+            randPosNeg = (random.nextInt(3)-1);
+        }
+        int outlier = totalValence+2*randPosNeg;
+        ArrayList<Integer> radioChoices = new ArrayList();
+        radioChoices.add(high);
+        radioChoices.add(low);
+        radioChoices.add(outlier);
+        radioChoices.add(totalValence);
+        Collections.shuffle(radioChoices);
+        return radioChoices;
     }
     private void initializeFormulaAndFeedback(){
         feedbackTV = (TextView)findViewById(R.id.answer_feedback_tv);
@@ -130,7 +156,7 @@ public class ValenceQuestionPage extends AppCompatActivity {
         feedbackTV.setTextColor(Color.parseColor(getString(R.string.selectOption_textColor)));
         feedbackTV.setBackgroundColor(Color.parseColor(getString(R.string.selectOption_backgroundColor)));
     }
-    //menu bar and home button
+    //*******************************menu bar and home button************************************
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
