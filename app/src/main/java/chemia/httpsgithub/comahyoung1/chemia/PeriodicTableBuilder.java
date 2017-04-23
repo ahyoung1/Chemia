@@ -6,7 +6,11 @@ package chemia.httpsgithub.comahyoung1.chemia;
 
 public class PeriodicTableBuilder {
     private Element[] listOfElements = new Element[18];
-
+    //String name
+    //int numOfValenceElectrons
+    //String chemSymbol
+    //boolean canHaveSimpleOctet
+    //boolean canHaveExpandedOctet
     public PeriodicTableBuilder(){
         listOfElements[0] = new Element("Hydrogen", 1, "H", false, false);
         listOfElements[1] = new Element("Boron", 3, "B", true, true);

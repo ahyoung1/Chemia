@@ -99,21 +99,6 @@ public class ValenceQuestionPage extends AppCompatActivity {
         radioButtonThree.setText("3");
         radioButtonFour.setText("5");
     }
-    private void correctRadioSelectedFeedback(){
-        feedbackTV.setText("Correct!");
-        feedbackTV.setTextColor(Color.parseColor("#42f468"));
-        feedbackTV.setBackgroundColor(Color.parseColor("#00ffffff"));
-    }
-    private void wrongRadioSelectedFeedback(){
-        feedbackTV.setText("Try Again...");
-        feedbackTV.setTextColor(Color.parseColor("#e20000"));
-        feedbackTV.setBackgroundColor(Color.parseColor("#00ffffff"));
-    }
-    private void noRadioSelectedFeedback(){
-        feedbackTV.setText("You need to select an option");
-        feedbackTV.setTextColor(Color.parseColor("#dc42f4"));
-        feedbackTV.setBackgroundColor(Color.parseColor("#fffb3f"));
-    }
     private void initializeFormulaAndFeedback(){
         feedbackTV = (TextView)findViewById(R.id.answer_feedback_tv);
         feedbackTV.setText("");
@@ -129,7 +114,22 @@ public class ValenceQuestionPage extends AppCompatActivity {
             attachedElementSubsTVArray[i].setText("");
         }
     }
-
+    //******************************Feedback****************************************************
+    private void correctRadioSelectedFeedback(){
+        feedbackTV.setText(R.string.correct_string);
+        feedbackTV.setTextColor(Color.parseColor(getString(R.string.correct_textColor)));
+        feedbackTV.setBackgroundColor(Color.parseColor(getString(R.string.correct_backgroundColor)));
+    }
+    private void wrongRadioSelectedFeedback(){
+        feedbackTV.setText(R.string.try_string);
+        feedbackTV.setTextColor(Color.parseColor(getString(R.string.try_textColor)));
+        feedbackTV.setBackgroundColor(Color.parseColor(getString(R.string.try_backgroundColor)));
+    }
+    private void noRadioSelectedFeedback(){
+        feedbackTV.setText(R.string.selectOption_string);
+        feedbackTV.setTextColor(Color.parseColor(getString(R.string.selectOption_textColor)));
+        feedbackTV.setBackgroundColor(Color.parseColor(getString(R.string.selectOption_backgroundColor)));
+    }
     //menu bar and home button
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.main, menu);

@@ -18,4 +18,13 @@
     <string name="three_rdobtn">three</string>
     <string name="four_rdobtn">four</string>
     <string name="submitValenceNum_btn">Submit</string>
+    <string name="correct_textColor">#42f468</string>
+    <string name="correct_string">Correct!</string>
+    <string name="correct_backgroundColor">#00ffffff</string>
+    <string name="try_string">Try Again...</string>
+    <string name="try_textColor">#e20000</string>
+    <string name="try_backgroundColor">#00ffffff</string>
+    <string name="selectOption_string">You need to select an option</string>
+    <string name="selectOption_textColor">#dc42f4</string>
+    <string name="selectOption_backgroundColor">#fffb3f</string>
 </resources>

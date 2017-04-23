@@ -10,15 +10,12 @@ public class Molecule implements Serializable{
     //Chemical formulas are going to be 2D string arrays
     //formula[0][n] will be chem symbol
     //formula[1][n] will be coefficient - empty string if none
-    ChemFormulaBuilder formula;
-    //maybe find a way to name? Naming is easy for these, right? ------ NOT NECESSARY???
-    String name;
     int numberOfTotalValence;
-    //so this is going to work in such a way that a bond is created, then added tot he array
     private Element centerAtom;
     private Element[] attachedElementArray;
     private String[] attachedAtomSubscriptArray;
     private String centerAtomSubscript;
+    private MoleculeBuilder builder;
 
     public Molecule(Element centerAtom, String centerAtomSubscript, Element[] attachedAtoms, String[] attachedAtomSubscriptArray){
         this.centerAtom = centerAtom;
@@ -26,20 +23,8 @@ public class Molecule implements Serializable{
         this.attachedElementArray = attachedAtoms;
         this.attachedAtomSubscriptArray = attachedAtomSubscriptArray;
 
+        builder = new MoleculeBuilder(this.centerAtom, this.attachedElementArray, this.centerAtomSubscript, this.attachedAtomSubscriptArray);
         numberOfTotalValence = calculateTotalValence();
-        //This is a silly logic block
-        /*
-        int numberOfDesiredBonds;
-        if(centerAtom.getCanHaveSimpleOctet()){
-            numberOfDesiredBonds = 3;
-        }
-        else if(centerAtom.getCanHaveExpandedOctet()){
-
-        }
-        else{
-            //someFunctionThatINeed();
-        }
-        */
     }
 
     private int calculateTotalValence(){
@@ -62,14 +47,11 @@ public class Molecule implements Serializable{
         }
     }
 
-    public int getNumberOfTotalValence(){
-        return numberOfTotalValence;
-    }
-
     //****************Getters*********************
-    public Element getCenterAtom() {return centerAtom;}
-    public Element[] getAttachedElementArray() {return attachedElementArray;}
+    public Element getCenterAtom(){return centerAtom;}
+    public Element[] getAttachedElementArray(){return attachedElementArray;}
     public String[] getAttachedAtomSubscriptArray(){return attachedAtomSubscriptArray;}
     public String getCenterAtomSubscript(){return centerAtomSubscript;}
+    public int getNumberOfTotalValence(){return numberOfTotalValence;}
 
 }

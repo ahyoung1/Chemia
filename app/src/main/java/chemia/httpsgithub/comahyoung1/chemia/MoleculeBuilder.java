@@ -1,23 +1,20 @@
 package chemia.httpsgithub.comahyoung1.chemia;
 
+import java.io.Serializable;
+
 /**
  * Created by Aaron on 2/28/2017.
  */
 
-public class MoleculeBuilder {
+public class MoleculeBuilder implements Serializable{
     Element[] attachedAtoms;
-    String name="";
-    ChemFormulaBuilder formula;
-    private MoleculeBuilder(Element centerAtom, Element[] attachedAtoms){
+    public MoleculeBuilder(Element centerAtom, Element[] attachedAtoms, String centerAtomSubscript, String[] attachedAtomSubscript){
         this.attachedAtoms = attachedAtoms;
         int centerAtomValence = centerAtom.getNumOfValenceElectrons();
-        //int numberOfDesireBonds;
-        String typeOfBond="";
         switch (centerAtomValence){
             //Just hydrogen in the current scope of the project
             case 1:
                 if (isDiatomicGas(attachedAtoms.length, centerAtom, attachedAtoms[0])){
-                    typeOfBond = "singleBond";
                   //  buildDiatomicGas(centerAtom, typeOfBond);
                 }
                 else{
@@ -27,14 +24,13 @@ public class MoleculeBuilder {
             //
             case 4:
                 if (isHyperValentMolecule(centerAtom, attachedAtoms)){
-                    buildHyperValentMolecule(centerAtom, attachedAtoms);
+                    //buildHyperValentMolecule(centerAtom, attachedAtoms);
                 }
                     //HAVE error generated in here - if !canHaveExpandedOctet && numofDesiredElectrons < numberOfAttachedAtoms
                     break;
                 //
             case 5:
                 if(isDiatomicGas(attachedAtoms.length, centerAtom, attachedAtoms[0])){
-                    typeOfBond = "tripleBond";
                    // buildDiatomicGas(centerAtom, typeOfBond);
                 }
                 else{
@@ -44,7 +40,6 @@ public class MoleculeBuilder {
             //
             case 6:
                 if(isDiatomicGas(attachedAtoms.length, centerAtom, attachedAtoms[0])){
-                    typeOfBond = "doubleBond";
                    // buildDiatomicGas(centerAtom, typeOfBond);
                 }
                 else{
@@ -54,7 +49,6 @@ public class MoleculeBuilder {
             //
             case 7:
                 if(isDiatomicGas(attachedAtoms.length, centerAtom, attachedAtoms[0])){
-                    typeOfBond = "singleBond";
                     //buildDiatomicGas(centerAtom, typeOfBond);
                 }
                 else{
@@ -105,9 +99,5 @@ public class MoleculeBuilder {
         else{
             return false;
         }
-    }
-
-    private void buildHyperValentMolecule(Element centerAtom, Element[] attachedAtoms){
-        this.formula = new ChemFormulaBuilder(centerAtom, attachedAtoms);
     }
 }

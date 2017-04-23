@@ -28,8 +28,8 @@ public class FormulaCreatorPage extends AppCompatActivity {
     private TextView fourthAttachedAtomSubscriptTV;
     private TextView fifthAttachedAtomSubscriptTV;
     private TextView sixthAttachedAtomSubscriptTV;
-    private TextView[] attachedAtomsArray = new TextView[6];
-    private TextView[] attachedAtomsSubscriptArray = new TextView[6];
+    private TextView[] attachedAtomsTVArray = new TextView[6];
+    private TextView[] attachedAtomsSubscriptTVArray = new TextView[6];
     private Spinner centerAtomSpinner;
     private Spinner attachedAtomSpinner;
     private String selectedCenterAtom;
@@ -53,8 +53,8 @@ public class FormulaCreatorPage extends AppCompatActivity {
 
     public void onCenterAtomSet(View v){
         for (int n=0; n<6; n++){
-            attachedAtomsArray[n].setText("");
-            attachedAtomsSubscriptArray[n].setText("");
+            attachedAtomsTVArray[n].setText("");
+            attachedAtomsSubscriptTVArray[n].setText("");
         }
         selectedCenterAtom = centerAtomSpinner.getSelectedItem().toString();
         selectedCenterAtomChemSymbol = periodicTable.getElementByName(selectedCenterAtom).getChemSymbol();
@@ -89,24 +89,24 @@ public class FormulaCreatorPage extends AppCompatActivity {
         }
         for (int i=0; i<6; i++){
             //if text of ith TextView in array is NOT ""
-            if (!attachedAtomsArray[i].getText().equals("")){
-                if (attachedAtomsArray[i].getText().equals(selectedAttachedAtomChemSymbol)) {
-                    if (attachedAtomsSubscriptArray[i].getText()==""){
-                        attachedAtomsSubscriptArray[i].setText("2");
+            if (!attachedAtomsTVArray[i].getText().equals("")){
+                if (attachedAtomsTVArray[i].getText().equals(selectedAttachedAtomChemSymbol)) {
+                    if (attachedAtomsSubscriptTVArray[i].getText()==""){
+                        attachedAtomsSubscriptTVArray[i].setText("2");
                     }
                     else{
-                        int subscript = Integer.valueOf(attachedAtomsSubscriptArray[i].getText().toString());
+                        int subscript = Integer.valueOf(attachedAtomsSubscriptTVArray[i].getText().toString());
                         subscript++;
-                        attachedAtomsSubscriptArray[i].setText(Integer.toString(subscript));
+                        attachedAtomsSubscriptTVArray[i].setText(Integer.toString(subscript));
                     }
                     return true;
                 }
             }
         }
         for (int n=0; n<6; n++){
-            if(attachedAtomsArray[n].getText().equals("")){
+            if(attachedAtomsTVArray[n].getText().equals("")){
                 String chemSymbol = periodicTable.getElementByName(selectedAttachedAtom).getChemSymbol();
-                attachedAtomsArray[n].setText(chemSymbol);
+                attachedAtomsTVArray[n].setText(chemSymbol);
                 return true;
             }
         }
@@ -117,11 +117,11 @@ public class FormulaCreatorPage extends AppCompatActivity {
     private boolean hasSixAtoms(){
         int numberOfAtoms = 0;
         for (int n=0; n<6; n++){
-            if(attachedAtomsArray[n].getText().equals("")){
+            if(attachedAtomsTVArray[n].getText().equals("")){
                 continue;
             }
-            else if (!attachedAtomsSubscriptArray[n].getText().equals("")){
-                numberOfAtoms += Integer.valueOf(attachedAtomsSubscriptArray[n].getText().toString());
+            else if (!attachedAtomsSubscriptTVArray[n].getText().equals("")){
+                numberOfAtoms += Integer.valueOf(attachedAtomsSubscriptTVArray[n].getText().toString());
             }
             else{
                 numberOfAtoms++;
@@ -145,8 +145,8 @@ public class FormulaCreatorPage extends AppCompatActivity {
         else{
             boolean atomPresentFlag = false;
             for (int n=0; n<6; n++){
-                if (attachedAtomsArray[n].getText().equals(selectedAttachedAtomChemSymbol)){
-                    if (attachedAtomsSubscriptArray[n].getText().equals("")){
+                if (attachedAtomsTVArray[n].getText().equals(selectedAttachedAtomChemSymbol)){
+                    if (attachedAtomsSubscriptTVArray[n].getText().equals("")){
                         removeAttachedAtom(n);
                         atomPresentFlag = true;
                     }
@@ -168,21 +168,21 @@ public class FormulaCreatorPage extends AppCompatActivity {
 
     private void removeAttachedAtom(int n){
         for (int i=n; i<5; i++){
-            attachedAtomsArray[i].setText(attachedAtomsArray[i+1].getText());
-            attachedAtomsSubscriptArray[i].setText(attachedAtomsSubscriptArray[i+1].getText());
+            attachedAtomsTVArray[i].setText(attachedAtomsTVArray[i+1].getText());
+            attachedAtomsSubscriptTVArray[i].setText(attachedAtomsSubscriptTVArray[i+1].getText());
         }
-        attachedAtomsArray[5].setText("");
-        attachedAtomsSubscriptArray[5].setText("");
+        attachedAtomsTVArray[5].setText("");
+        attachedAtomsSubscriptTVArray[5].setText("");
     }
 
     private void reduceAttachedAtomSubscript(int n){
-        if (attachedAtomsSubscriptArray[n].getText().equals("2")){
-            attachedAtomsSubscriptArray[n].setText("");
+        if (attachedAtomsSubscriptTVArray[n].getText().equals("2")){
+            attachedAtomsSubscriptTVArray[n].setText("");
         }
         else{
-            int newSubscript = Integer.valueOf(attachedAtomsSubscriptArray[n].getText().toString());
+            int newSubscript = Integer.valueOf(attachedAtomsSubscriptTVArray[n].getText().toString());
             newSubscript -=1;
-            attachedAtomsSubscriptArray[n].setText(Integer.toString(newSubscript));
+            attachedAtomsSubscriptTVArray[n].setText(Integer.toString(newSubscript));
         }
     }
 
@@ -190,27 +190,28 @@ public class FormulaCreatorPage extends AppCompatActivity {
     public void onResetClick(View v){
         centerAtomTV.setText("");
         for (int n=0; n<6; n++){
-            attachedAtomsArray[n].setText("");
-            attachedAtomsSubscriptArray[n].setText("");
+            attachedAtomsTVArray[n].setText("");
+            attachedAtomsSubscriptTVArray[n].setText("");
         }
         centerAtomSubscriptTV.setText("");
     }
-//*******************************************working on*****************************************************************************************************
+//*******************************************working on********************************************************
     public void onMakeMoleculeClick(View v){
+        //THIS is where there should be an error message IF the center atom is less electro-negative??????
         Element centerAtom = periodicTable.getElementBySymbol(centerAtomTV.getText().toString());
         String centerAtomSubscript = centerAtomSubscriptTV.getText().toString();
         Element[] elementArray = new Element[6];
         for (int n=0; n<6; n++) {
-            if (attachedAtomsArray[n].getText().equals("")){
+            if (attachedAtomsTVArray[n].getText().equals("")){
                 continue;
             }
             else {
-                elementArray[n] = periodicTable.getElementBySymbol(attachedAtomsArray[n].getText().toString());
+                elementArray[n] = periodicTable.getElementBySymbol(attachedAtomsTVArray[n].getText().toString());
             }
         }
         String[] subscriptArray = new String[6];
         for (int n=0; n<6; n++){
-            subscriptArray[n] = attachedAtomsSubscriptArray[n].getText().toString();
+            subscriptArray[n] = attachedAtomsSubscriptTVArray[n].getText().toString();
         }
         molecule = new Molecule(centerAtom, centerAtomSubscript, elementArray, subscriptArray);
         sendMoleculeToValenceQuestionPage(molecule);
@@ -254,18 +255,18 @@ public class FormulaCreatorPage extends AppCompatActivity {
         sixthAttachedAtomSubscriptTV.setText("");
         centerAtomSpinner = (Spinner)findViewById(R.id.center_atom_spinner);
         attachedAtomSpinner = (Spinner) findViewById(R.id.attached_elements_spinner);
-        attachedAtomsArray[0] = firstAttachedAtomTV;
-        attachedAtomsArray[1] = secondAttachedAtomTV;
-        attachedAtomsArray[2] = thirdAttachedAtomTV;
-        attachedAtomsArray[3] = fourthAttachedAtomTV;
-        attachedAtomsArray[4] = fifthAttachedAtomTV;
-        attachedAtomsArray[5] = sixthAttachedAtomTV;
-        attachedAtomsSubscriptArray[0] = firstAttachedAtomSubscriptTV;
-        attachedAtomsSubscriptArray[1] = secondAttachedAtomSubscriptTV;
-        attachedAtomsSubscriptArray[2] = thirdAttachedAtomSubscriptTV;
-        attachedAtomsSubscriptArray[3] = fourthAttachedAtomSubscriptTV;
-        attachedAtomsSubscriptArray[4] = fifthAttachedAtomSubscriptTV;
-        attachedAtomsSubscriptArray[5] = sixthAttachedAtomSubscriptTV;
+        attachedAtomsTVArray[0] = firstAttachedAtomTV;
+        attachedAtomsTVArray[1] = secondAttachedAtomTV;
+        attachedAtomsTVArray[2] = thirdAttachedAtomTV;
+        attachedAtomsTVArray[3] = fourthAttachedAtomTV;
+        attachedAtomsTVArray[4] = fifthAttachedAtomTV;
+        attachedAtomsTVArray[5] = sixthAttachedAtomTV;
+        attachedAtomsSubscriptTVArray[0] = firstAttachedAtomSubscriptTV;
+        attachedAtomsSubscriptTVArray[1] = secondAttachedAtomSubscriptTV;
+        attachedAtomsSubscriptTVArray[2] = thirdAttachedAtomSubscriptTV;
+        attachedAtomsSubscriptTVArray[3] = fourthAttachedAtomSubscriptTV;
+        attachedAtomsSubscriptTVArray[4] = fifthAttachedAtomSubscriptTV;
+        attachedAtomsSubscriptTVArray[5] = sixthAttachedAtomSubscriptTV;
     }
 
     //*******************alerts*******************
