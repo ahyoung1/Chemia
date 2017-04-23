@@ -186,7 +186,7 @@ public class FormulaCreatorPage extends AppCompatActivity {
         }
     }
 
-    //clears the formula TextViews --- does NOTHING with MoleculeBuilder etc. Only aesthetic, storage
+    //clears the formula TextViews --- does NOTHING with mbuilder etc. Only aesthetic, storage
     public void onResetClick(View v){
         centerAtomTV.setText("");
         for (int n=0; n<6; n++){
@@ -214,6 +214,7 @@ public class FormulaCreatorPage extends AppCompatActivity {
             subscriptArray[n] = attachedAtomsSubscriptTVArray[n].getText().toString();
         }
         molecule = new Molecule(centerAtom, centerAtomSubscript, elementArray, subscriptArray);
+        MoleculeRuleChecker ruleChecker = new MoleculeRuleChecker(molecule);
         sendMoleculeToValenceQuestionPage(molecule);
     }
 

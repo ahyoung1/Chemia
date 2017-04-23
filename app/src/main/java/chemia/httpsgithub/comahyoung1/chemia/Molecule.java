@@ -15,15 +15,13 @@ public class Molecule implements Serializable{
     private Element[] attachedElementArray;
     private String[] attachedAtomSubscriptArray;
     private String centerAtomSubscript;
-    private MoleculeBuilder builder;
+    private MoleculeRuleChecker ruleChecker;
 
     public Molecule(Element centerAtom, String centerAtomSubscript, Element[] attachedAtoms, String[] attachedAtomSubscriptArray){
         this.centerAtom = centerAtom;
         this.centerAtomSubscript = centerAtomSubscript;
         this.attachedElementArray = attachedAtoms;
         this.attachedAtomSubscriptArray = attachedAtomSubscriptArray;
-
-        builder = new MoleculeBuilder(this.centerAtom, this.attachedElementArray, this.centerAtomSubscript, this.attachedAtomSubscriptArray);
         numberOfTotalValence = calculateTotalValence();
     }
 

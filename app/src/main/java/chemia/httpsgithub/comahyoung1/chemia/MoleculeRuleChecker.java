@@ -3,19 +3,19 @@ package chemia.httpsgithub.comahyoung1.chemia;
 import java.io.Serializable;
 
 /**
- * Created by Aaron on 2/28/2017.
+ * Created by Aaron on 4/23/2017.
  */
 
-public class MoleculeBuilder implements Serializable{
+public class MoleculeRuleChecker implements Serializable {
     Element[] attachedAtoms;
-    public MoleculeBuilder(Element centerAtom, Element[] attachedAtoms, String centerAtomSubscript, String[] attachedAtomSubscript){
+    public MoleculeRuleChecker(Molecule molecule){
         this.attachedAtoms = attachedAtoms;
-        int centerAtomValence = centerAtom.getNumOfValenceElectrons();
+        int centerAtomValence = molecule.getCenterAtom().getNumOfValenceElectrons();
         switch (centerAtomValence){
             //Just hydrogen in the current scope of the project
             case 1:
-                if (isDiatomicGas(attachedAtoms.length, centerAtom, attachedAtoms[0])){
-                  //  buildDiatomicGas(centerAtom, typeOfBond);
+                if (isDiatomicGas(attachedAtoms.length, molecule.getCenterAtom(), attachedAtoms[0])){
+                    //  buildDiatomicGas(centerAtom, typeOfBond);
                 }
                 else{
                     //error hydrogen CAN'T be center atom
@@ -23,15 +23,15 @@ public class MoleculeBuilder implements Serializable{
                 break;
             //
             case 4:
-                if (isHyperValentMolecule(centerAtom, attachedAtoms)){
+                if (isHyperValentMolecule(molecule.getCenterAtom(), attachedAtoms)){
                     //buildHyperValentMolecule(centerAtom, attachedAtoms);
                 }
-                    //HAVE error generated in here - if !canHaveExpandedOctet && numofDesiredElectrons < numberOfAttachedAtoms
-                    break;
-                //
+                //HAVE error generated in here - if !canHaveExpandedOctet && numofDesiredElectrons < numberOfAttachedAtoms
+                break;
+            //
             case 5:
-                if(isDiatomicGas(attachedAtoms.length, centerAtom, attachedAtoms[0])){
-                   // buildDiatomicGas(centerAtom, typeOfBond);
+                if(isDiatomicGas(attachedAtoms.length, molecule.getCenterAtom(), attachedAtoms[0])){
+                    // buildDiatomicGas(centerAtom, typeOfBond);
                 }
                 else{
 
@@ -39,8 +39,8 @@ public class MoleculeBuilder implements Serializable{
                 break;
             //
             case 6:
-                if(isDiatomicGas(attachedAtoms.length, centerAtom, attachedAtoms[0])){
-                   // buildDiatomicGas(centerAtom, typeOfBond);
+                if(isDiatomicGas(attachedAtoms.length, molecule.getCenterAtom(), attachedAtoms[0])){
+                    // buildDiatomicGas(centerAtom, typeOfBond);
                 }
                 else{
 
@@ -48,7 +48,7 @@ public class MoleculeBuilder implements Serializable{
                 break;
             //
             case 7:
-                if(isDiatomicGas(attachedAtoms.length, centerAtom, attachedAtoms[0])){
+                if(isDiatomicGas(attachedAtoms.length, molecule.getCenterAtom(), attachedAtoms[0])){
                     //buildDiatomicGas(centerAtom, typeOfBond);
                 }
                 else{
@@ -57,7 +57,7 @@ public class MoleculeBuilder implements Serializable{
                 break;
             //
             case 8:
-                if (centerAtom.getCanHaveExpandedOctet()){
+                if (molecule.getCenterAtom().getCanHaveExpandedOctet()){
 
                 }
                 else{
