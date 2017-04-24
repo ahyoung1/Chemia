@@ -15,7 +15,6 @@ public class Molecule implements Serializable{
     private Element[] attachedElementArray;
     private String[] attachedAtomSubscriptArray;
     private String centerAtomSubscript;
-    private MoleculeRuleChecker ruleChecker;
 
     public Molecule(Element centerAtom, String centerAtomSubscript, Element[] attachedAtoms, String[] attachedAtomSubscriptArray){
         this.centerAtom = centerAtom;

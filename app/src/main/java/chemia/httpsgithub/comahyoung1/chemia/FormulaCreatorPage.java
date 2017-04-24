@@ -64,28 +64,38 @@ public class FormulaCreatorPage extends AppCompatActivity {
 
     //************************Add attached atoms************************
     public void onAttachedAtomAdded(View v){
+        selectedAttachedAtom = attachedAtomSpinner.getSelectedItem().toString();
+        selectedAttachedAtomChemSymbol = periodicTable.getElementByName(selectedAttachedAtom).getChemSymbol();
         if (centerAtomTV.getText().equals("")){
-            showSetCenterAtomAlert();
+            showAlertWithMessage(getString(R.string.centerAtomNotSetAlert));
+        }
+        else if (hasMaxUnique()){
+            showAlertWithMessage(getString(R.string.maxUniqueAtomsAlert));
         }
         else if (hasSixAtoms()){
-            showSixAtomsAlert();
+            showAlertWithMessage(getString(R.string.maxAtomsAlert));
         }
         else if(centerAtomSubscriptTV.getText().equals("2")){
-            showDiatomicAlert();
+            showAlertWithMessage(getString(R.string.diatomicAlert));
         }
         else{
-            selectedAttachedAtom = attachedAtomSpinner.getSelectedItem().toString();
-            selectedAttachedAtomChemSymbol = periodicTable.getElementByName(selectedAttachedAtom).getChemSymbol();
             if(!attachAtomToFormula()) {
-                showMysteryAddingAlert();
+                showAlertWithMessage(getString(R.string.mysteryAlert));
             }
         }
     }
 
+    //method ONLY returns false when there is some unexplainable error --- will return true and return explainable errors
     private boolean attachAtomToFormula(){
         if(centerAtomTV.getText().equals(selectedAttachedAtomChemSymbol)){
-            centerAtomSubscriptTV.setText("2");
-            return true;
+            if(atomCanBeDiatomic()){
+                centerAtomSubscriptTV.setText("2");
+                return true;
+            }
+            else{
+                showAlertWithMessage(getString(R.string.badDiatomicAlert));
+                return true;
+            }
         }
         for (int i=0; i<6; i++){
             //if text of ith TextView in array is NOT ""
@@ -95,11 +105,25 @@ public class FormulaCreatorPage extends AppCompatActivity {
                         attachedAtomsSubscriptTVArray[i].setText("2");
                     }
                     else{
+
+                        //NEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+                        //EEEEEEEEEEEEEEEEEEEEEEEEEED to move the check for uniques down here
+                        /*
+                        * while we're on it let's talka briefly about the other checks
+                        * electronegativity is good
+                        * in short  the other one
+                        * we need to check the number of electrons in the system
+                        * agains the DESIRED# of electrons in the system
+                        * find a way to test bonds and see if we can make it work
+                        * remember a bond is two atoms each sharing one to count for 2 for both*/
                         int subscript = Integer.valueOf(attachedAtomsSubscriptTVArray[i].getText().toString());
                         subscript++;
                         attachedAtomsSubscriptTVArray[i].setText(Integer.toString(subscript));
                     }
                     return true;
+                }
+                else{
+
                 }
             }
         }
@@ -118,17 +142,59 @@ public class FormulaCreatorPage extends AppCompatActivity {
         int numberOfAtoms = 0;
         for (int n=0; n<6; n++){
             if(attachedAtomsTVArray[n].getText().equals("")){
-                continue;
+                break;
             }
             else if (!attachedAtomsSubscriptTVArray[n].getText().equals("")){
                 numberOfAtoms += Integer.valueOf(attachedAtomsSubscriptTVArray[n].getText().toString());
             }
             else{
                 numberOfAtoms++;
+                //breaks if no more elements - adds sub if element has sub, adds 1 for element in the else
             }
         }
         return numberOfAtoms == 6;
     }
+    private boolean hasMaxUnique(){
+        if(isNotUnique()){
+            return false;
+        }
+        else{
+            //this counter starts at 1 because of the center atom - code cannot be reached without a center atom being set
+            int numberOfUniqueAtoms = 1;
+            for(int i=0; i<6; i++){
+                if(!attachedAtomsTVArray[i].getText().equals("")){
+                    numberOfUniqueAtoms++;
+                }
+                else{
+                    break;
+                }
+            }
+            if (numberOfUniqueAtoms >= 3){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+    }
+    private boolean atomCanBeDiatomic(){
+        String[] listOfDiatomicSymbols = periodicTable.getListOfDiatomicSymbols();
+        for(int i=0; i<listOfDiatomicSymbols.length; i++){
+            if(listOfDiatomicSymbols[i].equals(selectedCenterAtomChemSymbol)){
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean isNotUnique(){
+        for(int i=0; i<6; i++) {
+            if (attachedAtomsTVArray[i].getText().equals(selectedAttachedAtomChemSymbol)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     //************************Subtract Atoms************************
     public void onAttachedAtomSubtracted(View v){
@@ -139,7 +205,7 @@ public class FormulaCreatorPage extends AppCompatActivity {
                 removeDiatomicSubscript();
             }
             else{
-                showSubtractCenterAtomAlert();
+                showAlertWithMessage(getString(R.string.cannotSubtractCenterAtomAlert));
             }
         }
         else{
@@ -157,7 +223,7 @@ public class FormulaCreatorPage extends AppCompatActivity {
                 }
             }
             if (!atomPresentFlag){
-                showSelectedNotAttachedAlert();
+                showAlertWithMessage(getString(R.string.cannotSubtractAtomAlert));
             }
         }
     }
@@ -197,12 +263,14 @@ public class FormulaCreatorPage extends AppCompatActivity {
     }
 //*******************************************working on********************************************************
     public void onMakeMoleculeClick(View v){
-        //THIS is where there should be an error message IF the center atom is less electro-negative??????
         Element centerAtom = periodicTable.getElementBySymbol(centerAtomTV.getText().toString());
         String centerAtomSubscript = centerAtomSubscriptTV.getText().toString();
         Element[] elementArray = new Element[6];
         for (int n=0; n<6; n++) {
             if (attachedAtomsTVArray[n].getText().equals("")){
+                elementArray[n] = new Element("", -1, -1, "", false, false);
+                //this may cause some problems????? but I think the array needs these values just to work
+                //solution is to check for element.getname.equals("")
                 continue;
             }
             else {
@@ -214,9 +282,12 @@ public class FormulaCreatorPage extends AppCompatActivity {
             subscriptArray[n] = attachedAtomsSubscriptTVArray[n].getText().toString();
         }
         molecule = new Molecule(centerAtom, centerAtomSubscript, elementArray, subscriptArray);
-        //MoleculeRuleChecker ruleChecker = new MoleculeRuleChecker(molecule);
-        //1 electronegativity
+        MoleculeRuleChecker ruleChecker = new MoleculeRuleChecker(molecule);
+        if(ruleChecker.centerIsLessElectroNegative()){
+            showAlertWithMessage(getString(R.string.electroNegativityAlert));
+        }
         //not valid molecule --- for purposes of this exercise --- bonds and lone pairs cannot be configured
+        //several method calls each with OWN alert
         sendMoleculeToValenceQuestionPage(molecule);
     }
 
@@ -272,72 +343,15 @@ public class FormulaCreatorPage extends AppCompatActivity {
         attachedAtomsSubscriptTVArray[5] = sixthAttachedAtomSubscriptTV;
     }
 
-    //*******************alerts*******************
-    private void showSixAtomsAlert(){
-        AlertDialog.Builder alertSixAtoms = new AlertDialog.Builder(this);
-        alertSixAtoms.setMessage("You cannot add any more atoms.\nTry removing some???");
-        alertSixAtoms.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+    //*******************ALERT func*******************
+    private void showAlertWithMessage(String msg) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage(msg);
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which){
-                dialog.dismiss();
-            }
+            public void onClick(DialogInterface dialog, int which) {dialog.dismiss();}
         }).create();
-        alertSixAtoms.show();
-    }
-    private void showSetCenterAtomAlert(){
-        AlertDialog.Builder alertSetCenterAtom = new AlertDialog.Builder(this);
-        alertSetCenterAtom.setMessage("You need to set the center atom before attaching any atoms");
-        alertSetCenterAtom.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int which){
-                dialog.dismiss();
-            }
-        }).create();
-        alertSetCenterAtom.show();
-    }
-    private void showDiatomicAlert(){
-        AlertDialog.Builder diatomicAlert = new AlertDialog.Builder(this);
-        diatomicAlert.setMessage("You cannot add anymore atoms because you have made a diatomic molecule");
-        diatomicAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int which){
-                dialog.dismiss();
-            }
-        }).create();
-        diatomicAlert.show();
-    }
-    private void showMysteryAddingAlert(){
-        AlertDialog.Builder mysteryAddingAlert = new AlertDialog.Builder(this);
-        mysteryAddingAlert.setMessage("Mystery Error?");
-        mysteryAddingAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int which){
-                dialog.dismiss();
-            }
-        }).create();
-        mysteryAddingAlert.show();
-    }
-    private void showSubtractCenterAtomAlert(){
-        AlertDialog.Builder subtractCenterAtomAlert = new AlertDialog.Builder(this);
-        subtractCenterAtomAlert.setMessage("You cannot subtract the center atom. Try setting a different atom as the center instead.");
-        subtractCenterAtomAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int which){
-                dialog.dismiss();
-            }
-        }).create();
-        subtractCenterAtomAlert.show();
-    }
-    private void showSelectedNotAttachedAlert(){
-        AlertDialog.Builder selectedNotAttachedAlert = new AlertDialog.Builder(this);
-        selectedNotAttachedAlert.setMessage("The atom you want to remove is not in this molecule. Try adding it before you remove it.");
-        selectedNotAttachedAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int which){
-                dialog.dismiss();
-            }
-        }).create();
-        selectedNotAttachedAlert.show();
+        alert.show();
     }
     //*******************menu bar and home button*******************
     public boolean onCreateOptionsMenu(Menu menu){

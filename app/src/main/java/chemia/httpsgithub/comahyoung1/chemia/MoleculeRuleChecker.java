@@ -7,30 +7,37 @@ import java.io.Serializable;
  */
 
 public class MoleculeRuleChecker implements Serializable {
-    Element[] attachedAtoms;
+    private Molecule molecule;
+    private PeriodicTableBuilder periodicTable = new PeriodicTableBuilder();
+
     public MoleculeRuleChecker(Molecule molecule){
-        this.attachedAtoms = attachedAtoms;
+        this.molecule = molecule;
+    }
+
+    public boolean areEnoughElectrons(){
+        if (isDiatomicGas()){
+            return true;
+        }
+        /*
         int centerAtomValence = molecule.getCenterAtom().getNumOfValenceElectrons();
         switch (centerAtomValence){
             //Just hydrogen in the current scope of the project
             case 1:
-                if (isDiatomicGas(attachedAtoms.length, molecule.getCenterAtom(), attachedAtoms[0])){
-                    //  buildDiatomicGas(centerAtom, typeOfBond);
-                }
+                if (isDiatomicGas()){return true;}
                 else{
                     //error hydrogen CAN'T be center atom
                 }
                 break;
             //
             case 4:
-                if (isHyperValentMolecule(molecule.getCenterAtom(), attachedAtoms)){
+                if (isHyperValentMolecule(molecule.getCenterAtom(), molecule.getAttachedElementArray())){
                     //buildHyperValentMolecule(centerAtom, attachedAtoms);
                 }
                 //HAVE error generated in here - if !canHaveExpandedOctet && numofDesiredElectrons < numberOfAttachedAtoms
                 break;
             //
             case 5:
-                if(isDiatomicGas(attachedAtoms.length, molecule.getCenterAtom(), attachedAtoms[0])){
+                if(isDiatomicGas(molecule.getAttachedElementArray().length, molecule.getCenterAtom(), molecule.getAttachedElementArray()[0])){
                     // buildDiatomicGas(centerAtom, typeOfBond);
                 }
                 else{
@@ -39,7 +46,7 @@ public class MoleculeRuleChecker implements Serializable {
                 break;
             //
             case 6:
-                if(isDiatomicGas(attachedAtoms.length, molecule.getCenterAtom(), attachedAtoms[0])){
+                if(isDiatomicGas(molecule.getAttachedElementArray().length, molecule.getCenterAtom(), molecule.getAttachedElementArray()[0])){
                     // buildDiatomicGas(centerAtom, typeOfBond);
                 }
                 else{
@@ -48,12 +55,6 @@ public class MoleculeRuleChecker implements Serializable {
                 break;
             //
             case 7:
-                if(isDiatomicGas(attachedAtoms.length, molecule.getCenterAtom(), attachedAtoms[0])){
-                    //buildDiatomicGas(centerAtom, typeOfBond);
-                }
-                else{
-
-                }
                 break;
             //
             case 8:
@@ -65,29 +66,18 @@ public class MoleculeRuleChecker implements Serializable {
                 }
                 break;
         }
+        */
+        return true;
+        //this SHOULD NOT BEEEEEEEEE
     }
-
-    private boolean isDiatomicGas(int numOfAttachedAtoms, Element centerAtom, Element attachedAtom){
-        if (numOfAttachedAtoms!=1){
-            return false;
-        }
-        else if (centerAtom.getName().equals(attachedAtom.getName())){
+    private boolean isDiatomicGas(){
+        if (molecule.getAttachedElementArray()[0].getName().equals(molecule.getCenterAtom().getName())){
             return true;
         }
         else{
             return false;
         }
     }
-/*
-    private Molecule buildDiatomicGas(Element centerAtom, String typeOfBond){
-        String name = centerAtom.getName()+" Gas";
-        String[][] formula = new ChemFormulaBuilder(centerAtom, attachedAtoms).build();
-        Bond[] bondArray = new Bond[6];
-        bondArray[0] = new Bond(typeOfBond, centerAtom, centerAtom);
-        Molecule molecule = new Molecule(centerAtom, attachedAtoms);
-        return molecule;
-    }*/
-
     private boolean isHyperValentMolecule(Element centerAtom, Element[] attachedAtoms){
         if (centerAtom.getCanHaveExpandedOctet() && attachedAtoms.length>4) {
             return true;
@@ -99,5 +89,13 @@ public class MoleculeRuleChecker implements Serializable {
         else{
             return false;
         }
+    }
+    public boolean centerIsLessElectroNegative() {
+        for (int i=0; i<molecule.getAttachedElementArray().length; i++){
+            if (molecule.getCenterAtom().getAtomicNumber() < molecule.getAttachedElementArray()[i].getAtomicNumber()){
+                return true;
+            }
+        }
+        return false;
     }
 }

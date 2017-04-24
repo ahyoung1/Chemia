@@ -9,6 +9,7 @@ import static java.lang.Math.*;
 public class Element implements Serializable{
     private String name;
     private int numOfElectrons;
+    private int atomicNumber;
     private String chemSymbol;
     private boolean canHaveSimpleOctet;
     private boolean canHaveExpandedOctet;
@@ -16,8 +17,9 @@ public class Element implements Serializable{
     //"canHaveSimpleOctet" in this context means that the element (only Boron in this context) is "happy" with 6 valence electrons instead of 8
     //"canHaveExpandedOctet" in this context means that _____________
 
-    public Element(String name, int numOfValenceElectrons, String chemSymbol, boolean canHaveSimpleOctet, boolean canHaveExpandedOctet){
+    public Element(String name, int atomicNumber, int numOfValenceElectrons, String chemSymbol, boolean canHaveSimpleOctet, boolean canHaveExpandedOctet){
         this.name = name;
+        this.atomicNumber = atomicNumber;
         this.numOfElectrons = numOfValenceElectrons;
         this.chemSymbol = chemSymbol;
         this.canHaveSimpleOctet = canHaveSimpleOctet;
@@ -39,4 +41,5 @@ public class Element implements Serializable{
         return this.canHaveExpandedOctet;
     }
     public int getNumOfDesiredBonds(){return this.numOfDesiredBonds;}
+    public int getAtomicNumber(){return this.atomicNumber;}
 }
