@@ -36,4 +36,8 @@
     <string name="maxAtomsAlert">The maximum number of total atoms you can have in your molecule is 7. Try removing some?</string>
     <string name="badDiatomicAlert">By adding an element that is the same as the center atom, you\'re on your way to make a diatomic element. However, this element can\'t be diatomic. Sorry.</string>
     <string name="electroNegativityAlert">The element that you\'ve set for the center atom is more electronegative than one or more of the attached atoms. This molecule will therefore not work.</string>
+    <string name="tooManyAttachedAlert">The atom that you have set as the center atom does not want this many attached atoms.</string>
+    <string name="bondMisAlert">The number of bonds is not what was expected</string>
+    <string name="electronMisPlaceAlert">This molecule can\'t be drawn in this app. There are either electrons needed or unwanted.</string>
+    <string name="moleculeFieldAlert">There was an error inn the molecule. Please try again, or reach out to the developers to fix this.</string>
 </resources>

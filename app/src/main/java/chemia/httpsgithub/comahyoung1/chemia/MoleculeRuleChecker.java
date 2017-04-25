@@ -1,5 +1,7 @@
 package chemia.httpsgithub.comahyoung1.chemia;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 /**
@@ -14,76 +16,79 @@ public class MoleculeRuleChecker implements Serializable {
         this.molecule = molecule;
     }
 
-    public boolean areEnoughElectrons(){
+    public void assignBondsLonePairs(){
         if (isDiatomicGas()){
-            return true;
+            //yay
         }
-        /*
-        int centerAtomValence = molecule.getCenterAtom().getNumOfValenceElectrons();
-        switch (centerAtomValence){
-            //Just hydrogen in the current scope of the project
-            case 1:
-                if (isDiatomicGas()){return true;}
-                else{
-                    //error hydrogen CAN'T be center atom
+        else {
+            //so here im going to go through each attached and try to satisfy it by adding bonds
+            //each time i add a bond i make note of it for the center, and at the end see if THAT satisfies
+            //if it doesn't i check center element for simple octet or expanded
+            //extra conditionals at the end for expanded/simple octet
+            //check at the end for extra electrons???? HOW
+            for (int i = 0; i < molecule.getNumberOfAttached(); i++) {
+                Element attachedElementAti = molecule.getAttachedElementArray()[i];
+                if (attachedElementAti != null) {
+                    if (!attachedElementAti.getChemSymbol().equals("")) {
+                        if (attachedElementAti.getChemSymbol().equals("H")) {
+                            molecule.incTotalNumberOfBonds(1);
+                            molecule.setBondAtIndex(i, 0, 1);
+                            continue;
+                        } else {
+                            //adds the number of bonds that the attached needs to be whole
+                            int bondsDesiredByElementAti = (8 - 1 - molecule.getAttachedElementArray()[i].getNumOfValenceElectrons());
+                            molecule.incTotalNumberOfBonds(bondsDesiredByElementAti);
+                            molecule.setBondAtIndex(i, 0, bondsDesiredByElementAti);
+                            //upcoming loop adds more bonds to total AND sets bond values in molecule bondArray
+                            //FOR all other atoms of the current Element
+                            String moleculeSubscript = molecule.getAttachedAtomSubscriptArray()[i];
+                            if (!moleculeSubscript.equals("")) {
+                                for (int n = 1; n <= Integer.getInteger(moleculeSubscript); n++) {
+                                    molecule.setBondAtIndex(i, n, bondsDesiredByElementAti);
+                                    molecule.incTotalNumberOfBonds(bondsDesiredByElementAti);
+                                }
+                            }
+                        }
+                    }
                 }
-                break;
-            //
-            case 4:
-                if (isHyperValentMolecule(molecule.getCenterAtom(), molecule.getAttachedElementArray())){
-                    //buildHyperValentMolecule(centerAtom, attachedAtoms);
-                }
-                //HAVE error generated in here - if !canHaveExpandedOctet && numofDesiredElectrons < numberOfAttachedAtoms
-                break;
-            //
-            case 5:
-                if(isDiatomicGas(molecule.getAttachedElementArray().length, molecule.getCenterAtom(), molecule.getAttachedElementArray()[0])){
-                    // buildDiatomicGas(centerAtom, typeOfBond);
-                }
-                else{
-
-                }
-                break;
-            //
-            case 6:
-                if(isDiatomicGas(molecule.getAttachedElementArray().length, molecule.getCenterAtom(), molecule.getAttachedElementArray()[0])){
-                    // buildDiatomicGas(centerAtom, typeOfBond);
-                }
-                else{
-
-                }
-                break;
-            //
-            case 7:
-                break;
-            //
-            case 8:
-                if (molecule.getCenterAtom().getCanHaveExpandedOctet()){
-
-                }
-                else{
-                    //error msg can't bond?????
-                }
-                break;
+            }
         }
-        */
-        return true;
-        //this SHOULD NOT BEEEEEEEEE
     }
-    private boolean isDiatomicGas(){
-        if (molecule.getAttachedElementArray()[0].getName().equals(molecule.getCenterAtom().getName())){
+    public boolean bondMismatch(){
+        if(molecule.getTotalNumberOfBonds() != molecule.getNumberOfAttached()){
+            Log.d("myError", "number of bonds and attached was bad");
+            return false;
+            //something happened???? my logic was bad
+        }
+        return true;
+    }
+    public boolean electronMisplacement() {
+        int electronsBefore = molecule.getNumberOfTotalValence();
+        int electronsAfter = molecule.getTotalNumberOfBonds()*2;
+        electronsAfter += (molecule.getCenterLonePairs()*2);
+        for(int i=0; i<6; i++){
+            int arraySecondIndex = 0;
+            while(molecule.getLonePairArray()[i][arraySecondIndex] != 0){
+                electronsAfter += (molecule.getLonePairArray()[i][arraySecondIndex]*2);
+                arraySecondIndex++;
+            }
+        }
+        if(electronsAfter != electronsBefore) {
             return true;
         }
         else{
             return false;
         }
     }
-    private boolean isHyperValentMolecule(Element centerAtom, Element[] attachedAtoms){
-        if (centerAtom.getCanHaveExpandedOctet() && attachedAtoms.length>4) {
-            return true;
-        }
-        else if (attachedAtoms.length>4){
-            //error for MORE atoms than center atom wants (less than period 3)
+    private boolean isDiatomicGas(){
+        if (molecule.getAttachedElementArray()[0].getName().equals(molecule.getCenterAtom().getName())){
+            if (molecule.getCenterAtom().getNumOfValenceElectrons()==1){
+                molecule.setBondAtIndex(0,0,1);
+            }
+            else{
+                int bondType = 8 -molecule.getCenterAtom().getNumOfValenceElectrons();
+                molecule.setBondAtIndex(0,0,bondType);
+            }
             return true;
         }
         else{
@@ -93,6 +98,14 @@ public class MoleculeRuleChecker implements Serializable {
     public boolean centerIsLessElectroNegative() {
         for (int i=0; i<molecule.getAttachedElementArray().length; i++){
             if (molecule.getCenterAtom().getAtomicNumber() < molecule.getAttachedElementArray()[i].getAtomicNumber()){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean tooManyAttachedForCenter(){
+        if (!molecule.getCenterAtom().getCanHaveExpandedOctet()){
+            if(molecule.getNumberOfAttached()>4){
                 return true;
             }
         }

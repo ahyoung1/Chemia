@@ -283,11 +283,28 @@ public class FormulaCreatorPage extends AppCompatActivity {
         }
         molecule = new Molecule(centerAtom, centerAtomSubscript, elementArray, subscriptArray);
         MoleculeRuleChecker ruleChecker = new MoleculeRuleChecker(molecule);
+        ruleChecker.assignBondsLonePairs();
         if(ruleChecker.centerIsLessElectroNegative()){
             showAlertWithMessage(getString(R.string.electroNegativityAlert));
+            return;
+        }
+        else if(ruleChecker.tooManyAttachedForCenter()){
+            showAlertWithMessage(getString(R.string.tooManyAttachedAlert));
+            return;
+        }
+        else if(ruleChecker.electronMisplacement()){
+            showAlertWithMessage(getString(R.string.electronMisPlaceAlert));
+            return;
+        }
+        else if(ruleChecker.bondMismatch()){
+            showAlertWithMessage(getString(R.string.bondMisAlert));
+            return;
         }
         //not valid molecule --- for purposes of this exercise --- bonds and lone pairs cannot be configured
-        //several method calls each with OWN alert
+        if(molecule.checkAllFields()){
+            showAlertWithMessage(getString(R.string.moleculeFieldAlert));
+            return;
+        }
         sendMoleculeToValenceQuestionPage(molecule);
     }
 
