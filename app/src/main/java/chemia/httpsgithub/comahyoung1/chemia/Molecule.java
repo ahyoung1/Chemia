@@ -35,11 +35,12 @@ public class Molecule implements Serializable{
 
     private void calculateNumberOfAttached() {
         for(int i=0; i<6; i++) {
-            if (!attachedElementArray[i].equals("")){
+            Element dummyFillerElement= new Element("", -1, -1, "", false, false);
+            if (!attachedElementArray[i].equals(dummyFillerElement)){
                 numberOfAttached++;
                 String attachedSub = attachedAtomSubscriptArray[i];
                 if(!attachedSub.equals("")){
-                    numberOfAttached += Integer.getInteger(attachedSub);
+                    numberOfAttached = Integer.parseInt(attachedSub);
                 }
             }
         }
@@ -47,17 +48,16 @@ public class Molecule implements Serializable{
 
     private void calculateTotalValence() {
         int sumOfAttached = 0;
-        if (!centerAtomSubscript.equals("")) {
+        if (!centerAtomSubscript.equals("-1")) {
             numberOfTotalValence = 2 * centerAtom.getNumOfValenceElectrons();
         } else {
             for (int i = 0; i < attachedElementArray.length; i++) {
                 if (attachedElementArray[i] != null) {
                     int subscript = 1;
-                    //*********************************watch this part
-                    if (!attachedAtomSubscriptArray[i].equals("")) {
+                    if (!attachedAtomSubscriptArray[i].equals("-1")) {
                         subscript = Integer.valueOf(attachedAtomSubscriptArray[i]);
                     }
-                    sumOfAttached = sumOfAttached + (subscript * attachedElementArray[i].getNumOfValenceElectrons());
+                    sumOfAttached += (subscript * attachedElementArray[i].getNumOfValenceElectrons());
                 }
             }
             numberOfTotalValence = (sumOfAttached + centerAtom.getNumOfValenceElectrons());

@@ -26,7 +26,7 @@ public class MoleculeRuleChecker implements Serializable {
             //if it doesn't i check center element for simple octet or expanded
             //extra conditionals at the end for expanded/simple octet
             //check at the end for extra electrons???? HOW
-            for (int i = 0; i < molecule.getNumberOfAttached(); i++) {
+            for (int i = 0; i < molecule.getNumberOfAttached()-1; i++) {
                 Element attachedElementAti = molecule.getAttachedElementArray()[i];
                 if (attachedElementAti != null) {
                     if (!attachedElementAti.getChemSymbol().equals("")) {
@@ -43,7 +43,7 @@ public class MoleculeRuleChecker implements Serializable {
                             //FOR all other atoms of the current Element
                             String moleculeSubscript = molecule.getAttachedAtomSubscriptArray()[i];
                             if (!moleculeSubscript.equals("")) {
-                                for (int n = 1; n <= Integer.getInteger(moleculeSubscript); n++) {
+                                for (int n = 0; n < Integer.parseInt(moleculeSubscript); n++) {
                                     molecule.setBondAtIndex(i, n, bondsDesiredByElementAti);
                                     molecule.incTotalNumberOfBonds(bondsDesiredByElementAti);
                                 }
@@ -62,7 +62,11 @@ public class MoleculeRuleChecker implements Serializable {
         }
         return true;
     }
+
+    //look for more comments?????? and print things to console
     public boolean electronMisplacement() {
+        Log.d("total VAL", Integer.toString(molecule.getNumberOfTotalValence()));
+        Log.d("numBONDS", Integer.toString(molecule.getTotalNumberOfBonds()));
         int electronsBefore = molecule.getNumberOfTotalValence();
         int electronsAfter = molecule.getTotalNumberOfBonds()*2;
         electronsAfter += (molecule.getCenterLonePairs()*2);
@@ -73,6 +77,8 @@ public class MoleculeRuleChecker implements Serializable {
                 arraySecondIndex++;
             }
         }
+        Log.d("after", Integer.toString(electronsAfter));
+        Log.d("before", Integer.toString(electronsAfter));
         if(electronsAfter != electronsBefore) {
             return true;
         }
@@ -95,6 +101,7 @@ public class MoleculeRuleChecker implements Serializable {
             return false;
         }
     }
+    //DOUBLE CHECK THIS LATER
     public boolean centerIsLessElectroNegative() {
         for (int i=0; i<molecule.getAttachedElementArray().length; i++){
             if (molecule.getCenterAtom().getAtomicNumber() < molecule.getAttachedElementArray()[i].getAtomicNumber()){

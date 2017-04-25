@@ -266,20 +266,24 @@ public class FormulaCreatorPage extends AppCompatActivity {
         Element centerAtom = periodicTable.getElementBySymbol(centerAtomTV.getText().toString());
         String centerAtomSubscript = centerAtomSubscriptTV.getText().toString();
         Element[] elementArray = new Element[6];
+        String[] subscriptArray = new String[6];
         for (int n=0; n<6; n++) {
             if (attachedAtomsTVArray[n].getText().equals("")){
                 elementArray[n] = new Element("", -1, -1, "", false, false);
+                subscriptArray[n] = "-1";
                 //this may cause some problems????? but I think the array needs these values just to work
                 //solution is to check for element.getname.equals("")
-                continue;
             }
             else {
                 elementArray[n] = periodicTable.getElementBySymbol(attachedAtomsTVArray[n].getText().toString());
             }
-        }
-        String[] subscriptArray = new String[6];
-        for (int n=0; n<6; n++){
-            subscriptArray[n] = attachedAtomsSubscriptTVArray[n].getText().toString();
+            String sub = attachedAtomsSubscriptTVArray[n].getText().toString();
+            if(sub.equals(null) || sub.equals("")){
+                subscriptArray[n] = "-1";
+            }
+            else{
+                subscriptArray[n] = attachedAtomsSubscriptTVArray[n].getText().toString();
+            }
         }
         molecule = new Molecule(centerAtom, centerAtomSubscript, elementArray, subscriptArray);
         MoleculeRuleChecker ruleChecker = new MoleculeRuleChecker(molecule);
