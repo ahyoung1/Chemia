@@ -83,7 +83,7 @@ public class ValenceQuestionPage extends AppCompatActivity {
         attachedElementTVArray[4]=(TextView)findViewById(R.id.fifth_attached_atom_display);
         attachedElementTVArray[5]=(TextView)findViewById(R.id.sixth_attached_atom_display);
         for (int i=0; i<6; i++){
-            if (molecule.getAttachedElementArray()[i] != null){
+            if (molecule.getAttachedElementArray()[i] != null || !molecule.getAttachedElementArray()[i].equals("-1")){
                 attachedElementTVArray[i].setText(molecule.getAttachedElementArray()[i].getChemSymbol());
                 attachedElementSubsTVArray[i].setText(molecule.getAttachedAtomSubscriptArray()[i]);
             }

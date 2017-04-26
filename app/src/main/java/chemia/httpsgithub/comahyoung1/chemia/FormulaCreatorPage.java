@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -279,7 +280,7 @@ public class FormulaCreatorPage extends AppCompatActivity {
             }
             String sub = attachedAtomsSubscriptTVArray[n].getText().toString();
             if(sub.equals(null) || sub.equals("")){
-                subscriptArray[n] = "-1";
+                subscriptArray[n] = "";
             }
             else{
                 subscriptArray[n] = attachedAtomsSubscriptTVArray[n].getText().toString();

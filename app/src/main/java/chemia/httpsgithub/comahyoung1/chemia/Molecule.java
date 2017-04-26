@@ -1,5 +1,7 @@
 package chemia.httpsgithub.comahyoung1.chemia;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 /**
@@ -34,12 +36,18 @@ public class Molecule implements Serializable{
     }
 
     private void calculateNumberOfAttached() {
+        if(centerAtomSubscript=="2"){
+            numberOfAttached = 1;
+            return;
+        }
         for(int i=0; i<6; i++) {
-            Element dummyFillerElement= new Element("", -1, -1, "", false, false);
-            if (!attachedElementArray[i].equals(dummyFillerElement)){
+            if (attachedElementArray[i].getChemSymbol().equals("")){
+                return;
+            }
+            else{
                 numberOfAttached++;
                 String attachedSub = attachedAtomSubscriptArray[i];
-                if(!attachedSub.equals("")){
+                if(!attachedSub.equals("") && !attachedSub.equals("-1")){
                     numberOfAttached = Integer.parseInt(attachedSub);
                 }
             }
@@ -48,14 +56,14 @@ public class Molecule implements Serializable{
 
     private void calculateTotalValence() {
         int sumOfAttached = 0;
-        if (!centerAtomSubscript.equals("-1")) {
+        if (!centerAtomSubscript.equals("")) {
             numberOfTotalValence = 2 * centerAtom.getNumOfValenceElectrons();
         } else {
             for (int i = 0; i < attachedElementArray.length; i++) {
-                if (attachedElementArray[i] != null) {
+                if (attachedElementArray[i] != null && !attachedElementArray[i].getChemSymbol().equals("")) {
                     int subscript = 1;
-                    if (!attachedAtomSubscriptArray[i].equals("-1")) {
-                        subscript = Integer.valueOf(attachedAtomSubscriptArray[i]);
+                    if (!attachedAtomSubscriptArray[i].equals("-1") && !attachedAtomSubscriptArray[i].equals("")) {
+                        subscript = Integer.parseInt(attachedAtomSubscriptArray[i]);
                     }
                     sumOfAttached += (subscript * attachedElementArray[i].getNumOfValenceElectrons());
                 }
@@ -71,7 +79,10 @@ public class Molecule implements Serializable{
     public String getCenterAtomSubscript(){return centerAtomSubscript;}
     public int getNumberOfTotalValence(){return numberOfTotalValence;}
     public int getNumberOfAttached(){return numberOfAttached;}
-    public void setBondAtIndex(int index, int occurrence, int bondNumber){bondArray[index][occurrence]=bondNumber;}
+    public void setBondAtIndex(int index, int occurrence, int bondNumber){
+        bondArray[index][occurrence]=bondNumber;
+        incTotalNumberOfBonds(bondNumber);
+    }
     public void increaseBondAtIndex(int index, int occurrence){bondArray[index][occurrence]++;}
     public int[][] getLonePairArray(){return lonePairArray;}
     public  int getCenterLonePairs(){return centerLonePairs;}
