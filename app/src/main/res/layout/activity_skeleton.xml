@@ -1,9 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="chemia.httpsgithub.comahyoung1.chemia.SkeletonActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/formula_announcer_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="11dp"
+        android:text="Formula:"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/question_announcer_tv"
+        android:text="@string/SkeletonQuestionAnnouncer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="11dp"
+        android:textSize="17sp"
+        android:layout_below="@+id/center_atom_display"
+        android:layout_marginTop="18dp"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/answer_feedback_tv"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:layout_below="@id/submit_button"
+        android:layout_marginTop="30dp"
+        android:textSize="30sp" />
+
+    <!--Begin chem formula TVs-->
+    <TextView
+        android:id="@+id/center_atom_display"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/formula_announcer_tv"
+        android:textColor="#000000"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/num_center_atoms"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        android:layout_alignBottom="@id/center_atom_display"
+        android:layout_toRightOf="@id/center_atom_display"/>
+
+    <TextView
+        android:id="@+id/first_attached_atom_display"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:layout_alignTop="@id/center_atom_display"
+        android:layout_marginLeft="4dp"
+        android:layout_toRightOf="@+id/num_center_atoms" />
+
+    <TextView
+        android:id="@+id/num_first_attached_atoms"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        android:layout_alignBottom="@id/center_atom_display"
+        android:layout_toRightOf="@id/first_attached_atom_display"/>
+
+    <TextView
+        android:id="@+id/second_attached_atom_display"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:layout_alignTop="@id/center_atom_display"
+        android:layout_toRightOf="@+id/num_first_attached_atoms"
+        android:layout_marginLeft="4dp"/>
+
+    <TextView
+        android:id="@+id/num_second_attached_atoms"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        android:layout_alignBottom="@id/center_atom_display"
+        android:layout_toRightOf="@+id/second_attached_atom_display"/>
+
+    <TextView
+        android:id="@+id/third_attached_atom_display"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:layout_alignTop="@id/center_atom_display"
+        android:layout_toRightOf="@+id/num_second_attached_atoms"
+        android:layout_marginLeft="4dp"/>
+
+    <TextView
+        android:id="@+id/num_third_attached_atoms"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        android:layout_alignBottom="@id/center_atom_display"
+        android:layout_toRightOf="@+id/third_attached_atom_display"/>
+
+    <TextView
+        android:id="@+id/fourth_attached_atom_display"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:layout_alignTop="@id/center_atom_display"
+        android:layout_toRightOf="@+id/num_third_attached_atoms"
+        android:layout_marginLeft="4dp"/>
+
+    <TextView
+        android:id="@+id/num_fourth_attached_atoms"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        android:layout_alignBottom="@id/center_atom_display"
+        android:layout_toRightOf="@+id/fourth_attached_atom_display"
+        tools:ignore="SmallSp" />
+
+    <TextView
+        android:id="@+id/fifth_attached_atom_display"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:layout_alignTop="@id/center_atom_display"
+        android:layout_toRightOf="@+id/num_fourth_attached_atoms"
+        android:layout_marginLeft="4dp"/>
+
+    <TextView
+        android:id="@+id/num_fifth_attached_atoms"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        android:layout_alignBottom="@id/center_atom_display"
+        android:layout_toRightOf="@+id/fifth_attached_atom_display"/>
+
+    <TextView
+        android:id="@+id/sixth_attached_atom_display"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:layout_alignTop="@id/center_atom_display"
+        android:layout_toRightOf="@+id/num_fifth_attached_atoms"
+        android:layout_marginLeft="4dp"/>
+
+    <TextView
+        android:id="@+id/num_sixth_attached_atoms"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="10sp"
+        android:layout_alignBottom="@id/center_atom_display"
+        android:layout_toRightOf="@+id/sixth_attached_atom_display"
+        tools:ignore="SmallSp" />
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        android:textSize="14sp"
+        android:onClick="onNextClick"
+        android:text="Next" />
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/nextButton"
+        android:layout_centerHorizontal="true"
+        android:text="Submit"
+        android:textSize="14sp"
+        android:onClick="onSubmitClick"/>
+</RelativeLayout>

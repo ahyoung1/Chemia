@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
@@ -15,7 +16,7 @@
 
     <TextView
         android:id="@+id/question_announcer_tv"
-        android:text="How many valence electrons does this formula have?"
+        android:text="@string/ValenceQuestionAnnouncer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="11dp"
@@ -90,7 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="11dp"
         android:layout_marginTop="5dp"
-        android:layout_below="@+id/formula_announcer_tv"
+        android:layout_toRightOf="@+id/formula_announcer_tv"
         android:textColor="#000000"
         android:textSize="20sp"/>
 

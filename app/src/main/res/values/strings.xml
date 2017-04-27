@@ -40,4 +40,6 @@
     <string name="bondMisAlert">The number of bonds is not what was expected</string>
     <string name="electronMisPlaceAlert">This molecule can\'t be drawn in this app. There are either electrons needed or unwanted.</string>
     <string name="moleculeFieldAlert">There was an error inn the molecule. Please try again, or reach out to the developers to fix this.</string>
+    <string name="ValenceQuestionAnnouncer">How many valence electrons does this formula have?</string>
+    <string name="SkeletonQuestionAnnouncer">Select the appropriate Element for center/attached and give each attached a single bond.</string>
 </resources>
