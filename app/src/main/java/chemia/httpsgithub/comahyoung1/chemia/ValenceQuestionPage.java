@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -33,7 +34,7 @@ public class ValenceQuestionPage extends AppCompatActivity {
     private TextView[] attachedElementSubsTVArray = new TextView[6];
     private TextView centerAtomTV;
     private TextView centerAtomSub;
-
+    private Button nextButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,28 +47,37 @@ public class ValenceQuestionPage extends AppCompatActivity {
         initializeFormulaAndFeedback();
         populateFormulaTVs();
         initializeRadioGroup();
+        nextButton = (Button)findViewById(R.id.nextButton);
+        nextButton.setVisibility(View.INVISIBLE);
     }
 
     public void submitValence(View v){
         int selectedRadioID = radioGroup.getCheckedRadioButtonId();
         if (selectedRadioID!=-1) {
             radioButtonRightorWrong(selectedRadioID);
-            //SOMETHING here about going to the next item
         }
         else{
             noRadioSelectedFeedback();
         }
     }
 
+    public void onNextClick(View v){
+        Intent SkeletonActivity = new Intent(getApplicationContext(), chemia.httpsgithub.comahyoung1.chemia.SkeletonActivity.class);
+        SkeletonActivity.putExtra("molecule", molecule);
+        startActivity(SkeletonActivity);
+    }
+
     private void radioButtonRightorWrong(int selectedRadioID){
         RadioButton selectedRadio = (RadioButton) findViewById(selectedRadioID);
         if (Integer.toString(molecule.getNumberOfTotalValence()).equals(selectedRadio.getText())) {
             correctRadioSelectedFeedback();
+            nextButton.setVisibility(View.VISIBLE);
         }
         else {
             wrongRadioSelectedFeedback();
         }
     }
+
     private void populateFormulaTVs(){
         Intent intent = getIntent();
         molecule = (Molecule)intent.getSerializableExtra("molecule");
@@ -145,6 +155,7 @@ public class ValenceQuestionPage extends AppCompatActivity {
         feedbackTV.setText(R.string.correct_string);
         feedbackTV.setTextColor(Color.parseColor(getString(R.string.correct_textColor)));
         feedbackTV.setBackgroundColor(Color.parseColor(getString(R.string.correct_backgroundColor)));
+
     }
     private void wrongRadioSelectedFeedback(){
         feedbackTV.setText(R.string.try_string);

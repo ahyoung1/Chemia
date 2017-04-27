@@ -268,12 +268,12 @@ public class FormulaCreatorPage extends AppCompatActivity {
         String centerAtomSubscript = centerAtomSubscriptTV.getText().toString();
         Element[] elementArray = new Element[6];
         String[] subscriptArray = new String[6];
+        //this loop is responsible for initializing the Element and subscript arrays --- ABSTRACT THIS
         for (int n=0; n<6; n++) {
             if (attachedAtomsTVArray[n].getText().equals("")){
-                elementArray[n] = new Element("", -1, -1, "", false, false);
+                elementArray[n] = molecule.dummyFillerElement;
                 subscriptArray[n] = "-1";
                 //this may cause some problems????? but I think the array needs these values just to work
-                //solution is to check for element.getname.equals("")
             }
             else {
                 elementArray[n] = periodicTable.getElementBySymbol(attachedAtomsTVArray[n].getText().toString());
@@ -288,7 +288,9 @@ public class FormulaCreatorPage extends AppCompatActivity {
         }
         molecule = new Molecule(centerAtom, centerAtomSubscript, elementArray, subscriptArray);
         MoleculeRuleChecker ruleChecker = new MoleculeRuleChecker(molecule);
+        Log.d("FIRST", "there are"+molecule.getTotalNumberOfBonds()+" bonds------------");
         ruleChecker.assignBondsLonePairs();
+        Log.d("SECOND", "there are"+molecule.getTotalNumberOfBonds()+" bonds------------");
         if(ruleChecker.centerIsLessElectroNegative()){
             showAlertWithMessage(getString(R.string.electroNegativityAlert));
             return;
@@ -297,12 +299,15 @@ public class FormulaCreatorPage extends AppCompatActivity {
             showAlertWithMessage(getString(R.string.tooManyAttachedAlert));
             return;
         }
-        else if(ruleChecker.electronMisplacement()){
-            showAlertWithMessage(getString(R.string.electronMisPlaceAlert));
+        else if(ruleChecker.bondMismatch()){
+
+            Log.d("there are ", Integer.toString(molecule.getTotalNumberOfBonds())+" bonds");
+
+            showAlertWithMessage(getString(R.string.bondMisAlert));
             return;
         }
-        else if(ruleChecker.bondMismatch()){
-            showAlertWithMessage(getString(R.string.bondMisAlert));
+        else if(ruleChecker.electronMisplacement()){
+            showAlertWithMessage(getString(R.string.electronMisPlaceAlert));
             return;
         }
         //not valid molecule --- for purposes of this exercise --- bonds and lone pairs cannot be configured

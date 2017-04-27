@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
  */
 
 public class MoleculeUnitTest {
-    private Element dummyFillerElement = new Element("", -1, -1, "", false, false);
+    private Element dummyFillerElement = Molecule.dummyFillerElement;
     private Element hydrogen = new Element("Hydrogen", 1, 1, "H", false, false);
     private Element carbon = new Element("Carbon", 6, 4, "C", false, false);
     //input that molecule expects

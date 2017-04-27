@@ -8,16 +8,25 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HomePage" android:screenOrientation="portrait">
+        <activity
+            android:name=".HomePage"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".tutorialPage" android:screenOrientation="portrait"></activity>
-        <activity android:name=".FormulaCreatorPage" android:screenOrientation="portrait" ></activity>
-        <activity android:name=".ValenceQuestionPage" android:screenOrientation="portrait" ></activity>
+        <activity
+            android:name=".tutorialPage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FormulaCreatorPage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ValenceQuestionPage"
+            android:screenOrientation="portrait" />
+        <activity android:name=".SkeletonActivity"></activity>
     </application>
 
 </manifest>

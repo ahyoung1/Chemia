@@ -67,6 +67,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/answer_radio_group"
         android:layout_marginTop="30dp"
+        android:textSize="14sp"
         android:onClick="submitValence"/>
 
     <TextView
@@ -230,5 +231,18 @@
         android:layout_alignBottom="@id/center_atom_display"
         android:layout_toRightOf="@+id/sixth_attached_atom_display"
         tools:ignore="SmallSp" />
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        android:textSize="14sp"
+        android:onClick="onNextClick"
+        android:text="Next" />
 
 </RelativeLayout>

@@ -25,6 +25,7 @@ public class Molecule implements Serializable{
     private int[][] lonePairArray = new int[6][6];
     private int centerLonePairs =0;
     private int totalNumberOfBonds =0;
+    public static Element dummyFillerElement = new Element("", -1, -1, "", false, false);
 
     public Molecule(Element centerAtom, String centerAtomSubscript, Element[] attachedAtoms, String[] attachedAtomSubscriptArray){
         this.centerAtom = centerAtom;
@@ -90,6 +91,39 @@ public class Molecule implements Serializable{
     public void incTotalNumberOfBonds(int inc){totalNumberOfBonds+=inc;}
     public int getTotalNumberOfBonds(){return totalNumberOfBonds;}
 
+    //this is definitely utility and shouldn't be here
+    public boolean elementIsBlank(Element attachedElementAti){
+        if (attachedElementAti.equals(null)) {
+            return true;
+        }
+        else if(attachedElementAti.getChemSymbol().equals("")){
+            return true;
+        }
+        else if(attachedElementAti.equals(this.dummyFillerElement)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean subscriptIsBlank(String subscript){
+        if(subscript.equals("")){
+            return true;
+        }
+        else if(subscript.equals(null)){
+            return true;
+        }
+        else if(Integer.parseInt(subscript)>6){
+            return true;
+        }
+        else if(Integer.parseInt(subscript)<0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
     public boolean checkAllFields() {
         if(numberOfTotalValence==0){
